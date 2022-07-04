@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class GridCell
+    public class GridCell : MonoBehaviour
     {
 
         public int terrainType;
@@ -15,6 +17,12 @@ namespace DefaultNamespace
         //2 - S
         //3 - W;
 
+        public GridCell()
+        {
+            terrainType = 0;
+            occupant = null;
+        }
+        
         public GridCell getNorth()
         {
             return neighbors[0];
