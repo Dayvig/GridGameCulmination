@@ -15,9 +15,8 @@ public class GridManager : MonoBehaviour
     {
         Debug.Log("Length:" + matrix.Length);
         Debug.Log("Rank:" + matrix.Rank);
-        
         MasterGrid.createGrid(matrix);
-        
+        MasterGrid.assignNeighbors();
     }
 
     // Update is called once per frame

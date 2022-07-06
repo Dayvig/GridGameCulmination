@@ -27,6 +27,16 @@ namespace DefaultNamespace
             return temp;
         }
 
+        public void DisplayValues(int[] v)
+        {
+            String s = "";
+            for (int i = 0; i < v.Length; i++)
+            {
+                s += v[i];
+            }
+            Debug.Log(s);
+        }
+
         private GameObject tempCell;
         public void createCells(int i)
         {
@@ -35,6 +45,18 @@ namespace DefaultNamespace
                 tempCell = Instantiate(gameModel.BaseCell, transform);
                 cells.Add(tempCell);
                 contents[k] = cells[k].GetComponent<GridCell>();
+            }
+        }
+        public void createCells(int[] values)
+        {
+            cells.Clear();
+            contents.Clear();
+            for (int k = 0; k < values.Length; k++)
+            {
+                tempCell = Instantiate(gameModel.BaseCell, transform);
+                cells.Add(tempCell);
+                contents.Add(cells[k].GetComponent<GridCell>());
+                contents[k].terrainType = values[k];
             }
         }
     }

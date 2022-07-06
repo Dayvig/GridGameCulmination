@@ -41,6 +41,23 @@ namespace DefaultNamespace
         {
             return neighbors[2];
         }
-        
+
+        public void setNorth(GridCell g)
+        {
+            neighbors[0] = g;
+        }
+        public void setSouth(GridCell g)
+        {
+            neighbors[2] = g;
+        }
+        public void setEast(GridCell g)
+        {
+            neighbors[1] = g;
+        }
+        public void setWest(GridCell g)
+        {
+            neighbors[3] = g;
+        }
+
     }
 }

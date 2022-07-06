@@ -52,7 +52,11 @@ MonoBehaviour:
   terrainType: 0
   occupant: {fileID: 0}
   modifiers: 
-  neighbors: []
+  neighbors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!212 &5285407712773301586
 SpriteRenderer:
   m_ObjectHideFlags: 0
