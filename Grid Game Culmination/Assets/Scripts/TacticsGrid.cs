@@ -37,7 +37,7 @@ namespace DefaultNamespace
         public void createGrid(int[,] gridMatrix)
         {
            
-            for (int i = 0; i <= gridMatrix.Rank; i++)
+            for (int i = 0; i < gridMatrix.GetLength(1); i++)
             {
                     nextRow = Instantiate(gameModel.BaseRow, transform);
                     rows.Add(nextRow);
