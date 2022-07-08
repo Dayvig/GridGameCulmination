@@ -55,6 +55,8 @@ namespace DefaultNamespace
             {
                 tempCell = Instantiate(gameModel.BaseCell, transform);
                 cells.Add(tempCell);
+                tempCell.transform.position = new Vector3(k *gameModel.cellOffset, transform.position.y, 20);
+
                 contents.Add(cells[k].GetComponent<GridCell>());
                 contents[k].terrainType = values[k];
             }

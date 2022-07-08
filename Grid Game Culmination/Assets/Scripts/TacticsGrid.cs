@@ -41,6 +41,7 @@ namespace DefaultNamespace
             {
                     nextRow = Instantiate(gameModel.BaseRow, transform);
                     rows.Add(nextRow);
+                    nextRow.transform.position = new Vector3(0, i * gameModel.cellOffset, 20);
                     contents.Add(null);
                     contents[i] = nextRow.GetComponent<GridRow>();
                     contents[i].Setup();
@@ -52,7 +53,7 @@ namespace DefaultNamespace
         {
             GridCell targetCell;
             GridCell temp;
-            //applies to each cell in the matrix
+            //checks each cell in the matrix
             for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
             {
                 for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)

@@ -300,7 +300,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 628198207}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -63.560467, y: -8.725529, z: 82.377625}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -544,6 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseCell: {fileID: 4972648784155924565, guid: 6c65d74106b1331409e49cc82d3e0ef7, type: 3}
   BaseRow: {fileID: 7837927124517561947, guid: fd8845da399e63243b603bc6ce6fda5e, type: 3}
+  cellOffset: 2.2
 --- !u!4 &1205803759
 Transform:
   m_ObjectHideFlags: 0
@@ -588,6 +589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MasterGrid: {fileID: 628198208}
+  gameModel: {fileID: 0}
 --- !u!4 &1324521591
 Transform:
   m_ObjectHideFlags: 0
