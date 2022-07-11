@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -14,6 +15,11 @@ namespace DefaultNamespace
         public GameObject hover;
         public GameObject selector;
         public GridManager manager;
+        public SpriteRenderer tint;
+        public Color movementTintColor;
+        public Model_Game gameModel;
+        public bool isMovementSelectable;
+
         
         public List<GridCell> neighbors = new List<GridCell>(4);
         //0 - N
@@ -73,9 +79,13 @@ namespace DefaultNamespace
         void Start()
         {
             manager = GameObject.Find("GameManager").GetComponent<GridManager>();
+            gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
             manager.selectedCell = null;
             hover.SetActive(false);
             selector.SetActive(false);
+            tint.gameObject.SetActive(false);
+            isMovementSelectable = false;
+            movementTintColor = gameModel.movementTint;
         }
         void OnMouseEnter()
         {
@@ -100,19 +110,19 @@ namespace DefaultNamespace
                         manager.selectedCell = this;
                         manager.selectedCell.selector.SetActive(true);
                         manager.selectedCharacter = manager.selectedCell.occupant;
-                }
+                        manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
+                        manager.selectedCharacterBehavior.onSelect();
+               }
                 else
                 {
-                    manager.selectedCharacter = null;
+                    Deselect();
                 }
             }
             //If selecting the same cell
             else if (manager.selectedCell.Equals(this))
             {
                 //sets the selected cell and character to null
-                manager.selectedCell.selector.SetActive(false);
-                manager.selectedCell = null;
-                manager.selectedCharacter = null;
+                Deselect();
             }
             // if selecting a different cell
             else
@@ -124,11 +134,12 @@ namespace DefaultNamespace
                     manager.selectedCell = this;
                     manager.selectedCell.selector.SetActive(true);
                     manager.selectedCharacter = manager.selectedCell.occupant;
+                    manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
+                    manager.selectedCharacterBehavior.onSelect();
                 }
                 else
                 {
-                    manager.selectedCharacter = null;
-                    manager.selectedCell = null;
+                    Deselect();
                 }
             }
         }
@@ -139,9 +150,25 @@ namespace DefaultNamespace
             {
                 manager.selectedCell.selector.SetActive(false);
             }
-            
+            tint.gameObject.SetActive(false);
+            cannotMoveTo();
+
             manager.selectedCharacter = null;
             manager.selectedCell = null;
+            manager.selectedCharacterBehavior = null;
+        }
+
+        public void canMoveTo()
+        {
+            isMovementSelectable = true;
+            tint.color = gameModel.movementTint;
+            tint.gameObject.SetActive(true);
+        }
+
+        public void cannotMoveTo()
+        {
+            isMovementSelectable = true;
+            tint.gameObject.SetActive(false);
         }
 
         public void Update()

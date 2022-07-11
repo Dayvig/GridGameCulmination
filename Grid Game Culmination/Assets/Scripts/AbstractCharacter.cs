@@ -5,8 +5,8 @@ namespace DefaultNamespace
 {
     public class AbstractCharacter : MonoBehaviour
     {
-        public int hp = 10;
-        public int move = 3;
+        public int hp;
+        public int move;
         public String name;
         public Sprite image;
 
