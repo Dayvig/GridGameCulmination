@@ -523,6 +523,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1205803759}
   - component: {fileID: 1205803758}
+  - component: {fileID: 1205803761}
+  - component: {fileID: 1205803760}
   m_Layer: 0
   m_Name: GameModel
   m_TagString: Untagged
@@ -544,6 +546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseCell: {fileID: 4972648784155924565, guid: 6c65d74106b1331409e49cc82d3e0ef7, type: 3}
   BaseRow: {fileID: 7837927124517561947, guid: fd8845da399e63243b603bc6ce6fda5e, type: 3}
+  Guy: {fileID: 1844379086261301815, guid: 1416e428d76c25644adce43e0950cd3e, type: 3}
   cellOffset: 2.2
 --- !u!4 &1205803759
 Transform:
@@ -559,6 +562,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1205803760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25da6da2ce641eb85cc6c01be677ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  move: 3
+  name: 
+  image: {fileID: 0}
+--- !u!114 &1205803761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e162dede215a46529a1b5f7c34e63e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  move: 3
+  name: Regular Guy
+  image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
 --- !u!1 &1324521589
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +625,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MasterGrid: {fileID: 628198208}
   gameModel: {fileID: 0}
+  selectedCell: {fileID: 0}
+  selectedCharacter: {fileID: 0}
 --- !u!4 &1324521591
 Transform:
   m_ObjectHideFlags: 0

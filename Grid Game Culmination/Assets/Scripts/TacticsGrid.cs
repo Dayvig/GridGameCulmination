@@ -59,34 +59,51 @@ namespace DefaultNamespace
                 for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
                 {
                     targetCell = contents[rowCursor].contents[colCursor];
-                    
+
                     //North
                     if (rowCursor != 0)
                     {
                         temp = contents[rowCursor - 1].contents[colCursor];
                         targetCell.setNorth(temp);
                     }
+
                     //East
                     if (colCursor != contents[rowCursor].contents.Count - 1)
                     {
-                        temp = contents[rowCursor].contents[colCursor+1];
+                        temp = contents[rowCursor].contents[colCursor + 1];
                         targetCell.setEast(temp);
                     }
+
                     //West
                     if (colCursor != 0)
                     {
-                        temp = contents[rowCursor].contents[colCursor-1];
+                        temp = contents[rowCursor].contents[colCursor - 1];
                         targetCell.setWest(temp);
                     }
+
                     //South
-                    if (rowCursor != contents.Count-1)
+                    if (rowCursor != contents.Count - 1)
                     {
-                        temp = contents[rowCursor+1].contents[colCursor];
+                        temp = contents[rowCursor + 1].contents[colCursor];
                         targetCell.setSouth(temp);
                     }
                 }
             }
-
         }
+
+        public void DeselectAll()
+            {
+                GridCell targetCell;
+                GridCell temp;
+                //checks each cell in the matrix
+                for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
+                {
+                    for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
+                    {
+                        targetCell = contents[rowCursor].contents[colCursor];
+                        targetCell.Deselect();
+                    }
+                }
+            }
     }
 }

@@ -94,14 +94,12 @@ namespace DefaultNamespace
             //If there is no cell selected
             if (manager.selectedCell == null)
             {
-                //Selects the cell
-                manager.selectedCell = this;
-                manager.selectedCell.selector.SetActive(true);
-                
-                //selects the character if one exists
-                if (manager.selectedCell.occupant != null)
-                {
-                    manager.selectedCharacter = manager.selectedCell.occupant;
+                //Selects the cell if occupied
+                if (occupant != null)
+               {
+                        manager.selectedCell = this;
+                        manager.selectedCell.selector.SetActive(true);
+                        manager.selectedCharacter = manager.selectedCell.occupant;
                 }
                 else
                 {
@@ -121,20 +119,29 @@ namespace DefaultNamespace
             {
                 //sets previous cell's selector off
                 manager.selectedCell.selector.SetActive(false);
-                //selects the new cell
-                manager.selectedCell = this;
-                manager.selectedCell.selector.SetActive(true);
-                
-                //selects the new character if one exists
-                if (manager.selectedCell.occupant != null)
-                {
+                //selects the new cell if occupied
+                if (occupant != null){
+                    manager.selectedCell = this;
+                    manager.selectedCell.selector.SetActive(true);
                     manager.selectedCharacter = manager.selectedCell.occupant;
                 }
                 else
                 {
                     manager.selectedCharacter = null;
+                    manager.selectedCell = null;
                 }
             }
+        }
+
+        public void Deselect()
+        {
+            if (manager.selectedCell != null)
+            {
+                manager.selectedCell.selector.SetActive(false);
+            }
+            
+            manager.selectedCharacter = null;
+            manager.selectedCell = null;
         }
 
         public void Update()
