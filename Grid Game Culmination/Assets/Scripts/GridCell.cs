@@ -167,7 +167,7 @@ namespace DefaultNamespace
 
         public void cannotMoveTo()
         {
-            isMovementSelectable = true;
+            isMovementSelectable = false;
             tint.gameObject.SetActive(false);
         }
 

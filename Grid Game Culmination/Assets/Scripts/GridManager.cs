@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
@@ -37,19 +38,43 @@ public class GridManager : MonoBehaviour
     public int numCalls = 0;
     public void showMovementSquares(GridCell startingCell, int movementValue)
     {
-        foreach (GridCell nextCell in startingCell.neighbors)
+        //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
+        List<GridCell> inRangeCells = new List<GridCell>();
+        inRangeCells.Add(startingCell);
+        //sets the move counter to 0
+        int currentMove = 0;
+
+        //tracks the currently selected tiles
+        List<GridCell> previousCells = new List<GridCell>();
+        previousCells.Add(startingCell);
+        
+        List<GridCell> surroundingCells = new List<GridCell>();
+        
+        while (currentMove < movementValue)
         {
-            if (nextCell != null)
+            //Looks at the previous cells accessed, then returns all of its accessible neighbors
+            foreach (GridCell nextCell in previousCells)
             {
-                nextCell.canMoveTo();
-                numCalls++;
-                Debug.Log("Moves Remaining: " + movementValue);
-                Debug.Log("Number of Calls: " + numCalls);
-                if (movementValue > 1)
+                foreach (GridCell n in nextCell.neighbors)
                 {
-                    showMovementSquares(nextCell, movementValue - 1);
+                    if (n != null)
+                        surroundingCells.Add(n);
                 }
             }
+            
+            //adds the accessible neighbors to the cells in range
+            inRangeCells.AddRange(surroundingCells);
+            
+            //these new accessible neighbors become the previous cells
+            previousCells = surroundingCells.Distinct().ToList();
+            
+            //reduces movement count
+            currentMove++;
+        }
+
+        foreach (GridCell g in inRangeCells)
+        {
+            g.canMoveTo();
         }
     }
     

@@ -54,6 +54,7 @@ namespace DefaultNamespace
             for (int k = 0; k < values.Length; k++)
             {
                 tempCell = Instantiate(gameModel.BaseCell, transform);
+                tempCell.name = this.name+"-"+k;
                 cells.Add(tempCell);
                 tempCell.transform.position = new Vector3(k *gameModel.cellOffset, transform.position.y, 20);
 

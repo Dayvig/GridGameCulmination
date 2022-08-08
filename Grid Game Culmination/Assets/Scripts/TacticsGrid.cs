@@ -40,6 +40,7 @@ namespace DefaultNamespace
             for (int i = 0; i < gridMatrix.GetLength(1); i++)
             {
                     nextRow = Instantiate(gameModel.BaseRow, transform);
+                    nextRow.name = ""+i;
                     rows.Add(nextRow);
                     nextRow.transform.position = new Vector3(0, i * gameModel.cellOffset, 20);
                     contents.Add(null);
