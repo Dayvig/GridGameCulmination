@@ -12,6 +12,7 @@ public class GridManager : MonoBehaviour
 
     public TacticsGrid MasterGrid;
     public Model_Game gameModel;
+    public GameManager gameManager;
     public GridCell selectedCell;
     public GameObject selectedCharacter;
     public BaseBehavior selectedCharacterBehavior;
@@ -20,6 +21,7 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Debug.Log("Length:" + matrix.GetLength(0));
         Debug.Log("Rank:" + matrix.GetLength(1));
         MasterGrid.createGrid(matrix);
@@ -84,8 +86,14 @@ public class GridManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(1))
         {
-            MasterGrid.DeselectAll();
+            DeselectAll();   
         }
+    }
+
+    public void DeselectAll()
+    {
+        MasterGrid.DeselectAll();
+        gameManager.currentState = GameManager.GameState.Neutral;
     }
 }
 

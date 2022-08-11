@@ -19,6 +19,7 @@ namespace DefaultNamespace
         public Color movementTintColor;
         public Model_Game gameModel;
         public bool isMovementSelectable;
+        public GameManager gameManager;
 
         
         public List<GridCell> neighbors = new List<GridCell>(4);
@@ -80,6 +81,7 @@ namespace DefaultNamespace
         {
             manager = GameObject.Find("GameManager").GetComponent<GridManager>();
             gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             manager.selectedCell = null;
             hover.SetActive(false);
             selector.SetActive(false);
@@ -101,18 +103,39 @@ namespace DefaultNamespace
 
         public void OnMouseUp()
         {
+            switch (gameManager.currentState)
+            {
+                case GameManager.GameState.Neutral:
+                    selectCell();
+                    break;
+                
+                case GameManager.GameState.CharacterMovement:
+                    if (isMovementSelectable)
+                    {
+                        moveCharacterToCell(this, manager.selectedCharacterBehavior);
+                    }
+                    break;
+                
+                default:
+                    Debug.Log("Something went wrong");
+                    break;
+            }
+        }
+
+        public void selectCell()
+        {
             //If there is no cell selected
             if (manager.selectedCell == null)
             {
                 //Selects the cell if occupied
                 if (occupant != null)
-               {
-                        manager.selectedCell = this;
-                        manager.selectedCell.selector.SetActive(true);
-                        manager.selectedCharacter = manager.selectedCell.occupant;
-                        manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
-                        manager.selectedCharacterBehavior.onSelect();
-               }
+                {
+                    manager.selectedCell = this;
+                    manager.selectedCell.selector.SetActive(true);
+                    manager.selectedCharacter = manager.selectedCell.occupant;
+                    manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
+                    manager.selectedCharacterBehavior.onSelect();
+                }
                 else
                 {
                     Deselect();
@@ -142,6 +165,17 @@ namespace DefaultNamespace
                     Deselect();
                 }
             }
+
+        }
+
+        public void moveCharacterToCell(GridCell moveTo, BaseBehavior character)
+        {
+            character.currentCell.occupant = null;
+            character.currentCell = moveTo;
+            moveTo.occupant = character.gameObject;
+            character.transform.position = moveTo.transform.position;
+            gameManager.currentState = GameManager.GameState.Neutral;
+            manager.DeselectAll();
         }
 
         public void Deselect()

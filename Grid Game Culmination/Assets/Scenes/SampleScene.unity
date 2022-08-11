@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
-  move: 1
+  move: 3
   name: Regular Guy
   image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
 --- !u!1 &1324521589
@@ -627,6 +627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MasterGrid: {fileID: 628198208}
   gameModel: {fileID: 0}
+  gameManager: {fileID: 0}
   selectedCell: {fileID: 0}
   selectedCharacter: {fileID: 0}
   selectedCharacterBehavior: {fileID: 0}

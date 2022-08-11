@@ -9,6 +9,6 @@ namespace DefaultNamespace
         public int move;
         public String name;
         public Sprite image;
-
+        
     }
 }
