@@ -31,10 +31,20 @@ public class GridManager : MonoBehaviour
             -(gameModel.cellOffset * matrix.GetLength(1) / 2),
             (20));
         selectedCell = null;
+        
+        //make the first guy
         GameObject firstGuy = Instantiate(gameModel.Guy);
         MasterGrid.contents[0].contents[0].occupant = firstGuy;
-        firstGuy.GetComponent<BaseBehavior>().currentCell = MasterGrid.contents[0].contents[0];
+        BaseBehavior behavior = firstGuy.GetComponent<BaseBehavior>();
+        behavior.currentCell = MasterGrid.contents[0].contents[0];
+        behavior.owner = GameManager.Player.Player1;
         
+        //make the second guy
+        GameObject secondGuy = Instantiate(gameModel.Guy2);
+        MasterGrid.contents[3].contents[3].occupant = secondGuy;
+        BaseBehavior behavior2 = secondGuy.GetComponent<BaseBehavior>();
+        behavior2.currentCell = MasterGrid.contents[3].contents[3];
+        behavior2.owner = GameManager.Player.Player2;
     }
 
     public int numCalls = 0;
@@ -76,7 +86,7 @@ public class GridManager : MonoBehaviour
 
         foreach (GridCell g in inRangeCells)
         {
-            g.canMoveTo();
+            if (g.occupant == null) {g.canMoveTo();}
         }
     }
     

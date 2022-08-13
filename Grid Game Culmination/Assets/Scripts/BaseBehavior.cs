@@ -14,6 +14,8 @@ public class BaseBehavior : MonoBehaviour
     public int move;
     public String name;
     public GridCell currentCell;
+
+    public GameManager.Player owner;
     
     void Start()
     {

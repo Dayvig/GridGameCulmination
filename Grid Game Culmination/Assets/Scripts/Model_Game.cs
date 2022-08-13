@@ -8,6 +8,7 @@ public class Model_Game : MonoBehaviour
     public GameObject BaseCell;
     public GameObject BaseRow;
     public GameObject Guy;
+    public GameObject Guy2;
     public float cellOffset;
 
     public Color movementTint;

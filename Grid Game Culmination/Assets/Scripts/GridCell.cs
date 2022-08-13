@@ -106,13 +106,20 @@ namespace DefaultNamespace
             switch (gameManager.currentState)
             {
                 case GameManager.GameState.Neutral:
-                    selectCell();
+                    selectCell(gameManager.currentTurn);
                     break;
                 
                 case GameManager.GameState.CharacterMovement:
                     if (isMovementSelectable)
                     {
-                        moveCharacterToCell(this, manager.selectedCharacterBehavior);
+                        if (manager.selectedCharacterBehavior.currentCell != this)
+                        {
+                            moveCharacterToCell(this, manager.selectedCharacterBehavior);
+                        }
+                        else
+                        {
+                            manager.DeselectAll();
+                        }
                     }
                     break;
                 
@@ -122,19 +129,23 @@ namespace DefaultNamespace
             }
         }
 
-        public void selectCell()
+        public void selectCell(GameManager.Player currentPlayer)
         {
             //If there is no cell selected
             if (manager.selectedCell == null)
             {
-                //Selects the cell if occupied
+                //Selects the cell if occupied and of the correct owner for the turn
                 if (occupant != null)
                 {
-                    manager.selectedCell = this;
-                    manager.selectedCell.selector.SetActive(true);
-                    manager.selectedCharacter = manager.selectedCell.occupant;
-                    manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
-                    manager.selectedCharacterBehavior.onSelect();
+                    BaseBehavior toSelect = occupant.GetComponent<BaseBehavior>();
+                    if (toSelect.owner == currentPlayer)
+                    {
+                        manager.selectedCell = this;
+                        manager.selectedCell.selector.SetActive(true);
+                        manager.selectedCharacter = manager.selectedCell.occupant;
+                        manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
+                        manager.selectedCharacterBehavior.onSelect();
+                    }
                 }
                 else
                 {
@@ -154,11 +165,15 @@ namespace DefaultNamespace
                 manager.selectedCell.selector.SetActive(false);
                 //selects the new cell if occupied
                 if (occupant != null){
-                    manager.selectedCell = this;
-                    manager.selectedCell.selector.SetActive(true);
-                    manager.selectedCharacter = manager.selectedCell.occupant;
-                    manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
-                    manager.selectedCharacterBehavior.onSelect();
+                    BaseBehavior toSelect = occupant.GetComponent<BaseBehavior>();
+                    if (toSelect.owner == currentPlayer)
+                    {
+                        manager.selectedCell = this;
+                        manager.selectedCell.selector.SetActive(true);
+                        manager.selectedCharacter = manager.selectedCell.occupant;
+                        manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
+                        manager.selectedCharacterBehavior.onSelect();
+                    }
                 }
                 else
                 {
@@ -173,9 +188,9 @@ namespace DefaultNamespace
             character.currentCell.occupant = null;
             character.currentCell = moveTo;
             moveTo.occupant = character.gameObject;
-            character.transform.position = moveTo.transform.position;
-            gameManager.currentState = GameManager.GameState.Neutral;
             manager.DeselectAll();
+            gameManager.currentState = GameManager.GameState.Neutral;
+            gameManager.nextTurn();
         }
 
         public void Deselect()
