@@ -729,6 +729,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 10
   move: 3
+  attacksPerTurn: 0
+  movesPerTurn: 0
   name: 
   image: {fileID: 0}
 --- !u!114 &1205803761
@@ -745,6 +747,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 10
   move: 3
+  attacksPerTurn: 1
+  movesPerTurn: 1
   name: Regular Guy
   image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
 --- !u!1 &1324521589
@@ -811,6 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameModel: {fileID: 1205803758}
+  gridManager: {fileID: 0}
   currentState: 0
   currentTurn: 0
 --- !u!1 &1936103891

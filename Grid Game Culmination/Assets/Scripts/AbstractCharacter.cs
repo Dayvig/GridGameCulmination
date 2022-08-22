@@ -7,8 +7,12 @@ namespace DefaultNamespace
     {
         public int hp;
         public int move;
+        public int attacksPerTurn;
+        public int movesPerTurn;
+        
         public String name;
         public Sprite image;
+        
         
     }
 }

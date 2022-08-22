@@ -45,6 +45,14 @@ public class GridManager : MonoBehaviour
         BaseBehavior behavior2 = secondGuy.GetComponent<BaseBehavior>();
         behavior2.currentCell = MasterGrid.contents[3].contents[3];
         behavior2.owner = GameManager.Player.Player2;
+        
+        //make the third guy
+        GameObject thirdGuy = Instantiate(gameModel.Guy2);
+        MasterGrid.contents[3].contents[2].occupant = thirdGuy;
+        BaseBehavior behavior3 = thirdGuy.GetComponent<BaseBehavior>();
+        behavior3.currentCell = MasterGrid.contents[3].contents[2];
+        behavior3.owner = GameManager.Player.Player2;
+
     }
 
     public int numCalls = 0;
@@ -69,7 +77,7 @@ public class GridManager : MonoBehaviour
             {
                 foreach (GridCell n in nextCell.neighbors)
                 {
-                    if (n != null)
+                    if (n != null && n.occupant == null)
                         surroundingCells.Add(n);
                 }
             }
@@ -88,6 +96,11 @@ public class GridManager : MonoBehaviour
         {
             if (g.occupant == null) {g.canMoveTo();}
         }
+    }
+
+    public List<BaseBehavior> getCharList()
+    {
+        return MasterGrid.getAllCharacters();
     }
     
 

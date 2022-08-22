@@ -12,8 +12,14 @@ public class BaseBehavior : MonoBehaviour
     private Guy values;
     public int HP;
     public int move;
+    public int attack;
     public String name;
     public GridCell currentCell;
+    public int currentMoves;
+    public int movesPerTurn;
+    public int attacksPerTurn;
+    public int currentAttacks;
+    public SpriteRenderer GlowRen;
 
     public GameManager.Player owner;
     
@@ -26,19 +32,36 @@ public class BaseBehavior : MonoBehaviour
         HP = values.hp;
         move = values.move;
         name = values.name;
+        movesPerTurn = values.movesPerTurn;
+        attacksPerTurn = values.attacksPerTurn;
+        currentAttacks = attack = values.attacksPerTurn;
+        currentMoves = movesPerTurn = values.movesPerTurn;
         Debug.Assert(currentCell != null, "Character is not on a cell");
     }
 
     void Update()
     {
-        HP = values.hp;
-        move = values.move;
-        name = values.name;
+        
     }
 
     public void onSelect()
     {
         manager.currentState = GameManager.GameState.CharacterMovement;
         gridManager.showMovementSquares(this.currentCell, move);
+    }
+
+    public void onMove()
+    {
+        currentMoves--;
+        if (currentMoves <= 0)
+        {
+            GlowRen.color = Color.gray;
+        }
+        manager.checkForNextTurn(owner);
+    }
+
+    public void onReset()
+    {
+        GlowRen.color = Color.blue;
     }
 }

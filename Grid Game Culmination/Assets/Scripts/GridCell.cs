@@ -138,7 +138,7 @@ namespace DefaultNamespace
                 if (occupant != null)
                 {
                     BaseBehavior toSelect = occupant.GetComponent<BaseBehavior>();
-                    if (toSelect.owner == currentPlayer)
+                    if (toSelect.owner == currentPlayer && toSelect.currentMoves > 0)
                     {
                         manager.selectedCell = this;
                         manager.selectedCell.selector.SetActive(true);
@@ -190,7 +190,8 @@ namespace DefaultNamespace
             moveTo.occupant = character.gameObject;
             manager.DeselectAll();
             gameManager.currentState = GameManager.GameState.Neutral;
-            gameManager.nextTurn();
+            character.onMove();
+            //gameManager.nextTurn();
         }
 
         public void Deselect()
