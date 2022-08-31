@@ -20,6 +20,7 @@ public class BaseBehavior : MonoBehaviour
     public int attacksPerTurn;
     public int currentAttacks;
     public SpriteRenderer GlowRen;
+    public RectTransform HealthBar;
 
     public GameManager.Player owner;
     
@@ -75,8 +76,13 @@ public class BaseBehavior : MonoBehaviour
 
     public void onAttack(BaseBehavior target)
     {
+        Debug.Log("???");
         currentAttacks--;
         //attack target
+
+        target.HP -= 1;
+        target.updateBars();
+        
         Debug.Log("Target: "+target);
         if (currentMoves <= 0 && currentAttacks <= 0)
         {
@@ -98,6 +104,13 @@ public class BaseBehavior : MonoBehaviour
         manager.gridManager.DeselectAll();
         manager.checkForNextTurn(owner);
     }
+    
+    public void updateBars()
+    {
+            float hpScale = (float) HP / values.hp;
+            HealthBar.localScale = new Vector3(1, hpScale, 1);
+    }
+
 
     public void onReset()
     {

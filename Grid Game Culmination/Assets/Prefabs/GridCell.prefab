@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8505489944534960864}
   - component: {fileID: 880236841436743042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 830192519545481999}
   - component: {fileID: 2691078470988022327}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Selector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 5285407712773301586}
   - component: {fileID: 6072944502477632244}
   - component: {fileID: 5779418604521541121}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GridCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,6 +278,8 @@ MonoBehaviour:
   movementTintColor: {r: 0, g: 0, b: 0, a: 0}
   gameModel: {fileID: 0}
   isMovementSelectable: 0
+  isAttackSelectable: 0
+  gameManager: {fileID: 0}
   neighbors:
   - {fileID: 0}
   - {fileID: 0}
@@ -319,7 +321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3050963228452448053}
   - component: {fileID: 4192945668566551558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

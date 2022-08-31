@@ -122,6 +122,7 @@ namespace DefaultNamespace
                             gameManager.currentState = GameManager.GameState.CharacterAttacking;
                             manager.selectedCharacterBehavior.currentMoves = 0;
                             manager.selectedCharacterBehavior.onSelect();
+                            manager.MasterGrid.WipeMovement();
                         }
                     }
                     break;
