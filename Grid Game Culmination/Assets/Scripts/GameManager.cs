@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     {
         Neutral,
         CharacterMovement,
+        CharacterAttacking,
     }
 
     public enum Player
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviour
         bool isNext = true;
         foreach (var characterBehavior in gridManager.getCharList())
         {
-            if (characterBehavior.owner == player && characterBehavior.currentMoves != 0)
+            if (characterBehavior.owner == player && (characterBehavior.currentMoves > 0 || characterBehavior.currentAttacks > 0))
             {
                 Debug.Log("False");
                 isNext = false;

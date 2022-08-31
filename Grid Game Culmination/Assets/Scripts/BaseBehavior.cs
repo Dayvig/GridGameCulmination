@@ -46,17 +46,56 @@ public class BaseBehavior : MonoBehaviour
 
     public void onSelect()
     {
-        manager.currentState = GameManager.GameState.CharacterMovement;
-        gridManager.showMovementSquares(this.currentCell, move);
+        if (currentMoves <= 0)
+        {
+            Debug.Log("Attack starting");
+            manager.currentState = GameManager.GameState.CharacterAttacking;
+            gridManager.showAttackingSquares(this.currentCell, values.attackRange);
+        }
+        else
+        {
+            manager.currentState = GameManager.GameState.CharacterMovement;
+            gridManager.showMovementSquares(this.currentCell, move);
+        }
     }
 
     public void onMove()
     {
         currentMoves--;
-        if (currentMoves <= 0)
+        if (currentMoves <= 0 && currentAttacks <= 0)
         {
             GlowRen.color = Color.gray;
         }
+        else if (currentMoves <= 0)
+        {
+            GlowRen.color = Color.red;
+        }
+        manager.checkForNextTurn(owner);
+    }
+
+    public void onAttack(BaseBehavior target)
+    {
+        currentAttacks--;
+        //attack target
+        Debug.Log("Target: "+target);
+        if (currentMoves <= 0 && currentAttacks <= 0)
+        {
+            GlowRen.color = Color.gray;
+        }
+        else if (currentMoves <= 0)
+        {
+            GlowRen.color = Color.red;
+        }
+        manager.gridManager.DeselectAll();
+        manager.checkForNextTurn(owner);
+    }
+
+    public void endTurn()
+    {
+        currentAttacks = 0;
+        currentMoves = 0;
+        GlowRen.color = Color.gray;
+        manager.gridManager.DeselectAll();
         manager.checkForNextTurn(owner);
     }
 

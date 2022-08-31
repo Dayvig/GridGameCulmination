@@ -117,12 +117,6 @@ namespace DefaultNamespace
                 {
                     if (contents[rowCursor].contents[colCursor].occupant != null)
                     {
-                        if (contents[rowCursor].contents[colCursor].occupant.GetComponent<BaseBehavior>()
-                            .currentMoves != 0)
-                        {
-                            Debug.Log("False");
-                        }
-                        
                         thisList.Add(contents[rowCursor].contents[colCursor].occupant.GetComponent<BaseBehavior>());
                     }
                 }

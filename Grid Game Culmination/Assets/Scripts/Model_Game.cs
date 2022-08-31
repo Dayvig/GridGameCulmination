@@ -12,6 +12,8 @@ public class Model_Game : MonoBehaviour
     public float cellOffset;
 
     public Color movementTint;
-    //(0, 0.4f, 1f, 0f);
+    //(0, 0.4f, 1f, 0.4f);
+    public Color attackTint;
+    //(1f, 0.2f, 0.2f, 0.4f); 
 
 }

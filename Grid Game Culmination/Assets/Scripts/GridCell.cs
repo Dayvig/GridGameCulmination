@@ -19,6 +19,7 @@ namespace DefaultNamespace
         public Color movementTintColor;
         public Model_Game gameModel;
         public bool isMovementSelectable;
+        public bool isAttackSelectable;
         public GameManager gameManager;
 
         
@@ -118,11 +119,36 @@ namespace DefaultNamespace
                         }
                         else
                         {
-                            manager.DeselectAll();
+                            gameManager.currentState = GameManager.GameState.CharacterAttacking;
+                            manager.selectedCharacterBehavior.currentMoves = 0;
+                            manager.selectedCharacterBehavior.onSelect();
                         }
                     }
                     break;
-                
+                case GameManager.GameState.CharacterAttacking:
+                    if (isAttackSelectable)
+                    {
+                        if (manager.selectedCharacterBehavior.currentCell != this)
+                        {
+                            if (occupant != null)
+                            {
+                                BaseBehavior target = occupant.GetComponent<BaseBehavior>();
+                                manager.selectedCharacterBehavior.onAttack(target);
+                            }
+                            else
+                            {
+                                manager.DeselectAll();
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("End Turn");
+                            manager.selectedCharacterBehavior.endTurn();
+                            gameManager.currentState = GameManager.GameState.Neutral;
+                        }
+                    }
+                    break;
+
                 default:
                     Debug.Log("Something went wrong");
                     break;
@@ -138,7 +164,7 @@ namespace DefaultNamespace
                 if (occupant != null)
                 {
                     BaseBehavior toSelect = occupant.GetComponent<BaseBehavior>();
-                    if (toSelect.owner == currentPlayer && toSelect.currentMoves > 0)
+                    if (toSelect.owner == currentPlayer && (toSelect.currentMoves > 0 || toSelect.currentAttacks > 0))
                     {
                         manager.selectedCell = this;
                         manager.selectedCell.selector.SetActive(true);
@@ -193,7 +219,7 @@ namespace DefaultNamespace
             character.onMove();
             //gameManager.nextTurn();
         }
-
+        
         public void Deselect()
         {
             if (manager.selectedCell != null)
@@ -202,6 +228,7 @@ namespace DefaultNamespace
             }
             tint.gameObject.SetActive(false);
             cannotMoveTo();
+            isNotAttackable();
 
             manager.selectedCharacter = null;
             manager.selectedCell = null;
@@ -213,6 +240,19 @@ namespace DefaultNamespace
             isMovementSelectable = true;
             tint.color = gameModel.movementTint;
             tint.gameObject.SetActive(true);
+        }
+        
+        public void isAttackable()
+        {
+            isAttackSelectable = true;
+            tint.color = gameModel.attackTint;
+            tint.gameObject.SetActive(true);
+        }
+
+        public void isNotAttackable()
+        {
+            isAttackSelectable = false;
+            tint.gameObject.SetActive(false);
         }
 
         public void cannotMoveTo()

@@ -9,6 +9,7 @@ namespace DefaultNamespace
         public int move;
         public int attacksPerTurn;
         public int movesPerTurn;
+        public int attackRange;
         
         public String name;
         public Sprite image;

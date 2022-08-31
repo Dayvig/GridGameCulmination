@@ -94,7 +94,49 @@ public class GridManager : MonoBehaviour
 
         foreach (GridCell g in inRangeCells)
         {
-            if (g.occupant == null) {g.canMoveTo();}
+            if (g.occupant == null || g.occupant.Equals(selectedCharacter)) {g.canMoveTo();}
+        }
+    }
+
+    public void showAttackingSquares(GridCell startingCell, int range)
+    {
+        //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
+        List<GridCell> inRangeCells = new List<GridCell>();
+        inRangeCells.Add(startingCell);
+        //sets the move counter to 0
+        int currentMove = 0;
+
+        //tracks the currently selected tiles
+        List<GridCell> previousCells = new List<GridCell>();
+        previousCells.Add(startingCell);
+        
+        List<GridCell> surroundingCells = new List<GridCell>();
+        
+        while (currentMove < range)
+        {
+            //Looks at the previous cells accessed, then returns all of its accessible neighbors
+            foreach (GridCell nextCell in previousCells)
+            {
+                foreach (GridCell n in nextCell.neighbors)
+                {
+                    if (n != null)
+                        surroundingCells.Add(n);
+                }
+            }
+            
+            //adds the accessible neighbors to the cells in range
+            inRangeCells.AddRange(surroundingCells);
+            
+            //these new accessible neighbors become the previous cells
+            previousCells = surroundingCells.Distinct().ToList();
+            
+            //reduces movement count
+            currentMove++;
+        }
+
+        foreach (GridCell g in inRangeCells)
+        {
+            g.isAttackable();
         }
     }
 
