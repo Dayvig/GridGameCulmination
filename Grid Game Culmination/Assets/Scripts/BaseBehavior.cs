@@ -119,6 +119,5 @@ public class BaseBehavior : MonoBehaviour
     public void onReset()
     {
         GlowRen.color = Color.blue;
-        currentSelectedAttack = Attacks[0];
     }
 }
