@@ -10,5 +10,6 @@ namespace DefaultNamespace
         public string AttackName;
         public string AttackDesc;
         public bool ColumnOnly = false;
+        public int ID;
     }
 }

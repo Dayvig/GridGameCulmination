@@ -33,9 +33,6 @@ public class UIManager : MonoBehaviour
             btn.onClick.AddListener(delegate { ButtonPressed(index); });
         }
         Selectors[0].SetActive(true);
-        DescBox.gameObject.SetActive(false);
-        RangeBox.gameObject.SetActive(false);
-        DamageBox.gameObject.SetActive(false);
     }
 
     public void ButtonPressed(int index)
@@ -50,18 +47,7 @@ public class UIManager : MonoBehaviour
         manager.MasterGrid.WipeAttackingSquares();
         manager.selectedCharacterBehavior.onSelect();
         
-        //turns off all selectors other than the selected button
-        for (int i = 0; i < Selectors.Length; i++)
-        {
-            if (i == index)
-            {
-                Selectors[i].SetActive(true);
-            }
-            else
-            {
-                Selectors[i].SetActive(false);
-            }
-        }
+        
     }
     
     
@@ -72,6 +58,25 @@ public class UIManager : MonoBehaviour
         if (manager.selectedCharacter != null)
         {
             SidePanel.SetActive(true);
+            AbstractAttack current = manager.selectedCharacterBehavior.currentSelectedAttack;
+            manager.currentSelectedAttack = manager.selectedCharacterBehavior.currentSelectedAttack.ID;
+            DescBox.text = current.AttackDesc;
+            RangeBox.text = "Range: " + current.AttackRange;
+            DamageBox.text = "Damage: " + current.AttackDamage;
+            
+            //turns off all selectors other than the selected button
+            for (int i = 0; i < Selectors.Length; i++)
+            {
+                if (i == manager.currentSelectedAttack)
+                {
+                    Selectors[i].SetActive(true);
+                }
+                else
+                {
+                    Selectors[i].SetActive(false);
+                }
+            }
+            
             for (int i = 0; i < manager.selectedCharacterBehavior.Attacks.Length; i++)
             {
                 if (manager.selectedCharacterBehavior.Attacks[i] != null)
@@ -84,11 +89,6 @@ public class UIManager : MonoBehaviour
                     AttackButtons[i].SetActive(false);
                 }
             }
-
-            AbstractAttack current = manager.selectedCharacterBehavior.Attacks[manager.currentSelectedAttack];
-            DescBox.text = current.AttackDesc;
-            RangeBox.text = "Range: " + current.AttackRange;
-            DamageBox.text = "Damage: " + current.AttackDamage;
         }
         else
         {

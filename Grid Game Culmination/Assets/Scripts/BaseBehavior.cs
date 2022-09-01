@@ -23,7 +23,7 @@ public class BaseBehavior : MonoBehaviour
     public RectTransform HealthBar;
     public AbstractAttack[] Attacks = new AbstractAttack[5];
     public AbstractAttack currentSelectedAttack;
-    
+
     public GameManager.Player owner;
     
     void Start()
@@ -39,7 +39,9 @@ public class BaseBehavior : MonoBehaviour
         attacksPerTurn = values.attacksPerTurn;
         currentAttacks = attack = values.attacksPerTurn;
         currentMoves = movesPerTurn = values.movesPerTurn;
-        Attacks = values.Attacks;
+        Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
+        Attacks[1] = gameModel.GetComponent<SpecialBlaster>();
+        
         currentSelectedAttack = Attacks[0];
         Debug.Assert(currentCell != null, "Character is not on a cell");
     }
@@ -55,6 +57,7 @@ public class BaseBehavior : MonoBehaviour
         {
             manager.currentState = GameManager.GameState.CharacterAttacking;
             gridManager.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange);
+            gridManager.currentSelectedAttack = currentSelectedAttack.ID;
         }
         else
         {
@@ -85,7 +88,6 @@ public class BaseBehavior : MonoBehaviour
         target.HP -= currentSelectedAttack.AttackDamage;
         target.updateBars();
         
-        Debug.Log("Target: "+target);
         if (currentMoves <= 0 && currentAttacks <= 0)
         {
             GlowRen.color = Color.gray;
@@ -117,5 +119,6 @@ public class BaseBehavior : MonoBehaviour
     public void onReset()
     {
         GlowRen.color = Color.blue;
+        currentSelectedAttack = Attacks[0];
     }
 }
