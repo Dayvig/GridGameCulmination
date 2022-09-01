@@ -21,7 +21,9 @@ public class BaseBehavior : MonoBehaviour
     public int currentAttacks;
     public SpriteRenderer GlowRen;
     public RectTransform HealthBar;
-
+    public AbstractAttack[] Attacks = new AbstractAttack[5];
+    public AbstractAttack currentSelectedAttack;
+    
     public GameManager.Player owner;
     
     void Start()
@@ -37,6 +39,8 @@ public class BaseBehavior : MonoBehaviour
         attacksPerTurn = values.attacksPerTurn;
         currentAttacks = attack = values.attacksPerTurn;
         currentMoves = movesPerTurn = values.movesPerTurn;
+        Attacks = values.Attacks;
+        currentSelectedAttack = Attacks[0];
         Debug.Assert(currentCell != null, "Character is not on a cell");
     }
 
@@ -49,9 +53,8 @@ public class BaseBehavior : MonoBehaviour
     {
         if (currentMoves <= 0)
         {
-            Debug.Log("Attack starting");
             manager.currentState = GameManager.GameState.CharacterAttacking;
-            gridManager.showAttackingSquares(this.currentCell, values.attackRange);
+            gridManager.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange);
         }
         else
         {
@@ -76,11 +79,10 @@ public class BaseBehavior : MonoBehaviour
 
     public void onAttack(BaseBehavior target)
     {
-        Debug.Log("???");
         currentAttacks--;
         //attack target
 
-        target.HP -= 1;
+        target.HP -= currentSelectedAttack.AttackDamage;
         target.updateBars();
         
         Debug.Log("Target: "+target);

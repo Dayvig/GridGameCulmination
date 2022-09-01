@@ -16,6 +16,7 @@ public class GridManager : MonoBehaviour
     public GridCell selectedCell;
     public GameObject selectedCharacter;
     public BaseBehavior selectedCharacterBehavior;
+    public int currentSelectedAttack = 0;
     
     // Start is called before the first frame update
     void Start()

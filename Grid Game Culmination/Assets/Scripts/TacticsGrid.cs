@@ -125,6 +125,22 @@ namespace DefaultNamespace
             }
 
         }
+        public void WipeAttackingSquares()
+        {
+            GridCell targetCell;
+            GridCell temp;
+            //checks each cell in the matrix
+            for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
+            {
+                for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
+                {
+                    targetCell = contents[rowCursor].contents[colCursor];
+                    targetCell.isAttackSelectable = false;
+                    targetCell.tint.gameObject.SetActive(false);
+                }
+            }
+
+        }
 
         public List<BaseBehavior> getAllCharacters()
         {
