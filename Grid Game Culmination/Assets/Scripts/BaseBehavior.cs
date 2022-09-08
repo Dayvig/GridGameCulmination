@@ -25,6 +25,8 @@ public class BaseBehavior : MonoBehaviour
     public AbstractAttack currentSelectedAttack;
 
     public GameManager.Player owner;
+    public List<AbstractModifier> Modifiers = new List<AbstractModifier>();
+    public List<AbstractModifier> toRemove = new List<AbstractModifier>();
     
     void Start()
     {
@@ -82,11 +84,7 @@ public class BaseBehavior : MonoBehaviour
 
     public void onAttack(BaseBehavior target)
     {
-        currentAttacks--;
-        //attack target
-
-        target.HP -= currentSelectedAttack.AttackDamage;
-        target.updateBars();
+       
         
         if (currentMoves <= 0 && currentAttacks <= 0)
         {
@@ -98,6 +96,37 @@ public class BaseBehavior : MonoBehaviour
         }
         manager.gridManager.DeselectAll();
         manager.checkForNextTurn(owner);
+    }
+
+    public int calculateDamage(int baseDamage, BaseBehavior target)
+    {
+        return baseDamage;
+    }
+
+    public void endTurnModifierCheck()
+    {
+        for (int i = 0; i < Modifiers.Count; i++)
+        {
+            //Decrements turn based modifiers
+            if (Modifiers[i].turnBased)
+            {
+                Modifiers[i].turns--;
+                if (Modifiers[i].turns <= 0)
+                {
+                    toRemove.Add(Modifiers[i]);
+                }
+            }
+            //Activates any end of turn modifiers
+            
+            
+        }
+
+        //Removes the mods that have expired
+        for (int k = 0; k < toRemove.Count; k++)
+        {
+            Modifiers.Remove(toRemove[k]);
+        }
+        toRemove.Clear();
     }
 
     public void endTurn()

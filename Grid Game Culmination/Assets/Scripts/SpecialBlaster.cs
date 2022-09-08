@@ -10,5 +10,15 @@
             AttackDesc = "A ray that hits an enemy in your column only.";
             ColumnOnly = true;
         }
+
+        public override void use(BaseBehavior initiator, BaseBehavior target)
+        {
+            initiator.currentAttacks--;
+            //attack target
+
+            int damage = initiator.calculateDamage(AttackDamage, target);
+            target.HP -= damage;
+            target.updateBars();
+        }
     }
 }

@@ -39,6 +39,8 @@ public class GridManager : MonoBehaviour
         BaseBehavior behavior = firstGuy.GetComponent<BaseBehavior>();
         behavior.currentCell = MasterGrid.contents[0].contents[0];
         behavior.owner = GameManager.Player.Player1;
+        behavior.Modifiers.Add(new AccuracyModifier());
+        Debug.Log(behavior.Modifiers[0].ID + ", "+behavior.Modifiers[0].amount);
         
         //make the second guy
         GameObject secondGuy = Instantiate(gameModel.Guy2);

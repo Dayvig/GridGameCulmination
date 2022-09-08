@@ -2,7 +2,7 @@
 
 namespace DefaultNamespace
 {
-    public class AbstractAttack : MonoBehaviour
+    public abstract class AbstractAttack : MonoBehaviour
 
     {
         public int AttackRange;
@@ -11,5 +11,7 @@ namespace DefaultNamespace
         public string AttackDesc;
         public bool ColumnOnly = false;
         public int ID;
+
+        public abstract void use(BaseBehavior initiator, BaseBehavior target);
     }
 }
