@@ -8,9 +8,21 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    private int[,] matrix = {{1, 2, 3, 4, 5}, {1, 1, 1, 1, 1}, {2, 2, 2, 2, 2}, {3, 3, 3, 3, 3}, {5, 4, 3, 2, 1}};
-
-    public TacticsGrid MasterGrid;
+    private int[,] matrix =
+    {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
+        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
+        {1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
+        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
+        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
+        
+        public TacticsGrid MasterGrid;
     public Model_Game gameModel;
     public GameManager gameManager;
     public GridCell selectedCell;
@@ -44,16 +56,16 @@ public class GridManager : MonoBehaviour
         
         //make the second guy
         GameObject secondGuy = Instantiate(gameModel.Guy2);
-        MasterGrid.contents[3].contents[3].occupant = secondGuy;
+        MasterGrid.contents[8].contents[8].occupant = secondGuy;
         BaseBehavior behavior2 = secondGuy.GetComponent<BaseBehavior>();
-        behavior2.currentCell = MasterGrid.contents[3].contents[3];
+        behavior2.currentCell = MasterGrid.contents[8].contents[8];
         behavior2.owner = GameManager.Player.Player2;
         
         //make the third guy
         GameObject thirdGuy = Instantiate(gameModel.Guy2);
-        MasterGrid.contents[3].contents[2].occupant = thirdGuy;
+        MasterGrid.contents[8].contents[7].occupant = thirdGuy;
         BaseBehavior behavior3 = thirdGuy.GetComponent<BaseBehavior>();
-        behavior3.currentCell = MasterGrid.contents[3].contents[2];
+        behavior3.currentCell = MasterGrid.contents[8].contents[7];
         behavior3.owner = GameManager.Player.Player2;
 
     }
@@ -80,8 +92,22 @@ public class GridManager : MonoBehaviour
             {
                 foreach (GridCell n in nextCell.neighbors)
                 {
-                    if (n != null && n.occupant == null)
-                        surroundingCells.Add(n);
+                    //check if cell is traversable
+                    if (n != null && n.terrainType != 0)
+                    {
+                        if (n.occupant != null)
+                        {
+                            //can move through allies
+                            if (n.occupant.GetComponent<BaseBehavior>().owner == selectedCharacterBehavior.owner)
+                            {
+                                surroundingCells.Add(n);
+                            }
+                        }
+                        else
+                        {
+                            surroundingCells.Add(n);
+                        }
+                    }
                 }
             }
             
@@ -97,49 +123,8 @@ public class GridManager : MonoBehaviour
 
         foreach (GridCell g in inRangeCells)
         {
+            //but cannot move into an occupied zone
             if (g.occupant == null || g.occupant.Equals(selectedCharacter)) {g.canMoveTo();}
-        }
-    }
-
-    public void showAttackingSquares(GridCell startingCell, int range)
-    {
-        //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
-        List<GridCell> inRangeCells = new List<GridCell>();
-        inRangeCells.Add(startingCell);
-        //sets the move counter to 0
-        int currentMove = 0;
-
-        //tracks the currently selected tiles
-        List<GridCell> previousCells = new List<GridCell>();
-        previousCells.Add(startingCell);
-        
-        List<GridCell> surroundingCells = new List<GridCell>();
-        
-        while (currentMove < range)
-        {
-            //Looks at the previous cells accessed, then returns all of its accessible neighbors
-            foreach (GridCell nextCell in previousCells)
-            {
-                foreach (GridCell n in nextCell.neighbors)
-                {
-                    if (n != null)
-                        surroundingCells.Add(n);
-                }
-            }
-            
-            //adds the accessible neighbors to the cells in range
-            inRangeCells.AddRange(surroundingCells);
-            
-            //these new accessible neighbors become the previous cells
-            previousCells = surroundingCells.Distinct().ToList();
-            
-            //reduces movement count
-            currentMove++;
-        }
-
-        foreach (GridCell g in inRangeCells)
-        {
-            g.isAttackable();
         }
     }
 

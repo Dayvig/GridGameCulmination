@@ -16,6 +16,7 @@ namespace DefaultNamespace
         public GameObject selector;
         public GridManager manager;
         public SpriteRenderer tint;
+        public SpriteRenderer cell;
         public Color movementTintColor;
         public Model_Game gameModel;
         public bool isMovementSelectable;
@@ -89,16 +90,26 @@ namespace DefaultNamespace
             tint.gameObject.SetActive(false);
             isMovementSelectable = false;
             movementTintColor = gameModel.movementTint;
+            if (terrainType == 0)
+            {
+                cell.enabled = false;
+            }
         }
         void OnMouseEnter()
         {
-            hover.SetActive(true);
+            if (cell.enabled)
+            {
+                hover.SetActive(true);
+            }
             //cell is hovered
         }
         
         void OnMouseExit()
         {
-            hover.SetActive(false);
+            if (cell.enabled)
+            {
+                hover.SetActive(false);
+            }
             //cell is no longer hovered
         }
 

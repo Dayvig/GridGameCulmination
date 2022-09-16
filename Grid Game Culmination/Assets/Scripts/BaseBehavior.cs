@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class BaseBehavior : MonoBehaviour
@@ -58,8 +59,8 @@ public class BaseBehavior : MonoBehaviour
         if (currentMoves <= 0)
         {
             manager.currentState = GameManager.GameState.CharacterAttacking;
-            gridManager.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange);
             gridManager.currentSelectedAttack = currentSelectedAttack.ID;
+            currentSelectedAttack.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange, currentSelectedAttack.targeting);
         }
         else
         {
@@ -84,8 +85,10 @@ public class BaseBehavior : MonoBehaviour
 
     public void onAttack(BaseBehavior target)
     {
-       
+        //launches the attack
+        currentSelectedAttack.use(this, target);
         
+        //sets the correct glow
         if (currentMoves <= 0 && currentAttacks <= 0)
         {
             GlowRen.color = Color.gray;
@@ -94,6 +97,8 @@ public class BaseBehavior : MonoBehaviour
         {
             GlowRen.color = Color.red;
         }
+        
+        //resets the gamestate and checks for next turn
         manager.gridManager.DeselectAll();
         manager.checkForNextTurn(owner);
     }
@@ -140,13 +145,25 @@ public class BaseBehavior : MonoBehaviour
     
     public void updateBars()
     {
-            float hpScale = (float) HP / values.hp;
-            HealthBar.localScale = new Vector3(1, hpScale, 1);
+        float hpScale = (float) HP / values.hp;
+        HealthBar.localScale = new Vector3(1, hpScale, 1);
+        if (HP <= 0)
+        {
+            kill();
+        }
     }
 
 
     public void onReset()
     {
         GlowRen.color = Color.blue;
+    }
+
+    public void kill()
+    {
+        this.currentCell.occupant = null;
+        this.currentCell = null;
+        this.currentSelectedAttack = null;
+        this.gameObject.SetActive(false);
     }
 }

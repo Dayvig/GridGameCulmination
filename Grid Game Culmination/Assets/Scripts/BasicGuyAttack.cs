@@ -12,9 +12,10 @@
 
         public override void use(BaseBehavior initiator, BaseBehavior target)
         {
+            //Decrease the current amount of attacks
             initiator.currentAttacks--;
+            
             //attack target
-
             int damage = initiator.calculateDamage(AttackDamage, target);
             target.HP -= damage;
             target.updateBars();

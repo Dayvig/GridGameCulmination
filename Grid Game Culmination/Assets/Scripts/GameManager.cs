@@ -83,7 +83,6 @@ public class GameManager : MonoBehaviour
         {
             if (characterBehavior.owner == player && (characterBehavior.currentMoves > 0 || characterBehavior.currentAttacks > 0))
             {
-                Debug.Log("False");
                 isNext = false;
             }
         }

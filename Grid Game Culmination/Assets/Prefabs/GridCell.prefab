@@ -275,6 +275,7 @@ MonoBehaviour:
   selector: {fileID: 4543485927201716502}
   manager: {fileID: 0}
   tint: {fileID: 4192945668566551558}
+  cell: {fileID: 5285407712773301586}
   movementTintColor: {r: 0, g: 0, b: 0, a: 0}
   gameModel: {fileID: 0}
   isMovementSelectable: 0
