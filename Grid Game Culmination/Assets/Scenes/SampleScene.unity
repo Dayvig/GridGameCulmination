@@ -580,7 +580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23, y: 209}
+  m_AnchoredPosition: {x: -323, y: 280}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344774976
@@ -1272,9 +1272,11 @@ GameObject:
   - component: {fileID: 1205803759}
   - component: {fileID: 1205803758}
   - component: {fileID: 1205803761}
+  - component: {fileID: 1205803765}
   - component: {fileID: 1205803760}
   - component: {fileID: 1205803763}
   - component: {fileID: 1205803762}
+  - component: {fileID: 1205803764}
   m_Layer: 0
   m_Name: GameModel
   m_TagString: Untagged
@@ -1298,9 +1300,11 @@ MonoBehaviour:
   BaseRow: {fileID: 7837927124517561947, guid: fd8845da399e63243b603bc6ce6fda5e, type: 3}
   Guy: {fileID: 1844379086261301815, guid: 1416e428d76c25644adce43e0950cd3e, type: 3}
   Guy2: {fileID: 1618368386381881857, guid: e9c4e88ce2d3603489bd9d157d5ecccb, type: 3}
+  SwordGuy: {fileID: 1184873978730594304, guid: 38ee0540c8648c940a4dc58ed6796a64, type: 3}
   cellOffset: 2.2
   movementTint: {r: 0, g: 0.4, b: 1, a: 0.4}
   attackTint: {r: 1, g: 0.2, b: 0.2, a: 0.4}
+  optimalTint: {r: 1, g: 0.9, b: 0.3, a: 0.4}
 --- !u!4 &1205803759
 Transform:
   m_ObjectHideFlags: 0
@@ -1379,6 +1383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackRange: 3
   AttackDamage: 4
+  OptimalDamage: 0
   AttackName: Special Blaster
   AttackDesc: A ray that hits an enemy in your column only.
   ID: 1
@@ -1397,10 +1402,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackRange: 1
   AttackDamage: 2
+  OptimalDamage: 3
   AttackName: Basic Attack
   AttackDesc: Hit the enemy with your fists.
   ID: 0
   targeting: 0
+--- !u!114 &1205803764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ca978524d14dbfb63b3df596484b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 3
+  AttackDamage: 3
+  OptimalDamage: 5
+  AttackName: Dagger Throw
+  AttackDesc: Throws a dagger in a diagonal line.
+  ID: 2
+  targeting: 0
+--- !u!114 &1205803765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd87348e436b4a278e416c4f7862ee89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  move: 4
+  attacksPerTurn: 1
+  movesPerTurn: 1
+  attackRange: 0
+  name: Sword Man
+  image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
+  Attacks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1324521589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,7 +1649,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1881,7 +1931,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Damage:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1908,15 +1958,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.61
-  m_fontSizeBase: 19.61
+  m_fontSize: 11.2
+  m_fontSizeBase: 11.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

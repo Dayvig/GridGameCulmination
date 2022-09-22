@@ -1,24 +1,61 @@
-﻿namespace DefaultNamespace
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace DefaultNamespace
 {
     public class BasicGuyAttack : AbstractAttack
     {
-        public BasicGuyAttack()
-        {
-            AttackRange = 1;
-            AttackDamage = 2;
-            AttackName = "Basic Attack";
-            AttackDesc = "Hit the enemy with your fists.";
-        }
 
-        public override void use(BaseBehavior initiator, BaseBehavior target)
+        public override void use(BaseBehavior initiator, BaseBehavior target, bool optimalAttack)
         {
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
-            
+
             //attack target
-            int damage = initiator.calculateDamage(AttackDamage, target);
+            int damage;
+            if (optimalAttack)
+            {
+                damage = initiator.calculateDamage(OptimalDamage, target);
+            }
+            else
+            {
+                damage = initiator.calculateDamage(AttackDamage, target);
+            }
             target.HP -= damage;
             target.updateBars();
+        }
+
+        public override void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
+        {
+
+            //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
+            List<GridCell> inRangeCells = new List<GridCell>();
+            inRangeCells.Add(startingCell);
+            
+            //adds the cells manually
+            GridCell n = startingCell.getEast();
+                if (n != null)
+                    inRangeCells.Add(n);
+                
+            n = startingCell.getWest();
+                if (n != null) 
+                    inRangeCells.Add(n);
+                
+            n = startingCell.getNorth();
+                if (n != null) 
+                    inRangeCells.Add(n);
+                
+            n = startingCell.getSouth();
+                if (n != null) 
+                    inRangeCells.Add(n);
+
+                foreach (GridCell g in inRangeCells)
+            {
+                if (g != null && (g.Equals(startingCell.getEast()) || g.Equals(startingCell.getWest())))
+                    g.isOptimal = true;
+                g.isAttackable();
+            }
         }
     }
 }

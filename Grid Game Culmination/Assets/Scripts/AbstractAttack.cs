@@ -10,6 +10,7 @@ namespace DefaultNamespace
     {
         public int AttackRange;
         public int AttackDamage; 
+        public int OptimalDamage;
         public string AttackName;
         public string AttackDesc;
         public int ID;
@@ -22,14 +23,14 @@ namespace DefaultNamespace
             ROWONLY
         }
 
-        public abstract void use(BaseBehavior initiator, BaseBehavior target);
+        public abstract void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal);
 
         public void showAttackingSquares(GridCell startingCell, int range)
         {
             showAttackingSquares(startingCell, range, AttackType.ORTHOGONAL);
         }
         
-        public void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
+        public virtual void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
         {
             
             Debug.Log(targetingType);
@@ -56,12 +57,12 @@ namespace DefaultNamespace
                     switch (targetingType)
                     {
                         case AttackType.ORTHOGONAL:
-                            foreach (GridCell n in nextCell.neighbors)
+                            for (int i = 0; i < 4; i++)
                             {
+                                GridCell n = nextCell.neighbors[i];
                                 if (n != null)
                                     surroundingCells.Add(n);
                             }
-
                             break;
                         case AttackType.COLUMNONLY:
                             if (nextCell.getNorth() != null)

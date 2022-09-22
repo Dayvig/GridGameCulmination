@@ -46,13 +46,11 @@ public class GridManager : MonoBehaviour
         selectedCell = null;
         
         //make the first guy
-        GameObject firstGuy = Instantiate(gameModel.Guy);
+        GameObject firstGuy = Instantiate(gameModel.SwordGuy);
         MasterGrid.contents[0].contents[0].occupant = firstGuy;
         BaseBehavior behavior = firstGuy.GetComponent<BaseBehavior>();
         behavior.currentCell = MasterGrid.contents[0].contents[0];
         behavior.owner = GameManager.Player.Player1;
-        behavior.Modifiers.Add(new AccuracyModifier());
-        Debug.Log(behavior.Modifiers[0].ID + ", "+behavior.Modifiers[0].amount);
         
         //make the second guy
         GameObject secondGuy = Instantiate(gameModel.Guy2);
@@ -90,8 +88,9 @@ public class GridManager : MonoBehaviour
             //Looks at the previous cells accessed, then returns all of its accessible neighbors
             foreach (GridCell nextCell in previousCells)
             {
-                foreach (GridCell n in nextCell.neighbors)
+                for (int i = 0; i < 4; i++)
                 {
+                    GridCell n = nextCell.neighbors[i];
                     //check if cell is traversable
                     if (n != null && n.terrainType != 0)
                     {

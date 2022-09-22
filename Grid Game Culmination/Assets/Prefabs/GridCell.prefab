@@ -280,8 +280,13 @@ MonoBehaviour:
   gameModel: {fileID: 0}
   isMovementSelectable: 0
   isAttackSelectable: 0
+  isOptimal: 0
   gameManager: {fileID: 0}
   neighbors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

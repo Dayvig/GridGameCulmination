@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class BaseBehavior : MonoBehaviour
 {
-    private Model_Game gameModel;
-    private GameManager manager;
-    private GridManager gridManager;
+    protected Model_Game gameModel;
+    public GameManager manager;
+    public GridManager gridManager;
     private Guy values;
     public int HP;
     public int move;
@@ -42,11 +42,8 @@ public class BaseBehavior : MonoBehaviour
         attacksPerTurn = values.attacksPerTurn;
         currentAttacks = attack = values.attacksPerTurn;
         currentMoves = movesPerTurn = values.movesPerTurn;
-        Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
-        Attacks[1] = gameModel.GetComponent<SpecialBlaster>();
         
-        currentSelectedAttack = Attacks[0];
-        Debug.Assert(currentCell != null, "Character is not on a cell");
+        Initialize();
     }
 
     void Update()
@@ -83,10 +80,10 @@ public class BaseBehavior : MonoBehaviour
         manager.checkForNextTurn(owner);
     }
 
-    public void onAttack(BaseBehavior target)
+    public void onAttack(BaseBehavior target, bool isOptimal)
     {
         //launches the attack
-        currentSelectedAttack.use(this, target);
+        currentSelectedAttack.use(this, target, isOptimal);
         
         //sets the correct glow
         if (currentMoves <= 0 && currentAttacks <= 0)
@@ -157,6 +154,16 @@ public class BaseBehavior : MonoBehaviour
     public void onReset()
     {
         GlowRen.color = Color.blue;
+    }
+
+    public virtual void Initialize()
+    {
+        Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
+        Attacks[1] = gameModel.GetComponent<SpecialBlaster>();
+        
+        currentSelectedAttack = Attacks[0];
+        Debug.Assert(currentCell != null, "Character is not on a cell");
+
     }
 
     public void kill()

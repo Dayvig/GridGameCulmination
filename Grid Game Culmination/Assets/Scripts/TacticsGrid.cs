@@ -88,6 +88,34 @@ namespace DefaultNamespace
                         temp = contents[rowCursor + 1].contents[colCursor];
                         targetCell.setSouth(temp);
                     }
+                    
+                    //NorthEast
+                    if (rowCursor != 0 && colCursor != contents[rowCursor].contents.Count - 1)
+                    {
+                        temp = contents[rowCursor - 1].contents[colCursor + 1];
+                        targetCell.setNorthEast(temp);
+                    }
+                    
+                    //NorthWest
+                    if (rowCursor != 0 && colCursor != 0)
+                    {
+                        temp = contents[rowCursor - 1].contents[colCursor - 1];
+                        targetCell.setNorthWest(temp);
+                    }
+                    
+                    //SouthEast
+                    if (rowCursor != contents.Count - 1 && colCursor != contents[rowCursor].contents.Count - 1)
+                    {
+                        temp = contents[rowCursor + 1].contents[colCursor + 1];
+                        targetCell.setSouthEast(temp);
+                    }
+                    
+                    //SouthWest
+                    if (rowCursor != contents.Count - 1 && colCursor != 0)
+                    {
+                        temp = contents[rowCursor + 1].contents[colCursor - 1];
+                        targetCell.setSouthWest(temp);
+                    }
                 }
             }
         }
@@ -136,6 +164,7 @@ namespace DefaultNamespace
                 {
                     targetCell = contents[rowCursor].contents[colCursor];
                     targetCell.isAttackSelectable = false;
+                    targetCell.isOptimal = false;
                     targetCell.tint.gameObject.SetActive(false);
                 }
             }

@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
             manager.currentSelectedAttack = manager.selectedCharacterBehavior.currentSelectedAttack.ID;
             DescBox.text = current.AttackDesc;
             RangeBox.text = "Range: " + current.AttackRange;
-            DamageBox.text = "Damage: " + current.AttackDamage;
+            DamageBox.text = "Damage: " + current.AttackDamage + " / " + current.OptimalDamage;
             
             //turns off all selectors other than the selected button
             for (int i = 0; i < Selectors.Length; i++)

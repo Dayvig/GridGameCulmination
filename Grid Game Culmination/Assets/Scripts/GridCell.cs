@@ -21,14 +21,19 @@ namespace DefaultNamespace
         public Model_Game gameModel;
         public bool isMovementSelectable;
         public bool isAttackSelectable;
+        public bool isOptimal;
         public GameManager gameManager;
 
         
-        public List<GridCell> neighbors = new List<GridCell>(4);
+        public List<GridCell> neighbors = new List<GridCell>(8);
         //0 - N
         //1 - E
         //2 - S
         //3 - W;
+        //4 - NE
+        //5 - NW
+        //6 - SE
+        //7 - SW
 
         //Constructor and Access methods
         public GridCell()
@@ -55,6 +60,25 @@ namespace DefaultNamespace
         {
             return neighbors[2];
         }
+        
+        public GridCell getNorthEast()
+        {
+            return neighbors[4];
+        }
+        public GridCell getNorthWest()
+        {
+            return neighbors[5];
+        }
+
+        public GridCell getSouthEast()
+        {
+            return neighbors[6];
+        }
+
+        public GridCell getSouthWest()
+        {
+            return neighbors[7];
+        }
 
         public void setNorth(GridCell g)
         {
@@ -71,6 +95,23 @@ namespace DefaultNamespace
         public void setWest(GridCell g)
         {
             neighbors[3] = g;
+        }
+        
+        public void setNorthEast(GridCell g)
+        {
+            neighbors[4] = g;
+        }
+        public void setNorthWest(GridCell g)
+        {
+            neighbors[5] = g;
+        }
+        public void setSouthEast(GridCell g)
+        {
+            neighbors[6] = g;
+        }
+        public void setSouthWest(GridCell g)
+        {
+            neighbors[7] = g;
         }
         
         
@@ -145,7 +186,15 @@ namespace DefaultNamespace
                             if (occupant != null)
                             {
                                 BaseBehavior target = occupant.GetComponent<BaseBehavior>();
-                                manager.selectedCharacterBehavior.onAttack(target);
+                                if (isOptimal)
+                                {
+                                    manager.selectedCharacterBehavior.onAttack(target, true);
+                                }
+                                else
+                                {
+                                    manager.selectedCharacterBehavior.onAttack(target, false);
+                                }
+
                             }
                             else
                             {
@@ -257,13 +306,22 @@ namespace DefaultNamespace
         public void isAttackable()
         {
             isAttackSelectable = true;
-            tint.color = gameModel.attackTint;
+            if (isOptimal)
+            {
+                tint.color = gameModel.optimalTint;
+            }
+            else
+            {
+                tint.color = gameModel.attackTint;
+            }
+
             tint.gameObject.SetActive(true);
         }
 
         public void isNotAttackable()
         {
             isAttackSelectable = false;
+            isOptimal = false;
             tint.gameObject.SetActive(false);
         }
 
