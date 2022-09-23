@@ -1404,8 +1404,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackRange: 1
-  AttackDamage: 2
-  OptimalDamage: 3
+  AttackDamage: 3
+  OptimalDamage: 4
   AttackName: Basic Attack
   AttackDesc: Hit the enemy with your fists.
   ID: 0
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd87348e436b4a278e416c4f7862ee89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  hp: 12
   move: 4
   attacksPerTurn: 1
   movesPerTurn: 1
@@ -1470,7 +1470,7 @@ MonoBehaviour:
   AttackDamage: 3
   OptimalDamage: 6
   AttackName: Sniper Shot
-  AttackDesc: A long range shot.
+  AttackDesc: A long range shot that only hits in a column.
   ID: 1
   targeting: 0
 --- !u!114 &1205803767
