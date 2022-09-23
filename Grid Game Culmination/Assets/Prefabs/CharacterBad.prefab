@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2416800616870132558}
   - component: {fileID: 4538879741768506690}
-  - component: {fileID: 2978541317285973695}
+  - component: {fileID: 2365299602657903454}
   m_Layer: 0
   m_Name: CharacterBad
   m_TagString: Untagged
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2978541317285973695
+--- !u!114 &2365299602657903454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,17 +169,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618368386381881857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb4eb44666804b23b18731168838bb46, type: 3}
+  m_Script: {fileID: 11500000, guid: e2695a62dc8d4f8f8b122f6ceec70fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  gridManager: {fileID: 0}
   HP: 10
   move: 3
   attack: 0
-  name: Guy
+  name: Gun Guy
   currentCell: {fileID: 0}
   currentMoves: 0
-  movesPerTurn: 0
-  attacksPerTurn: 0
+  movesPerTurn: 1
+  attacksPerTurn: 1
   currentAttacks: 0
   GlowRen: {fileID: 487886194543697646}
   HealthBar: {fileID: 7252509209896979961}
@@ -190,7 +192,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentSelectedAttack: {fileID: 0}
-  owner: 0
+  owner: 1
 --- !u!1 &6697565161517801317
 GameObject:
   m_ObjectHideFlags: 0

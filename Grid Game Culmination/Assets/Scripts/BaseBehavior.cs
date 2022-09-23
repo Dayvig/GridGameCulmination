@@ -10,7 +10,7 @@ public class BaseBehavior : MonoBehaviour
     protected Model_Game gameModel;
     public GameManager manager;
     public GridManager gridManager;
-    private Guy values;
+    public AbstractCharacter values;
     public int HP;
     public int move;
     public int attack;
@@ -34,15 +34,6 @@ public class BaseBehavior : MonoBehaviour
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
         gridManager = GameObject.Find("GameManager").GetComponent<GridManager>();
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        values = gameModel.GetComponent<Guy>();
-        HP = values.hp;
-        move = values.move;
-        name = values.name;
-        movesPerTurn = values.movesPerTurn;
-        attacksPerTurn = values.attacksPerTurn;
-        currentAttacks = attack = values.attacksPerTurn;
-        currentMoves = movesPerTurn = values.movesPerTurn;
-        
         Initialize();
     }
 
@@ -158,6 +149,15 @@ public class BaseBehavior : MonoBehaviour
 
     public virtual void Initialize()
     {
+        values = gameModel.GetComponent<Guy>();
+        HP = values.hp;
+        move = values.move;
+        name = values.name;
+        movesPerTurn = values.movesPerTurn;
+        attacksPerTurn = values.attacksPerTurn;
+        currentAttacks = attack = values.attacksPerTurn;
+        currentMoves = movesPerTurn = values.movesPerTurn;
+
         Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
         Attacks[1] = gameModel.GetComponent<SpecialBlaster>();
         

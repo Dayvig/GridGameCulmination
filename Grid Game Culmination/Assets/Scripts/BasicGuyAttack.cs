@@ -50,10 +50,14 @@ namespace DefaultNamespace
                 if (n != null) 
                     inRangeCells.Add(n);
 
-                foreach (GridCell g in inRangeCells)
+            foreach (GridCell g in inRangeCells)
             {
                 if (g != null && (g.Equals(startingCell.getEast()) || g.Equals(startingCell.getWest())))
                     g.isOptimal = true;
+                if (g.Equals(startingCell))
+                {
+                    g.isOptimal = false;
+                }
                 g.isAttackable();
             }
         }

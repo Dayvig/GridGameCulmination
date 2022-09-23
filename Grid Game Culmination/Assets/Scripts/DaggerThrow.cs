@@ -48,6 +48,10 @@ namespace DefaultNamespace
 
             foreach (GridCell g in inRangeCells)
             {
+                if (g.Equals(startingCell))
+                {
+                    g.isOptimal = false;
+                }
                 g.isAttackable();
             }
         }

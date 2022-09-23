@@ -11,14 +11,14 @@ public class GridManager : MonoBehaviour
     private int[,] matrix =
     {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 1, 0, 0, 1, 1, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1},
+        {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+        {1, 0, 1, 0, 0, 0, 0, 1, 0, 1},
+        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
-        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
-        {1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
-        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
-        {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 1, 0, 0, 1, 1, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
         
@@ -47,24 +47,17 @@ public class GridManager : MonoBehaviour
         
         //make the first guy
         GameObject firstGuy = Instantiate(gameModel.SwordGuy);
-        MasterGrid.contents[0].contents[0].occupant = firstGuy;
+        MasterGrid.contents[0].contents[4].occupant = firstGuy;
         BaseBehavior behavior = firstGuy.GetComponent<BaseBehavior>();
-        behavior.currentCell = MasterGrid.contents[0].contents[0];
+        behavior.currentCell = MasterGrid.contents[0].contents[4];
         behavior.owner = GameManager.Player.Player1;
         
         //make the second guy
         GameObject secondGuy = Instantiate(gameModel.Guy2);
-        MasterGrid.contents[8].contents[8].occupant = secondGuy;
+        MasterGrid.contents[9].contents[4].occupant = secondGuy;
         BaseBehavior behavior2 = secondGuy.GetComponent<BaseBehavior>();
-        behavior2.currentCell = MasterGrid.contents[8].contents[8];
+        behavior2.currentCell = MasterGrid.contents[9].contents[4];
         behavior2.owner = GameManager.Player.Player2;
-        
-        //make the third guy
-        GameObject thirdGuy = Instantiate(gameModel.Guy2);
-        MasterGrid.contents[8].contents[7].occupant = thirdGuy;
-        BaseBehavior behavior3 = thirdGuy.GetComponent<BaseBehavior>();
-        behavior3.currentCell = MasterGrid.contents[8].contents[7];
-        behavior3.owner = GameManager.Player.Player2;
 
     }
 

@@ -1,36 +1,32 @@
-﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 
-namespace DefaultNamespace
+public class BasicGunAttack : AbstractAttack
 {
-    public abstract class AbstractAttack : MonoBehaviour
-
+    public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
     {
-        public int AttackRange;
-        public int AttackDamage; 
-        public int OptimalDamage;
-        public string AttackName;
-        public string AttackDesc;
-        public int ID;
-        public AttackType targeting = AttackType.ORTHOGONAL;
-        
-        public enum AttackType
+        //Decrease the current amount of attacks
+        initiator.currentAttacks--;
+
+        //attack target
+        int damage;
+        if (isOptimal)
         {
-            ORTHOGONAL,
-            COLUMNONLY,
-            ROWONLY
+            damage = initiator.calculateDamage(OptimalDamage, target);
+        }
+        else
+        {
+            damage = initiator.calculateDamage(AttackDamage, target);
         }
 
-        public abstract void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal);
-
-        public void showAttackingSquares(GridCell startingCell, int range)
-        {
-            showAttackingSquares(startingCell, range, AttackType.ORTHOGONAL);
-        }
-        
-        public virtual void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
+        target.HP -= damage;
+        target.updateBars();
+    }
+    
+    public override void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
         {
             
             Debug.Log(targetingType);
@@ -52,32 +48,12 @@ namespace DefaultNamespace
                 //Looks at the previous cells accessed, then returns all of its accessible neighbors
                 foreach (GridCell nextCell in previousCells)
                 {
-                    
-                    //Adds to surrounding differently depending on attack type
-                    switch (targetingType)
-                    {
-                        case AttackType.ORTHOGONAL:
                             for (int i = 0; i < 4; i++)
                             {
                                 GridCell n = nextCell.neighbors[i];
                                 if (n != null)
                                     surroundingCells.Add(n);
                             }
-                            break;
-                        case AttackType.COLUMNONLY:
-                            if (nextCell.getNorth() != null)
-                                surroundingCells.Add(nextCell.getNorth());
-                            if (nextCell.getSouth() != null)
-                                surroundingCells.Add(nextCell.getSouth());
-                            break;
-                        default:
-                            foreach (GridCell n in nextCell.neighbors)
-                            {
-                                if (n != null)
-                                    surroundingCells.Add(n);
-                            }
-                            break;
-                    }
                 }
             
                 //adds the accessible neighbors to the cells in range
@@ -85,6 +61,16 @@ namespace DefaultNamespace
             
                 //these new accessible neighbors become the previous cells
                 previousCells = surroundingCells.Distinct().ToList();
+                
+                surroundingCells.Clear();
+                
+                if (currentMove == range - 2)
+                {
+                    foreach (GridCell g in previousCells)
+                    {
+                        g.isOptimal = true;
+                    }
+                }
             
                 //reduces movement count
                 currentMove++;
@@ -99,5 +85,7 @@ namespace DefaultNamespace
                 g.isAttackable();
             }
         }
-    }
+    
+    
+    
 }
