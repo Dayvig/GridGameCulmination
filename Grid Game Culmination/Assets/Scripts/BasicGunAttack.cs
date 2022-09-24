@@ -28,9 +28,6 @@ public class BasicGunAttack : AbstractAttack
     
     public override void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
         {
-            
-            Debug.Log(targetingType);
-            
             //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
             List<GridCell> inRangeCells = new List<GridCell>();
             inRangeCells.Add(startingCell);
@@ -48,7 +45,7 @@ public class BasicGunAttack : AbstractAttack
                 //Looks at the previous cells accessed, then returns all of its accessible neighbors
                 foreach (GridCell nextCell in previousCells)
                 {
-                            for (int i = 0; i < 4; i++)
+                            for (int i = 0; i < 8; i++)
                             {
                                 GridCell n = nextCell.neighbors[i];
                                 if (n != null)
@@ -59,19 +56,18 @@ public class BasicGunAttack : AbstractAttack
                 //adds the accessible neighbors to the cells in range
                 inRangeCells.AddRange(surroundingCells);
             
+                if (currentMove == range - 2)
+                {
+                    foreach (GridCell g in surroundingCells)
+                    {
+                        if (!previousCells.Contains(g))
+                            g.isOptimal = true;
+                    }
+                }
+                
                 //these new accessible neighbors become the previous cells
                 previousCells = surroundingCells.Distinct().ToList();
                 
-                surroundingCells.Clear();
-                
-                if (currentMove == range - 2)
-                {
-                    foreach (GridCell g in previousCells)
-                    {
-                        g.isOptimal = true;
-                    }
-                }
-            
                 //reduces movement count
                 currentMove++;
             }

@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI RangeBox;
     public TextMeshProUGUI DamageBox;
     public GameObject SidePanel;
+    public Button[] AttackButtonsReal = new Button[5];
+    public GameObject[] Clocks = new GameObject[5];
+    public TextMeshProUGUI[] cooldownDisplay = new TextMeshProUGUI[5];
     
     // Start is called before the first frame update
     void Start()
@@ -33,21 +36,28 @@ public class UIManager : MonoBehaviour
             btn.onClick.AddListener(delegate { ButtonPressed(index); });
         }
         Selectors[0].SetActive(true);
+        for (int i = 0; i < Clocks.Length; i++)
+        {
+            cooldownDisplay[i] = Clocks[i].GetComponentInChildren<TextMeshProUGUI>();
+        }
     }
 
     public void ButtonPressed(int index)
     {
-        //Lets the grid manager know what attack is selected
-        manager.currentSelectedAttack = index;
-        
-        //Sets the proper attack in the selected character
-        manager.selectedCharacterBehavior.currentSelectedAttack = manager.selectedCharacterBehavior.Attacks[manager.currentSelectedAttack];
-        
-        //Sets up the proper attack squares
-        manager.MasterGrid.WipeAttackingSquares();
-        manager.selectedCharacterBehavior.onSelect();
-        
-        
+        //executes only if the attack is not on cooldown
+        if (!manager.selectedCharacterBehavior.Attacks[index].onCooldown)
+        {
+            //Lets the grid manager know what attack is selected
+            manager.currentSelectedAttack = index;
+
+            //Sets the proper attack in the selected character
+            manager.selectedCharacterBehavior.currentSelectedAttack =
+                manager.selectedCharacterBehavior.Attacks[manager.currentSelectedAttack];
+
+            //Sets up the proper attack squares
+            manager.MasterGrid.WipeAttackingSquares();
+            manager.selectedCharacterBehavior.onSelect();
+        }
     }
     
     
@@ -83,6 +93,25 @@ public class UIManager : MonoBehaviour
                 {
                     AttackButtons[i].SetActive(true);
                     ButtonTexts[i].text = manager.selectedCharacterBehavior.Attacks[i].AttackName;
+                    if (manager.selectedCharacterBehavior.Attacks[i].onCooldown)
+                    {
+                        Clocks[i].SetActive(true);
+                        cooldownDisplay[i].gameObject.SetActive(true);
+                        cooldownDisplay[i].text = ""+manager.selectedCharacterBehavior.Attacks[i].currentCooldown;
+                        var colors = AttackButtonsReal[i].colors;
+                        colors.normalColor = Color.grey;
+                        colors.selectedColor = Color.grey;
+                        colors.highlightedColor = new Color(0.4f, 0.4f, 0.2f, 1f);
+                        AttackButtonsReal[i].colors = colors;                    }
+                    else
+                    {
+                        Clocks[i].SetActive(false);
+                        cooldownDisplay[i].gameObject.SetActive(false);
+                        var colors = AttackButtonsReal[i].colors;
+                        colors.normalColor = Color.white;
+                        colors.selectedColor = Color.white;
+                        colors.highlightedColor = Color.red;
+                        AttackButtonsReal[i].colors = colors;                        }
                 }
                 else
                 {

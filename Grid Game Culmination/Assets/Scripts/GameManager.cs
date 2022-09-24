@@ -71,6 +71,13 @@ public class GameManager : MonoBehaviour
             {
                 characterBehavior.currentMoves = characterBehavior.movesPerTurn;
                 characterBehavior.currentAttacks = characterBehavior.attacksPerTurn;
+                foreach (AbstractAttack a in characterBehavior.Attacks)
+                {
+                    if (a != null && a.onCooldown)
+                    {
+                        a.reduceCooldown();
+                    }
+                }
                 characterBehavior.onReset();
             }
         }

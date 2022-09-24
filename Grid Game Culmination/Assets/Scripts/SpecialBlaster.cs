@@ -19,6 +19,10 @@ namespace DefaultNamespace
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
 
+            //puts the move on cooldown
+            onCooldown = true;
+            currentCooldown = cooldown;
+            
             //attack target
             int damage;
             if (optimalAttack)

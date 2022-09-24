@@ -9,7 +9,12 @@ public class SniperShot : AbstractAttack
             {
                 //Decrease the current amount of attacks
                 initiator.currentAttacks--;
-    
+                
+                //puts the move on cooldown
+                onCooldown = true;
+                currentCooldown = cooldown;
+                initiator.currentSelectedAttack = initiator.Attacks[0];
+                
                 //attack target
                 int damage;
                 if (optimalAttack)

@@ -15,6 +15,9 @@ namespace DefaultNamespace
         public string AttackDesc;
         public int ID;
         public AttackType targeting = AttackType.ORTHOGONAL;
+        public bool onCooldown = false;
+        public int currentCooldown;
+        public int cooldown;
         
         public enum AttackType
         {
@@ -28,6 +31,26 @@ namespace DefaultNamespace
         public void showAttackingSquares(GridCell startingCell, int range)
         {
             showAttackingSquares(startingCell, range, AttackType.ORTHOGONAL);
+        }
+
+        public void reduceCooldown()
+        {
+            currentCooldown--;
+            if (currentCooldown <= 0)
+            {
+                onCooldown = false;
+                currentCooldown = cooldown;
+            }
+        }
+
+        public void setCooldown(int i)
+        {
+            currentCooldown = i;
+            if (currentCooldown < 0)
+            {
+                onCooldown = false;
+                currentCooldown = cooldown;
+            }
         }
         
         public virtual void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
