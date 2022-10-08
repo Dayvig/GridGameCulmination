@@ -19,11 +19,11 @@ public class SniperShot : AbstractAttack
                 int damage;
                 if (optimalAttack)
                 {
-                    damage = initiator.calculateDamage(OptimalDamage, target);
+                    damage = initiator.calculateDamage(OptimalDamage, target, initiator);
                 }
                 else
                 {
-                    damage = initiator.calculateDamage(AttackDamage, target);
+                    damage = initiator.calculateDamage(AttackDamage, target, initiator);
                 }
                 target.HP -= damage;
                 target.updateBars();

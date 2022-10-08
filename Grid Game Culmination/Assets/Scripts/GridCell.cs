@@ -203,9 +203,15 @@ namespace DefaultNamespace
                         }
                         else
                         {
-                            Debug.Log("End Turn");
-                            manager.selectedCharacterBehavior.endTurn();
-                            gameManager.currentState = GameManager.GameState.Neutral;
+                            if (manager.selectedCharacterBehavior.currentSelectedAttack.targeting == AbstractAttack.AttackType.SELF)
+                            {
+                                manager.selectedCharacterBehavior.onAttack(manager.selectedCharacterBehavior, false);
+                            }
+                            else
+                            {
+                                manager.selectedCharacterBehavior.endTurn();
+                                gameManager.currentState = GameManager.GameState.Neutral;
+                            }
                         }
                     }
                     break;
@@ -272,13 +278,13 @@ namespace DefaultNamespace
 
         public void moveCharacterToCell(GridCell moveTo, BaseBehavior character)
         {
+
             character.currentCell.occupant = null;
             character.currentCell = moveTo;
             moveTo.occupant = character.gameObject;
+            character.onMove();
             manager.DeselectAll();
             gameManager.currentState = GameManager.GameState.Neutral;
-            character.onMove();
-            //gameManager.nextTurn();
         }
         
         public void Deselect()
@@ -317,6 +323,15 @@ namespace DefaultNamespace
 
             tint.gameObject.SetActive(true);
         }
+        
+        public void isAttackable(bool isBuff)
+        {
+            isAttackSelectable = true;
+            if (isBuff)
+                tint.color = gameModel.buffTint;
+
+            tint.gameObject.SetActive(true);
+        }
 
         public void isNotAttackable()
         {
@@ -329,6 +344,13 @@ namespace DefaultNamespace
         {
             isMovementSelectable = false;
             tint.gameObject.SetActive(false);
+        }
+
+        public bool checkForOutOfActions()
+        {
+            Debug.LogFormat(manager.selectedCharacterBehavior.currentMoves + "|" + manager.selectedCharacterBehavior.currentAttacks);
+            return (manager.selectedCharacterBehavior.currentMoves <= 0 &&
+                   manager.selectedCharacterBehavior.currentAttacks <= 0);
         }
 
         public void Update()

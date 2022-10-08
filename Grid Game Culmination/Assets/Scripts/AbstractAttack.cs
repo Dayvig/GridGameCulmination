@@ -18,12 +18,13 @@ namespace DefaultNamespace
         public bool onCooldown = false;
         public int currentCooldown;
         public int cooldown;
-        
+
         public enum AttackType
         {
             ORTHOGONAL,
             COLUMNONLY,
-            ROWONLY
+            ROWONLY,
+            SELF
         }
 
         public abstract void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal);

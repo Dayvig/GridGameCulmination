@@ -174,8 +174,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
   gridManager: {fileID: 0}
-  HP: 10
-  move: 3
+  values: {fileID: 0}
+  HP: 0
+  move: 0
   attack: 0
   name: Gun Guy
   currentCell: {fileID: 0}
@@ -183,6 +184,7 @@ MonoBehaviour:
   movesPerTurn: 1
   attacksPerTurn: 1
   currentAttacks: 0
+  baseMove: 0
   GlowRen: {fileID: 487886194543697646}
   HealthBar: {fileID: 7252509209896979961}
   Attacks:
@@ -192,6 +194,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentSelectedAttack: {fileID: 0}
+  buffIcons: []
+  buffTexts: []
   owner: 1
 --- !u!1 &6697565161517801317
 GameObject:
@@ -250,7 +254,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: -416763777
   m_SortingOrder: 0
   m_TargetDisplay: 0

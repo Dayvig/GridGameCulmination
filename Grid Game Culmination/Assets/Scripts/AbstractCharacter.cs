@@ -7,6 +7,7 @@ namespace DefaultNamespace
     {
         public int hp;
         public int move;
+        public int baseMove;
         public int attacksPerTurn;
         public int movesPerTurn;
         public int attackRange;

@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using TMPro;
 using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BaseBehavior : MonoBehaviour
 {
-    protected Model_Game gameModel;
+    public Model_Game gameModel;
     public GameManager manager;
     public GridManager gridManager;
     public AbstractCharacter values;
@@ -20,10 +22,13 @@ public class BaseBehavior : MonoBehaviour
     public int movesPerTurn;
     public int attacksPerTurn;
     public int currentAttacks;
+    public int baseMove;
     public SpriteRenderer GlowRen;
     public RectTransform HealthBar;
     public AbstractAttack[] Attacks = new AbstractAttack[5];
     public AbstractAttack currentSelectedAttack;
+    public List<GameObject> buffIcons = new List<GameObject>();
+    public List<TextMeshProUGUI> buffTexts = new List<TextMeshProUGUI>();
 
     public GameManager.Player owner;
     public List<AbstractModifier> Modifiers = new List<AbstractModifier>();
@@ -31,10 +36,6 @@ public class BaseBehavior : MonoBehaviour
     
     void Start()
     {
-        gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
-        gridManager = GameObject.Find("GameManager").GetComponent<GridManager>();
-        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        Initialize();
     }
 
     void Update()
@@ -91,8 +92,20 @@ public class BaseBehavior : MonoBehaviour
         manager.checkForNextTurn(owner);
     }
 
-    public int calculateDamage(int baseDamage, BaseBehavior target)
+    public int calculateDamage(int baseDamage, BaseBehavior target, BaseBehavior initiator)
     {
+        if (initiator.hasModifier(AttackBonusModifier.modID))
+        {
+            Debug.Log(baseDamage);
+            baseDamage += initiator.getModifier(AttackBonusModifier.modID).amount;
+        }
+        if (target.hasModifier(DefenseBonusModifier.modID))
+        {
+            Debug.Log(baseDamage);
+            baseDamage -= target.getModifier(DefenseBonusModifier.modID).amount;
+        }
+        
+        Debug.Log(baseDamage);
         return baseDamage;
     }
 
@@ -149,21 +162,9 @@ public class BaseBehavior : MonoBehaviour
 
     public virtual void Initialize()
     {
-        values = gameModel.GetComponent<Guy>();
-        HP = values.hp;
-        move = values.move;
-        name = values.name;
-        movesPerTurn = values.movesPerTurn;
-        attacksPerTurn = values.attacksPerTurn;
-        currentAttacks = attack = values.attacksPerTurn;
-        currentMoves = movesPerTurn = values.movesPerTurn;
-
-        Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
-        Attacks[1] = gameModel.GetComponent<SpecialBlaster>();
-        
-        currentSelectedAttack = Attacks[0];
-        Debug.Assert(currentCell != null, "Character is not on a cell");
-
+        gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
+        gridManager = GameObject.Find("GameManager").GetComponent<GridManager>();
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void kill()
@@ -172,5 +173,30 @@ public class BaseBehavior : MonoBehaviour
         this.currentCell = null;
         this.currentSelectedAttack = null;
         this.gameObject.SetActive(false);
+    }
+
+    public bool hasModifier(String modID)
+    {
+        foreach (AbstractModifier nextMod in Modifiers)
+        {
+            if (nextMod.ID.Equals(modID))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public AbstractModifier getModifier(String m)
+    {
+        foreach (AbstractModifier nextMod in Modifiers)
+        {
+            if (nextMod.ID.Equals(m))
+            {
+                return nextMod;
+            }
+        }
+        return null;
     }
 }

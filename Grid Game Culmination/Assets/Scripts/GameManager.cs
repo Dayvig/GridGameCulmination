@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
             {
                 characterBehavior.currentMoves = characterBehavior.movesPerTurn;
                 characterBehavior.currentAttacks = characterBehavior.attacksPerTurn;
+                characterBehavior.move = characterBehavior.baseMove;
                 foreach (AbstractAttack a in characterBehavior.Attacks)
                 {
                     if (a != null && a.onCooldown)
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
                         a.reduceCooldown();
                     }
                 }
+                characterBehavior.endTurnModifierCheck();
                 characterBehavior.onReset();
             }
         }

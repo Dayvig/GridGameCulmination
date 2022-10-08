@@ -15,11 +15,11 @@ public class BasicGunAttack : AbstractAttack
         int damage;
         if (isOptimal)
         {
-            damage = initiator.calculateDamage(OptimalDamage, target);
+            damage = initiator.calculateDamage(OptimalDamage, target, initiator);
         }
         else
         {
-            damage = initiator.calculateDamage(AttackDamage, target);
+            damage = initiator.calculateDamage(AttackDamage, target, initiator);
         }
 
         target.HP -= damage;

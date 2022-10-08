@@ -6,12 +6,17 @@ namespace DefaultNamespace
 {
     public class SwordManBehavior : BaseBehavior
     {
-        
+
+        public void Start()
+        {
+        }
+
         public override void Initialize()
         {
+            base.Initialize();
             values = gameModel.GetComponent<SwordMan>();
             HP = values.hp;
-            move = values.move;
+            baseMove = move = values.baseMove;
             name = values.name;
             movesPerTurn = values.movesPerTurn;
             attacksPerTurn = values.attacksPerTurn;
@@ -21,6 +26,7 @@ namespace DefaultNamespace
             
             Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
             Attacks[1] = gameModel.GetComponent<DaggerThrow>();
+            Attacks[2] = gameModel.GetComponent<Rally>();
         
             currentSelectedAttack = Attacks[0];
             Debug.Assert(currentCell != null, "Character is not on a cell");
