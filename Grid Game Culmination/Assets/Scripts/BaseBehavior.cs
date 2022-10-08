@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using TMPro;
-using UnityEditor.Build;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class BaseBehavior : MonoBehaviour
 {
