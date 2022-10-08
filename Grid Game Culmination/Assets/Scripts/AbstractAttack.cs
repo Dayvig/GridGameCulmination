@@ -18,6 +18,8 @@ namespace DefaultNamespace
         public bool onCooldown = false;
         public int currentCooldown;
         public int cooldown;
+        public int buffAmount;
+        public int buffTurns;
 
         public enum AttackType
         {

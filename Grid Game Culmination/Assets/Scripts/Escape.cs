@@ -5,8 +5,6 @@ namespace DefaultNamespace
     public class Escape : AbstractAttack
     {
         
-        public int buffAmount;
-        public int buffTurns;
         public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
         {
             //Decrease the current amount of attacks

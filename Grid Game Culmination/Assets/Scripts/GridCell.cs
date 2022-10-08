@@ -158,6 +158,8 @@ namespace DefaultNamespace
         {
             switch (gameManager.currentState)
             {
+                case GameManager.GameState.GameOver:
+                    break;
                 case GameManager.GameState.Neutral:
                     selectCell(gameManager.currentTurn);
                     break;

@@ -26,5 +26,10 @@ public class SetText : MonoBehaviour
             text.text = gameManager.currentTurn.ToString();
             prevTurn = gameManager.currentTurn;
         }
+
+        if (gameManager.currentState == GameManager.GameState.GameOver)
+        {
+            text.text = gameManager.winner.ToString()+" wins!";
+        }
     }
 }

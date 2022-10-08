@@ -115,7 +115,7 @@ public class GridManager : MonoBehaviour
     {
         return MasterGrid.getAllCharacters();
     }
-    
+
 
     // Update is called once per frame
     void Update()

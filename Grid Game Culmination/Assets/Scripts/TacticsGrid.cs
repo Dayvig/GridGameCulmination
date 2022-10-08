@@ -188,5 +188,20 @@ namespace DefaultNamespace
 
             return thisList;
         }
+        
+        public void destroyAllCharacters()
+        {
+            
+            for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
+            {
+                for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
+                {
+                    if (contents[rowCursor].contents[colCursor].occupant != null)
+                    {
+                        Destroy(contents[rowCursor].contents[colCursor].occupant);
+                    }
+                }
+            }
+        }
     }
 }

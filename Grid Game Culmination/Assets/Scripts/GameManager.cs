@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
         Neutral,
         CharacterMovement,
         CharacterAttacking,
+        GameOver
     }
 
     public enum Player
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public GameState currentState;
     public Player currentTurn;
+    public Player winner;
 
     // Start is called before the first frame update
     void Start()
@@ -87,6 +89,15 @@ public class GameManager : MonoBehaviour
 
     public void checkForNextTurn(Player player)
     {
+        if (gridManager.getCharList().Count == 1)
+        {
+            foreach (var characterBehavior in gridManager.getCharList())
+            {
+                winner = characterBehavior.owner;
+            }
+            currentState = GameState.GameOver;
+            return;
+        }
         bool isNext = true;
         foreach (var characterBehavior in gridManager.getCharList())
         {
@@ -97,5 +108,20 @@ public class GameManager : MonoBehaviour
         }
         if (isNext)
             nextTurn();
+    }
+    
+    
+    public void Replay()
+    {
+        gridManager.MasterGrid.destroyAllCharacters();
+        gridManager.MasterGrid.DeselectAll();
+        gridManager.displayIndex = 0;
+        gridManager.addNewCharacter(Instantiate(gameModel.SwordGuy), 0, 4, GameManager.Player.Player1);
+        gridManager.addNewCharacter(Instantiate(gameModel.Guy2), 9, 4, GameManager.Player.Player2);
+        ResetCharacterValues(Player.Player1);
+        ResetCharacterValues(Player.Player2);
+        currentTurn = Player.Player1;
+        currentState = GameState.Neutral;
+        
     }
 }

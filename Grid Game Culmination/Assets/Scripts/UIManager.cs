@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     public Button[] AttackButtonsReal = new Button[5];
     public GameObject[] Clocks = new GameObject[5];
     public TextMeshProUGUI[] cooldownDisplay = new TextMeshProUGUI[5];
+    public Button ReplayButton;
     
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,10 @@ public class UIManager : MonoBehaviour
         {
             cooldownDisplay[i] = Clocks[i].GetComponentInChildren<TextMeshProUGUI>();
         }
+        
+        ReplayButton.onClick.AddListener(delegate { gameManager.Replay(); });
     }
+
 
     public void ButtonPressed(int index)
     {
@@ -65,63 +69,83 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (manager.selectedCharacter != null)
-        {
-            SidePanel.SetActive(true);
-            AbstractAttack current = manager.selectedCharacterBehavior.currentSelectedAttack;
-            manager.currentSelectedAttack = manager.selectedCharacterBehavior.currentSelectedAttack.ID;
-            DescBox.text = current.AttackDesc;
-            RangeBox.text = "Range: " + current.AttackRange;
-            DamageBox.text = "Damage: " + current.AttackDamage + " / " + current.OptimalDamage;
-            
-            //turns off all selectors other than the selected button
-            for (int i = 0; i < Selectors.Length; i++)
-            {
-                if (i == manager.currentSelectedAttack)
-                {
-                    Selectors[i].SetActive(true);
-                }
-                else
-                {
-                    Selectors[i].SetActive(false);
-                }
-            }
-            
-            for (int i = 0; i < manager.selectedCharacterBehavior.Attacks.Length; i++)
-            {
-                if (manager.selectedCharacterBehavior.Attacks[i] != null)
-                {
-                    AttackButtons[i].SetActive(true);
-                    ButtonTexts[i].text = manager.selectedCharacterBehavior.Attacks[i].AttackName;
-                    if (manager.selectedCharacterBehavior.Attacks[i].onCooldown)
-                    {
-                        Clocks[i].SetActive(true);
-                        cooldownDisplay[i].gameObject.SetActive(true);
-                        cooldownDisplay[i].text = ""+manager.selectedCharacterBehavior.Attacks[i].currentCooldown;
-                        var colors = AttackButtonsReal[i].colors;
-                        colors.normalColor = Color.grey;
-                        colors.selectedColor = Color.grey;
-                        colors.highlightedColor = new Color(0.4f, 0.4f, 0.2f, 1f);
-                        AttackButtonsReal[i].colors = colors;                    }
-                    else
-                    {
-                        Clocks[i].SetActive(false);
-                        cooldownDisplay[i].gameObject.SetActive(false);
-                        var colors = AttackButtonsReal[i].colors;
-                        colors.normalColor = Color.white;
-                        colors.selectedColor = Color.white;
-                        colors.highlightedColor = Color.red;
-                        AttackButtonsReal[i].colors = colors;                        }
-                }
-                else
-                {
-                    AttackButtons[i].SetActive(false);
-                }
-            }
-        }
-        else
+        if (gameManager.currentState == GameManager.GameState.GameOver)
         {
             SidePanel.SetActive(false);
+            ReplayButton.gameObject.SetActive(true);
+            return;
         }
-    }
+        
+        ReplayButton.gameObject.SetActive(false);
+        
+        if (manager.selectedCharacter != null)
+        {
+                SidePanel.SetActive(true);
+                AbstractAttack current = manager.selectedCharacterBehavior.currentSelectedAttack;
+                manager.currentSelectedAttack = manager.selectedCharacterBehavior.currentSelectedAttack.ID;
+                if (current.targeting.Equals(AbstractAttack.AttackType.SELF))
+                {
+                    DescBox.text = current.AttackDesc;
+                    RangeBox.text = "Amount: " + current.buffAmount;
+                    DamageBox.text = "Duration: " + current.buffTurns;
+                }
+                else
+                {
+                    DescBox.text = current.AttackDesc;
+                    RangeBox.text = "Range: " + current.AttackRange;
+                    DamageBox.text = "Damage: " + current.AttackDamage + " / " + current.OptimalDamage;
+                }
+
+                //turns off all selectors other than the selected button
+                for (int i = 0; i < Selectors.Length; i++)
+                {
+                    if (i == manager.currentSelectedAttack)
+                    {
+                        Selectors[i].SetActive(true);
+                    }
+                    else
+                    {
+                        Selectors[i].SetActive(false);
+                    }
+                }
+
+                for (int i = 0; i < manager.selectedCharacterBehavior.Attacks.Length; i++)
+                {
+                    if (manager.selectedCharacterBehavior.Attacks[i] != null)
+                    {
+                        AttackButtons[i].SetActive(true);
+                        ButtonTexts[i].text = manager.selectedCharacterBehavior.Attacks[i].AttackName;
+                        if (manager.selectedCharacterBehavior.Attacks[i].onCooldown)
+                        {
+                            Clocks[i].SetActive(true);
+                            cooldownDisplay[i].gameObject.SetActive(true);
+                            cooldownDisplay[i].text = "" + manager.selectedCharacterBehavior.Attacks[i].currentCooldown;
+                            var colors = AttackButtonsReal[i].colors;
+                            colors.normalColor = Color.grey;
+                            colors.selectedColor = Color.grey;
+                            colors.highlightedColor = new Color(0.4f, 0.4f, 0.2f, 1f);
+                            AttackButtonsReal[i].colors = colors;
+                        }
+                        else
+                        {
+                            Clocks[i].SetActive(false);
+                            cooldownDisplay[i].gameObject.SetActive(false);
+                            var colors = AttackButtonsReal[i].colors;
+                            colors.normalColor = Color.white;
+                            colors.selectedColor = Color.white;
+                            colors.highlightedColor = Color.red;
+                            AttackButtonsReal[i].colors = colors;
+                        }
+                    }
+                    else
+                    {
+                        AttackButtons[i].SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                SidePanel.SetActive(false);
+            }
+        }
 }
