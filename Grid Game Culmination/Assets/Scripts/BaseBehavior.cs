@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using TMPro;
+using UnityEditor.Experimental;
 using UnityEngine;
 
 public class BaseBehavior : MonoBehaviour
@@ -13,6 +15,8 @@ public class BaseBehavior : MonoBehaviour
     public AbstractCharacter values;
     public int HP;
     public int move;
+    public int dash;
+    public int baseDash;
     public int attack;
     public String name;
     public GridCell currentCell;
@@ -52,13 +56,20 @@ public class BaseBehavior : MonoBehaviour
         else
         {
             manager.currentState = GameManager.GameState.CharacterMovement;
-            gridManager.showMovementSquares(this.currentCell, move);
+            gridManager.count = 0;
+            gridManager.MasterGrid.wipeTimesSeen();
+            showMovementSquares(this.currentCell, move, dash);
+            Debug.Log("Count: " + gridManager.count);
         }
     }
 
-    public void onMove()
+    public void onMove(GridCell moveTo)
     {
         currentMoves--;
+        if (moveTo.movementCount < dash)
+        {
+            currentAttacks--;
+        }
         if (currentMoves <= 0 && currentAttacks <= 0)
         {
             GlowRen.color = Color.gray;
@@ -68,6 +79,86 @@ public class BaseBehavior : MonoBehaviour
             GlowRen.color = Color.red;
         }
         manager.checkForNextTurn(owner);
+    }
+    
+    public virtual void showMovementSquares(GridCell startingCell, int movementValue, int dashValue)
+    {
+        gridManager.MasterGrid.wipeTimesSeen();
+        //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
+        List<GridCell> inRangeCells = new List<GridCell>();
+        List<GridCell> surroundingCells = new List<GridCell>();
+        List<GridCell> prevCells = new List<GridCell>();
+        startingCell.movementCount = movementValue + dashValue;
+        inRangeCells.Add(startingCell);
+        prevCells.Add(startingCell);
+        bool stop = false;
+
+        do
+        {
+            gridManager.count++;
+            stop = true;
+            foreach (GridCell g in prevCells)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (g.neighbors[i] != null && g.neighbors[i].terrainType != 0)
+                    {
+                        int movePenaltyToGive = 1;
+                        if (g.terrainType == 2)
+                        {
+                            movePenaltyToGive = 2;
+                        }
+
+                        if (g.neighbors[i].movementCount < g.movementCount)
+                        {
+                            if (g.neighbors[i].isNumModified)
+                            {
+                                if (g.neighbors[i].movementCount < g.movementCount - movePenaltyToGive)
+                                {
+                                    g.neighbors[i].movementCount = g.movementCount - movePenaltyToGive;
+                                    surroundingCells.Add(g.neighbors[i]);
+                                }
+                            }
+                            else
+                            {
+                                g.neighbors[i].movementCount = g.movementCount - movePenaltyToGive;
+                                g.neighbors[i].isNumModified = true;
+                                surroundingCells.Add(g.neighbors[i]);
+                            } 
+                        }
+                        if (g.neighbors[i].movementCount >= 0)
+                        {
+                            if (g.neighbors[i].occupant != null)
+                            {
+                                if (g.neighbors[i].occupant.GetComponent<BaseBehavior>().owner ==
+                                    manager.currentTurn)
+                                {
+                                    inRangeCells.Add(g.neighbors[i]);
+                                    stop = false;
+                                }
+                            }
+                            else
+                            {
+                                inRangeCells.Add(g.neighbors[i]);
+                                stop = false;
+                            }
+                        }
+                    }
+                }
+            }
+            prevCells.Clear();
+            prevCells = surroundingCells.Distinct().ToList();
+            
+            if (gridManager.count > (movementValue+dashValue) * 2)
+            {
+                stop = true; 
+            }
+        } while (!stop);
+
+        foreach (GridCell g in inRangeCells)
+        {
+            g.canMoveTo(g.movementCount > dashValue-1);
+        }
     }
 
     public void onAttack(BaseBehavior target, bool isOptimal)

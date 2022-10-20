@@ -17,6 +17,7 @@ namespace DefaultNamespace
             values = gameModel.GetComponent<SwordMan>();
             HP = values.hp;
             baseMove = move = values.baseMove;
+            baseDash = dash = values.baseDash;
             name = values.name;
             movesPerTurn = values.movesPerTurn;
             attacksPerTurn = values.attacksPerTurn;

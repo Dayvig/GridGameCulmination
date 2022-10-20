@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -22,8 +23,10 @@ namespace DefaultNamespace
         public bool isMovementSelectable;
         public bool isAttackSelectable;
         public bool isOptimal;
-        public GameManager gameManager;
-
+        public GameManager gameManager; 
+        public int movementCount = 0;
+        public bool isNumModified;
+        public SpriteRenderer TerrainSprite;
         
         public List<GridCell> neighbors = new List<GridCell>(8);
         //0 - N
@@ -131,9 +134,18 @@ namespace DefaultNamespace
             tint.gameObject.SetActive(false);
             isMovementSelectable = false;
             movementTintColor = gameModel.movementTint;
-            if (terrainType == 0)
+            TerrainSprite.enabled = false;
+            switch (terrainType)
             {
-                cell.enabled = false;
+                //Empty/hole
+                case 0:
+                    cell.enabled = false;
+                    break;
+                //normal
+                case 2:
+                    TerrainSprite.enabled = true;
+                    TerrainSprite.sprite = gameModel.Terrainsprites[2];
+                    break;
             }
         }
         void OnMouseEnter()
@@ -280,11 +292,10 @@ namespace DefaultNamespace
 
         public void moveCharacterToCell(GridCell moveTo, BaseBehavior character)
         {
-
             character.currentCell.occupant = null;
             character.currentCell = moveTo;
             moveTo.occupant = character.gameObject;
-            character.onMove();
+            character.onMove(moveTo);
             manager.DeselectAll();
             gameManager.currentState = GameManager.GameState.Neutral;
         }
@@ -308,6 +319,21 @@ namespace DefaultNamespace
         {
             isMovementSelectable = true;
             tint.color = gameModel.movementTint;
+            tint.gameObject.SetActive(true);
+        }
+
+        public void canMoveTo(bool dash)
+        {
+            if (dash)
+            {
+                tint.color = gameModel.movementTint2;
+            }
+            else
+            {
+                tint.color = gameModel.movementTint;
+
+            }
+            isMovementSelectable = true;
             tint.gameObject.SetActive(true);
         }
         

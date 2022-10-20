@@ -120,6 +120,23 @@ namespace DefaultNamespace
             }
         }
 
+        public void wipeTimesSeen()
+        {
+            GridCell targetCell;
+            GridCell temp;
+            //checks each cell in the matrix
+            for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
+            {
+                for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
+                {
+                    targetCell = contents[rowCursor].contents[colCursor];
+                    targetCell.movementCount = -1;
+                    targetCell.isNumModified = false;
+                }
+            }
+
+        }
+
         public void DeselectAll()
             {
                 GridCell targetCell;
@@ -130,6 +147,7 @@ namespace DefaultNamespace
                     for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
                     {
                         targetCell = contents[rowCursor].contents[colCursor];
+                        targetCell.movementCount = 0;
                         targetCell.Deselect();
                     }
                 }
@@ -146,6 +164,7 @@ namespace DefaultNamespace
                 {
                     targetCell = contents[rowCursor].contents[colCursor];
                     targetCell.isMovementSelectable = false;
+                    targetCell.movementCount = 0;
                     if (!targetCell.isAttackSelectable){
                         targetCell.tint.gameObject.SetActive(false);
                     }

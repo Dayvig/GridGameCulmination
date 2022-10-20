@@ -13,6 +13,7 @@ public class Model_Game : MonoBehaviour
     public GameObject Display1;
     public GameObject Display2;
     public float cellOffset;
+    public List<Sprite> Terrainsprites = new List<Sprite>();
 
     public Color movementTint;
     //(0, 0.4f, 1f, 0.4f);
@@ -22,5 +23,7 @@ public class Model_Game : MonoBehaviour
     //(1f, 0.9f, 0.3f, 0.4f);
     public Color buffTint;
     //(0.4f, 1f, 0.3f, 0.4f);
+    public Color movementTint2;
+    //(0, 0.8f, 1f, 0.4f)
 
 }

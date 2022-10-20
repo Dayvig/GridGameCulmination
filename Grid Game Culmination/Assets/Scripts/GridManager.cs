@@ -8,10 +8,10 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    private int[,] matrix =
+    private static int[,] matrix =
     {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 0, 0, 1, 1, 0, 1},
+        {1, 0, 1, 2, 0, 0, 1, 1, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 1, 1, 0, 0, 0, 0, 1, 1, 1},
         {1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
@@ -30,6 +30,7 @@ public class GridManager : MonoBehaviour
     public BaseBehavior selectedCharacterBehavior;
     public int currentSelectedAttack = 0;
     public int displayIndex = 0;
+    public int count = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -53,63 +54,86 @@ public class GridManager : MonoBehaviour
     }
 
     public int numCalls = 0;
-    public void showMovementSquares(GridCell startingCell, int movementValue)
-    {
-        //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
-        List<GridCell> inRangeCells = new List<GridCell>();
-        inRangeCells.Add(startingCell);
-        //sets the move counter to 0
-        int currentMove = 0;
 
-        //tracks the currently selected tiles
-        List<GridCell> previousCells = new List<GridCell>();
-        previousCells.Add(startingCell);
-        
-        List<GridCell> surroundingCells = new List<GridCell>();
-        
-        while (currentMove < movementValue)
+
+
+
+
+
+    /*
+    while (currentMove < movementValue)
+    {
+        //Looks at the previous cells accessed, then returns all of its accessible neighbors
+        foreach (GridCell nextCell in previousCells)
         {
-            //Looks at the previous cells accessed, then returns all of its accessible neighbors
-            foreach (GridCell nextCell in previousCells)
+            for (int i = 0; i < 4; i++)
             {
-                for (int i = 0; i < 4; i++)
+                GridCell n = nextCell.neighbors[i];
+                //check if cell is traversable
+                if (n != null && n.terrainType != 0)
                 {
-                    GridCell n = nextCell.neighbors[i];
-                    //check if cell is traversable
-                    if (n != null && n.terrainType != 0)
+                    if (n.occupant != null)
                     {
-                        if (n.occupant != null)
-                        {
-                            //can move through allies
-                            if (n.occupant.GetComponent<BaseBehavior>().owner == selectedCharacterBehavior.owner)
-                            {
-                                surroundingCells.Add(n);
-                            }
-                        }
-                        else
+                        //can move through allies
+                        if (n.occupant.GetComponent<BaseBehavior>().owner == selectedCharacterBehavior.owner)
                         {
                             surroundingCells.Add(n);
                         }
                     }
+                    else
+                    {
+                        surroundingCells.Add(n);
+                    }
                 }
             }
-            
-            //adds the accessible neighbors to the cells in range
-            inRangeCells.AddRange(surroundingCells);
-            
-            //these new accessible neighbors become the previous cells
-            previousCells = surroundingCells.Distinct().ToList();
-            
-            //reduces movement count
-            currentMove++;
         }
-
-        foreach (GridCell g in inRangeCells)
-        {
-            //but cannot move into an occupied zone
-            if (g.occupant == null || g.occupant.Equals(selectedCharacter)) {g.canMoveTo();}
-        }
+        
+        //adds the accessible neighbors to the cells in range
+        inRangeCells.AddRange(surroundingCells);
+        
+        //these new accessible neighbors become the previous cells
+        previousCells = surroundingCells.Distinct().ToList();
+        
+        //reduces movement count
+        currentMove++;
     }
+
+    foreach (GridCell g in inRangeCells)
+    {
+        //but cannot move into an occupied zone
+        if (g.occupant == null || g.occupant.Equals(selectedCharacter)) {g.canMoveTo();}
+    }
+
+    public void xshowMovementSquares(GridCell currentCell, int movementValue)
+    {
+        //sets current tile as accessible
+        if (currentCell.terrainType != 0 &&
+            (currentCell.occupant == null || currentCell.occupant.Equals(selectedCharacter)))
+        {
+            currentCell.movementCount++;
+            currentCell.canMoveTo();
+            Debug.Log(currentCell.name + " | "+movementValue + "|" + currentCell.movementCount);
+        }
+        count++;
+        //repeats the function, checking the neighbors and continuing if any are inaccessible
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentCell.neighbors[i] != null && movementValue >= 1 && currentCell.neighbors[i].terrainType != 0)
+            {
+                if (currentCell.occupant != null)
+                {
+                    if (currentCell.occupant.GetComponent<BaseBehavior>().owner == gameManager.currentTurn)
+                    {
+                        showMovementSquares(currentCell.neighbors[i], movementValue - 1);
+                    }
+                }
+                else
+                {
+                    showMovementSquares(currentCell.neighbors[i], movementValue - 1);
+                }
+            }
+        }
+    }*/
 
     public List<BaseBehavior> getCharList()
     {
