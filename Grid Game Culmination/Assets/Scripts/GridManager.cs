@@ -10,16 +10,22 @@ public class GridManager : MonoBehaviour
 {
     private static int[,] matrix =
     {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 2, 0, 0, 1, 1, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
-        {1, 0, 1, 1, 1, 1, 1, 1, 0, 1},
-        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 0, 0, 1, 1, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 2, 0, 0, 1, 1, 0, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
+        {1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
+        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
         
     public TacticsGrid MasterGrid;
@@ -40,16 +46,16 @@ public class GridManager : MonoBehaviour
         MasterGrid.createGrid(matrix);
         MasterGrid.assignNeighbors();
         MasterGrid.transform.position = new Vector3(
-            -(gameModel.cellOffset * matrix.GetLength(0) / 2),
-            -(gameModel.cellOffset * matrix.GetLength(1) / 2),
-            (25));
+            -(gameModel.cellOffset * matrix.GetLength(0) / 2) - 2,
+            -(gameModel.cellOffset * matrix.GetLength(1) / 2) - 2,
+            (32));
         selectedCell = null;
         
         //make the first guy
         addNewCharacter(Instantiate(gameModel.SwordGuy), 0, 4, GameManager.Player.Player1);
         
         //make the second guy
-        addNewCharacter(Instantiate(gameModel.Guy2), 9, 4, GameManager.Player.Player2);
+        addNewCharacter(Instantiate(gameModel.Guy2), 13, 4, GameManager.Player.Player2);
 
     }
 

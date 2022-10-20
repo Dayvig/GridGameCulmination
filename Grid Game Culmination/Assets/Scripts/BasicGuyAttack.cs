@@ -34,25 +34,25 @@ namespace DefaultNamespace
             inRangeCells.Add(startingCell);
             
             //adds the cells manually
-            GridCell n = startingCell.getEast();
+            GridCell n = startingCell.getNorthEast();
                 if (n != null)
                     inRangeCells.Add(n);
                 
-            n = startingCell.getWest();
+            n = startingCell.getNorthWest();
                 if (n != null) 
                     inRangeCells.Add(n);
                 
-            n = startingCell.getNorth();
+            n = startingCell.getSouthEast();
                 if (n != null) 
                     inRangeCells.Add(n);
                 
-            n = startingCell.getSouth();
+            n = startingCell.getSouthWest();
                 if (n != null) 
                     inRangeCells.Add(n);
 
             foreach (GridCell g in inRangeCells)
             {
-                if (g != null && (g.Equals(startingCell.getEast()) || g.Equals(startingCell.getWest())))
+                if (g != null && (g.Equals(startingCell.getNorthEast())))
                     g.isOptimal = true;
                 if (g.Equals(startingCell))
                 {

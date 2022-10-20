@@ -1440,6 +1440,7 @@ GameObject:
   - component: {fileID: 1205803769}
   - component: {fileID: 1205803765}
   - component: {fileID: 1205803770}
+  - component: {fileID: 1205803771}
   m_Layer: 0
   m_Name: GameModel
   m_TagString: Untagged
@@ -1504,11 +1505,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
-  move: 3
   baseMove: 3
   attacksPerTurn: 0
   movesPerTurn: 0
-  attackRange: 0
+  baseDash: 0
   name: 
   image: {fileID: 0}
   Attacks:
@@ -1530,11 +1530,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
-  move: 3
   baseMove: 3
   attacksPerTurn: 1
   movesPerTurn: 1
-  attackRange: 2
+  baseDash: 0
   name: Regular Guy
   image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
   Attacks:
@@ -1628,11 +1627,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
-  move: 3
   baseMove: 3
   attacksPerTurn: 1
   movesPerTurn: 1
-  attackRange: 0
+  baseDash: 2
   name: Sword Man
   image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
   Attacks:
@@ -1653,7 +1651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17310af8fea77845a603fce28e1bbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 5
+  AttackRange: 8
   AttackDamage: 3
   OptimalDamage: 6
   AttackName: Sniper Shot
@@ -1702,11 +1700,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
-  move: 1
   baseMove: 1
   attacksPerTurn: 1
   movesPerTurn: 1
-  attackRange: 0
+  baseDash: 6
   name: Gun Man
   image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
   Attacks:
@@ -1764,6 +1761,30 @@ MonoBehaviour:
   cooldown: 6
   buffAmount: 2
   buffTurns: 4
+--- !u!114 &1205803771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8509febe8f4d4982bdc875510c3f46ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 2
+  OptimalDamage: 4
+  AttackName: Knockback Punch
+  AttackDesc: A powerful punch that knocks an opponent back 2 squares.
+  ID: 2
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 2
+  cooldown: 2
+  buffAmount: 0
+  buffTurns: 0
 --- !u!1 &1324521589
 GameObject:
   m_ObjectHideFlags: 0

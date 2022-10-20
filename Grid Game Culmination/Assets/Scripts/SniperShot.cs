@@ -44,8 +44,8 @@ public class SniperShot : AbstractAttack
 
                 GridCell cursor = startingCell;
             
-                addCells(0, 5, startingCell, inRangeCells);
-                addCells(1, 5, startingCell, inRangeCells);
+                addCells(0, range, startingCell, inRangeCells);
+                addCells(1, range, startingCell, inRangeCells);
     
                 foreach (GridCell g in inRangeCells)
                 {
@@ -68,7 +68,7 @@ public class SniperShot : AbstractAttack
                     {
                         cursor = getDirCellFromInt(i, cursor);
                         inRangeCells.Add(cursor);
-                        if (currentMove == range - 1)
+                        if (currentMove >= range - 2)
                         {
                             cursor.isOptimal = true;
                         }

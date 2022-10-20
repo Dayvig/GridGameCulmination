@@ -27,7 +27,7 @@ namespace DefaultNamespace
             
             Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
             Attacks[1] = gameModel.GetComponent<DaggerThrow>();
-            Attacks[2] = gameModel.GetComponent<Rally>();
+            Attacks[2] = gameModel.GetComponent<KnockbackPunch>();
         
             currentSelectedAttack = Attacks[0];
             Debug.Assert(currentCell != null, "Character is not on a cell");

@@ -37,7 +37,7 @@ namespace DefaultNamespace
         public void createGrid(int[,] gridMatrix)
         {
            
-            for (int i = 0; i < gridMatrix.GetLength(1); i++)
+            for (int i = 0; i < gridMatrix.GetLength(0); i++)
             {
                     nextRow = Instantiate(gameModel.BaseRow, transform);
                     nextRow.name = ""+i;
@@ -90,9 +90,9 @@ namespace DefaultNamespace
                     }
                     
                     //NorthEast
-                    if (rowCursor != 0 && colCursor != contents[rowCursor].contents.Count - 1)
+                    if (rowCursor != contents.Count - 1 && colCursor != contents[rowCursor].contents.Count - 1)
                     {
-                        temp = contents[rowCursor - 1].contents[colCursor + 1];
+                        temp = contents[rowCursor + 1].contents[colCursor + 1];
                         targetCell.setNorthEast(temp);
                     }
                     
@@ -104,9 +104,9 @@ namespace DefaultNamespace
                     }
                     
                     //SouthEast
-                    if (rowCursor != contents.Count - 1 && colCursor != contents[rowCursor].contents.Count - 1)
+                    if (rowCursor != 0 && colCursor != contents[rowCursor].contents.Count - 1)
                     {
-                        temp = contents[rowCursor + 1].contents[colCursor + 1];
+                        temp = contents[rowCursor - 1].contents[colCursor + 1];
                         targetCell.setSouthEast(temp);
                     }
                     
