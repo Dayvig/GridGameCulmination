@@ -59,7 +59,6 @@ public class BaseBehavior : MonoBehaviour
             gridManager.count = 0;
             gridManager.MasterGrid.wipeTimesSeen();
             showMovementSquares(this.currentCell, move, dash);
-            Debug.Log("Count: " + gridManager.count);
         }
     }
 
@@ -183,19 +182,18 @@ public class BaseBehavior : MonoBehaviour
 
     public int calculateDamage(int baseDamage, BaseBehavior target, BaseBehavior initiator)
     {
-        if (initiator.hasModifier(AttackBonusModifier.modID))
+        int damage = baseDamage;
+        foreach (AbstractModifier a in initiator.Modifiers)
         {
-            Debug.Log(baseDamage);
-            baseDamage += initiator.getModifier(AttackBonusModifier.modID).amount;
+            damage = a.applyModifier(damage);
         }
-        if (target.hasModifier(DefenseBonusModifier.modID))
+        foreach (AbstractModifier a in target.Modifiers)
         {
-            Debug.Log(baseDamage);
-            baseDamage -= target.getModifier(DefenseBonusModifier.modID).amount;
+            damage = a.applyModifier(damage);
         }
         
-        Debug.Log(baseDamage);
-        return baseDamage;
+        
+        return damage;
     }
 
     public void endTurnModifierCheck()
@@ -203,7 +201,7 @@ public class BaseBehavior : MonoBehaviour
         for (int i = 0; i < Modifiers.Count; i++)
         {
             //Decrements turn based modifiers
-            if (Modifiers[i].turnBased)
+            if (Modifiers[i] != null && Modifiers[i].turnBased)
             {
                 Modifiers[i].turns--;
                 if (Modifiers[i].turns <= 0)
@@ -222,6 +220,10 @@ public class BaseBehavior : MonoBehaviour
             Modifiers.Remove(toRemove[k]);
         }
         toRemove.Clear();
+        if (Modifiers.Count > 0)
+        {
+            Debug.Log("Turns" + Modifiers[0].turns);
+        }
     }
 
     public void endTurn()

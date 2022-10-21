@@ -172,8 +172,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4eb44666804b23b18731168838bb46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameModel: {fileID: 0}
+  manager: {fileID: 0}
+  gridManager: {fileID: 0}
+  values: {fileID: 0}
   HP: 10
   move: 3
+  dash: 0
+  baseDash: 0
   attack: 0
   name: Guy
   currentCell: {fileID: 0}
@@ -181,6 +187,7 @@ MonoBehaviour:
   movesPerTurn: 0
   attacksPerTurn: 0
   currentAttacks: 0
+  baseMove: 0
   GlowRen: {fileID: 404331987251720742}
   HealthBar: {fileID: 2800723444798758717}
   Attacks:
@@ -190,7 +197,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentSelectedAttack: {fileID: 0}
+  buffIcons: []
+  buffTexts: []
   owner: 0
+  Modifiers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  toRemove: []
 --- !u!1 &2113667939806156714
 GameObject:
   m_ObjectHideFlags: 0

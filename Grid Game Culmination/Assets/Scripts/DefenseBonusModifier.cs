@@ -34,5 +34,22 @@
         {
             ID = modID;
         }
+        
+        public override int applyModifier(int damage)
+        {
+            return damage - amount;
+        }
+
+        public override int getKey()
+        {
+            return 1;
+        }
+
+        public override void setStrings()
+        {
+            modifierDescriptions[0] = "Decreases damage taken by ";
+            modifierDescriptions[1] = " for ";
+            modifierDescriptions[2] = " turns.";
+        }
     }
 }

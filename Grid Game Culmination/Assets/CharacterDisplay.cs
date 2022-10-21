@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterDisplay : MonoBehaviour
 {
@@ -15,17 +16,14 @@ public class CharacterDisplay : MonoBehaviour
     public int maxHP;
     public bool hasDefenseBuff;
     public bool hasAttackBuff;
-    public int DefenseBuffAmount;
-    public int AttackBuffAmount;
-    public int DefenseBuffTurns;
-    public int AttackBuffTurns;
     public TextMeshProUGUI defenseText;
     public TextMeshProUGUI attackText;
     public TextMeshProUGUI hpText;
-    public GameObject DefenseBuff;
-    public GameObject AttackBuff;
+    public List<GameObject> Mods = new List<GameObject>();
     public RectTransform HealthBar;
-
+    public List<TextMeshProUGUI> ModTexts = new List<TextMeshProUGUI>();
+    public List<Image> ModIcons = new List<Image>();
+    public Model_Modifiers modsModel;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +31,7 @@ public class CharacterDisplay : MonoBehaviour
         gridManager = GameObject.Find("GameManager").GetComponent<GridManager>();
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        
+        modsModel = GameObject.Find("GameModel").GetComponent<Model_Modifiers>();
     }
 
     public void initialize()
@@ -43,12 +41,15 @@ public class CharacterDisplay : MonoBehaviour
         hpText.text = "HP: " + currentHP + "/" + maxHP;
         hasAttackBuff = false;
         hasDefenseBuff = false;
+        foreach (GameObject g in Mods)
+        {
+            g.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        checkBuffs();
         setBuffs();
         setHealth();
     }
@@ -61,73 +62,25 @@ public class CharacterDisplay : MonoBehaviour
         hpText.text = "HP: " + currentHP + "/" + maxHP;
     }
 
-    void checkBuffs()
-    {
-        hasAttackBuff = false;
-        hasDefenseBuff = false;
-        foreach (AbstractModifier m in character.Modifiers)
-        {
-            if (m.ID.Equals(DefenseBonusModifier.modID))
-            {
-                activateDefenseBuff();
-                DefenseBuffAmount = m.amount;
-                DefenseBuffTurns = m.turns;
-            }
-            if (m.ID.Equals(AttackBonusModifier.modID))
-            {
-                activateAttaclBuff();
-                AttackBuffAmount = m.amount;
-                AttackBuffTurns = m.turns;
-            }
-        }
-    }
-    
     void setBuffs()
     {
-        if (!hasAttackBuff)
+        foreach (GameObject g in Mods)
         {
-            AttackBuff.SetActive(false);
+            g.SetActive(false);
         }
-        else
+        
+        if (character.Modifiers.Count != 0)
         {
-            attackText.text = "Increases damage dealt by " + AttackBuffAmount + " for " + AttackBuffTurns;
-            if (AttackBuffTurns == 1)
-            {
-                attackText.text += " turn.";
-            }
-            else
-            {
-                attackText.text += " turns.";
-            }
-        }
 
-        if (!hasDefenseBuff)
-        {
-            DefenseBuff.SetActive(false);
-        }
-        else
-        {
-            defenseText.text = "Decreases damage taken by " + DefenseBuffAmount + " for " + DefenseBuffTurns;
-            if (DefenseBuffTurns == 1)
+            for (int k = 0; k < character.Modifiers.Count; k++)
             {
-                defenseText.text += " turn.";
-            }
-            else
-            {
-                defenseText.text += " turns.";
+                if (character.Modifiers[k] != null)
+                {
+                    Mods[k].SetActive(true);
+                    ModTexts[k].text = character.Modifiers[k].setDesc();
+                    ModIcons[k].sprite = modsModel.modIcons[character.Modifiers[k].getKey()];
+                }
             }
         }
-    }
-
-    void activateDefenseBuff()
-    {
-        DefenseBuff.SetActive(true);
-        hasDefenseBuff = true;
-    }
-    
-    void activateAttaclBuff()
-    {
-        AttackBuff.SetActive(true);
-        hasAttackBuff = true;
     }
 }

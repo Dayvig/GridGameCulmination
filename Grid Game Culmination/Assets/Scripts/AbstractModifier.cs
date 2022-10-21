@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -16,6 +17,8 @@ namespace DefaultNamespace
         public string ID;
         public bool turnBased;
         public int turns;
+        public int key;
+        public String[] modifierDescriptions = new String[3];
 
         public AbstractModifier()
         {
@@ -37,5 +40,13 @@ namespace DefaultNamespace
         }
 
         public void endTurnTrigger() {}
+        public abstract int applyModifier(int input);
+        public abstract int getKey();
+        public abstract void setStrings();
+        
+        public virtual String setDesc()
+        {
+            return modifierDescriptions[0] + amount + modifierDescriptions[1] + turns + modifierDescriptions[2];
+        }
     }
 }
