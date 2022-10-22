@@ -24,6 +24,7 @@ namespace DefaultNamespace
             Attacks[0] = gameModel.GetComponent<BasicGunAttack>();
             Attacks[1] = gameModel.GetComponent<SniperShot>();
             Attacks[2] = gameModel.GetComponent<Focus>();
+            Attacks[3] = gameModel.GetComponent<TracerRound>();
 
             currentSelectedAttack = Attacks[0];
             Debug.Assert(currentCell != null, "Character is not on a cell");

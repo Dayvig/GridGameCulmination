@@ -16,10 +16,6 @@ namespace DefaultNamespace
             turns = turnsLeft;
         }
 
-        public FocusModifier(bool canStack, bool turnBasedModifier, Type modifierType, int stackAmount, int turnsLeft) : base(canStack, turnBasedModifier, modifierType, stackAmount, turnsLeft)
-        {
-            ID = modID;
-        }
         public override int applyModifier(int damage)
         {
             return damage * (2 * amount);

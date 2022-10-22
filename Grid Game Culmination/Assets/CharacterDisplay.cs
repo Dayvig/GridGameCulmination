@@ -68,10 +68,8 @@ public class CharacterDisplay : MonoBehaviour
         {
             g.SetActive(false);
         }
-        
         if (character.Modifiers.Count != 0)
         {
-
             for (int k = 0; k < character.Modifiers.Count; k++)
             {
                 if (character.Modifiers[k] != null)
