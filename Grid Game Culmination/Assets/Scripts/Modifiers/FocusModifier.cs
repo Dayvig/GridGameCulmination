@@ -12,6 +12,7 @@ namespace DefaultNamespace
             stackable = true;
             turnBased = true;
             type = Type.BUFF;
+            aType = applicationType.OFFENSIVE;
             amount = stackAmount;
             turns = turnsLeft;
         }

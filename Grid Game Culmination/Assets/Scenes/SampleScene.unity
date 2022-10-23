@@ -592,23 +592,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 35.207882
+      value: 24.645517
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 35.207882
+      value: 24.645517
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 35.207882
+      value: 24.645517
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 314
+      value: 268
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 146
+      value: 153
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -819,23 +819,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 35.207882
+      value: 24.645517
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 35.207882
+      value: 24.645517
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 35.207882
+      value: 24.645517
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 314
+      value: 269
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -178
+      value: -189
       objectReference: {fileID: 0}
     - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1534,6 +1534,10 @@ GameObject:
   - component: {fileID: 1205803775}
   - component: {fileID: 1205803772}
   - component: {fileID: 1205803773}
+  - component: {fileID: 1205803774}
+  - component: {fileID: 1205803776}
+  - component: {fileID: 1205803777}
+  - component: {fileID: 1205803778}
   m_Layer: 0
   m_Name: GameModel
   m_TagString: Untagged
@@ -1558,6 +1562,7 @@ MonoBehaviour:
   Guy: {fileID: 1844379086261301815, guid: 1416e428d76c25644adce43e0950cd3e, type: 3}
   Guy2: {fileID: 1618368386381881857, guid: e9c4e88ce2d3603489bd9d157d5ecccb, type: 3}
   SwordGuy: {fileID: 1184873978730594304, guid: 38ee0540c8648c940a4dc58ed6796a64, type: 3}
+  MineGuy: {fileID: 7534222056968149757, guid: ab74a12fafcf6b04aa0bc92ec084ac72, type: 3}
   Display1: {fileID: 1019806449}
   Display2: {fileID: 144254460}
   cellOffset: 2.2
@@ -1923,6 +1928,30 @@ MonoBehaviour:
   cooldown: 3
   buffAmount: 1
   buffTurns: 2
+--- !u!114 &1205803774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16ed44c09384602934c41302c1fc850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 2
+  OptimalDamage: 3
+  AttackName: Float + Sting
+  AttackDesc: A quick hit that allows you to move again afterwards.
+  ID: 1
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 2
+  cooldown: 2
+  buffAmount: 0
+  buffTurns: 0
 --- !u!114 &1205803775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1947,6 +1976,80 @@ MonoBehaviour:
   cooldown: 4
   buffAmount: 1
   buffTurns: 2
+--- !u!114 &1205803776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ea9f8c210c4a96be2492e67bd4e2a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  AttackName: Not Down Yet!
+  AttackDesc: Push ahead through sheer force of will, halving all damage dealt.
+  ID: 3
+  targeting: 3
+  onCooldown: 0
+  currentCooldown: 7
+  cooldown: 7
+  buffAmount: 1
+  buffTurns: 3
+--- !u!114 &1205803777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0f24ca9822642feba1e0086a25399d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 12
+  baseMove: 2
+  attacksPerTurn: 1
+  movesPerTurn: 1
+  baseDash: 2
+  name: Mine Layer
+  image: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
+  Attacks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1205803778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a178be759b4533a06dc4360338f4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 1
+  OptimalDamage: 2
+  AttackName: Shovel Attack
+  AttackDesc: Low damage hit from a shovel. Can fill in holes, making them normal
+    terrain. Can also pick up mines to gain an extra Mine Throw next turn.
+  ID: 0
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
 --- !u!1 &1324521589
 GameObject:
   m_ObjectHideFlags: 0

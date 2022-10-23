@@ -30,7 +30,7 @@
             turns = turnsLeft;
         }
         
-        public DefenseBonusModifier(bool canStack, bool turnBasedModifier, Type modifierType, int stackAmount, int turnsLeft) : base(canStack, turnBasedModifier, modifierType, stackAmount, turnsLeft)
+        public DefenseBonusModifier(bool canStack, bool turnBasedModifier, Type modifierType, applicationType applyType, int stackAmount, int turnsLeft) : base(canStack, turnBasedModifier, modifierType, applyType, stackAmount, turnsLeft)
         {
             ID = modID;
         }

@@ -14,7 +14,7 @@ namespace DefaultNamespace
         public string AttackName;
         public string AttackDesc;
         public int ID;
-        public AttackType targeting = AttackType.ORTHOGONAL;
+        public AttackType targeting = AttackType.ENEMY;
         public bool onCooldown = false;
         public int currentCooldown;
         public int cooldown;
@@ -23,17 +23,15 @@ namespace DefaultNamespace
 
         public enum AttackType
         {
-            ORTHOGONAL,
-            COLUMNONLY,
-            ROWONLY,
-            SELF
+            ENEMY,
+            SELF,
+            GROUND
         }
 
         public abstract void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal);
-
         public void showAttackingSquares(GridCell startingCell, int range)
         {
-            showAttackingSquares(startingCell, range, AttackType.ORTHOGONAL);
+            showAttackingSquares(startingCell, range, AttackType.ENEMY);
         }
 
         public void reduceCooldown()
@@ -82,19 +80,13 @@ namespace DefaultNamespace
                     //Adds to surrounding differently depending on attack type
                     switch (targetingType)
                     {
-                        case AttackType.ORTHOGONAL:
+                        case AttackType.ENEMY:
                             for (int i = 0; i < 4; i++)
                             {
                                 GridCell n = nextCell.neighbors[i];
                                 if (n != null)
                                     surroundingCells.Add(n);
                             }
-                            break;
-                        case AttackType.COLUMNONLY:
-                            if (nextCell.getNorth() != null)
-                                surroundingCells.Add(nextCell.getNorth());
-                            if (nextCell.getSouth() != null)
-                                surroundingCells.Add(nextCell.getSouth());
                             break;
                         default:
                             foreach (GridCell n in nextCell.neighbors)

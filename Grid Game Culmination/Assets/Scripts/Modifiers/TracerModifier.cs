@@ -9,6 +9,7 @@
             stackable = true;
             turnBased = true;
             type = Type.DEBUFF;
+            aType = applicationType.DEFENSIVE;
             amount = stackAmount;
             turns = turnsLeft;
         }

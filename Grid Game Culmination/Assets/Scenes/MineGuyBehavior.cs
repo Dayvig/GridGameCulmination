@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class SwordManBehavior : BaseBehavior
+    public class MineGuyBehavior : BaseBehavior
     {
 
         public void Start()
@@ -14,7 +14,7 @@ namespace DefaultNamespace
         public override void Initialize()
         {
             base.Initialize();
-            values = gameModel.GetComponent<SwordMan>();
+            values = gameModel.GetComponent<MineGuy>();
             HP = values.hp;
             baseMove = move = values.baseMove;
             baseDash = dash = values.baseDash;
@@ -25,14 +25,13 @@ namespace DefaultNamespace
             currentMoves = movesPerTurn = values.movesPerTurn;
 
             
-            Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
-            Attacks[1] = gameModel.GetComponent<DaggerThrow>();
+            Attacks[0] = gameModel.GetComponent<ShovelAttack>();
+            Attacks[1] = gameModel.GetComponent<FlySting>();
             Attacks[2] = gameModel.GetComponent<KnockbackPunch>();
+            Attacks[3] = gameModel.GetComponent<Brace>();
         
             currentSelectedAttack = Attacks[0];
             Debug.Assert(currentCell != null, "Character is not on a cell");
         }
-
-        
     }
 }

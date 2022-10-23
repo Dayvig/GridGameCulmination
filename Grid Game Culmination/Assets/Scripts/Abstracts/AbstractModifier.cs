@@ -10,9 +10,17 @@ namespace DefaultNamespace
             BUFF,
             DEBUFF
         }
+
+        public enum applicationType
+        {
+            OFFENSIVE,
+            DEFENSIVE,
+            OTHER
+        }
         
         public bool stackable;
         public Type type;
+        public applicationType aType;
         public int amount;
         public string ID;
         public bool turnBased;
@@ -29,11 +37,12 @@ namespace DefaultNamespace
             ID = "Unknown";
         }
 
-        public AbstractModifier(bool canStack, bool turnBasedModifier, Type modifierType, int stackAmount, int turnsLeft)
+        public AbstractModifier(bool canStack, bool turnBasedModifier, Type modifierType, applicationType applyType, int stackAmount, int turnsLeft)
         {
             stackable = canStack;
             turnBased = turnBasedModifier;
             type = modifierType;
+            aType = applyType;
             amount = stackAmount;
             ID = "Unknown";
             turns = turnsLeft;

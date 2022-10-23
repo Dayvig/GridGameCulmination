@@ -29,10 +29,10 @@ namespace DefaultNamespace
         public SpriteRenderer TerrainSprite;
         
         public List<GridCell> neighbors = new List<GridCell>(8);
-        //0 - N
+        //0 - S
         //1 - E
-        //2 - S
-        //3 - W;
+        //2 - N
+        //3 - W
         //4 - NE
         //5 - NW
         //6 - SE
@@ -195,20 +195,16 @@ namespace DefaultNamespace
                 case GameManager.GameState.CharacterAttacking:
                     if (isAttackSelectable)
                     {
-                        if (manager.selectedCharacterBehavior.currentCell != this)
+                        if (manager.selectedCharacterBehavior.currentSelectedAttack.targeting == AbstractAttack.AttackType.GROUND && manager.selectedCharacterBehavior.currentSelectedAttack is GroundTarget)
+                        {
+                            manager.selectedCharacterBehavior.onAttackGround(this);
+                        }
+                        else if (manager.selectedCharacterBehavior.currentCell != this)
                         {
                             if (occupant != null)
                             {
                                 BaseBehavior target = occupant.GetComponent<BaseBehavior>();
-                                if (isOptimal)
-                                {
-                                    manager.selectedCharacterBehavior.onAttack(target, true);
-                                }
-                                else
-                                {
-                                    manager.selectedCharacterBehavior.onAttack(target, false);
-                                }
-
+                                manager.selectedCharacterBehavior.onAttack(target, isOptimal);
                             }
                             else
                             {

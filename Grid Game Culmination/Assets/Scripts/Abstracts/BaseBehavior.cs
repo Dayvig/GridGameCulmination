@@ -108,6 +108,12 @@ public class BaseBehavior : MonoBehaviour
                             movePenaltyToGive = 2;
                         }
 
+                        if (g.occupant != null && g.occupant.GetComponent<BaseBehavior>().owner !=
+                            manager.currentTurn)
+                        {
+                            movePenaltyToGive = 100;
+                        }
+
                         if (g.neighbors[i].movementCount < g.movementCount)
                         {
                             if (g.neighbors[i].isNumModified)
@@ -125,22 +131,10 @@ public class BaseBehavior : MonoBehaviour
                                 surroundingCells.Add(g.neighbors[i]);
                             } 
                         }
-                        if (g.neighbors[i].movementCount >= 0)
+                        if (g.neighbors[i].movementCount >= 0 && g.neighbors[i].occupant == null)
                         {
-                            if (g.neighbors[i].occupant != null)
-                            {
-                                if (g.neighbors[i].occupant.GetComponent<BaseBehavior>().owner ==
-                                    manager.currentTurn)
-                                {
-                                    inRangeCells.Add(g.neighbors[i]);
-                                    stop = false;
-                                }
-                            }
-                            else
-                            {
-                                inRangeCells.Add(g.neighbors[i]);
-                                stop = false;
-                            }
+                            inRangeCells.Add(g.neighbors[i]);
+                            stop = false;
                         }
                     }
                 }
@@ -180,19 +174,41 @@ public class BaseBehavior : MonoBehaviour
         manager.checkForNextTurn(owner);
     }
 
+    public void onAttackGround(GridCell target)
+    {
+        Debug.Log("Hit da earf " + target.name);
+        GroundTarget nextAttack = (GroundTarget)currentSelectedAttack;
+        //launches the attack
+        nextAttack.groundUse(this, target);
+        
+        //sets the correct glow
+        if (currentMoves <= 0 && currentAttacks <= 0)
+        {
+            GlowRen.color = Color.gray;
+        }
+        else if (currentMoves <= 0)
+        {
+            GlowRen.color = Color.red;
+        }
+        
+        //resets the gamestate and checks for next turn
+        manager.gridManager.DeselectAll();
+        manager.checkForNextTurn(owner);
+    }
+
     public int calculateDamage(int baseDamage, BaseBehavior target, BaseBehavior initiator)
     {
         int damage = baseDamage;
         foreach (AbstractModifier a in initiator.Modifiers)
         {
-            damage = a.applyModifier(damage);
+            if (a.aType == AbstractModifier.applicationType.OFFENSIVE) 
+                damage = a.applyModifier(damage);
         }
         foreach (AbstractModifier a in target.Modifiers)
         {
+            if (a.aType == AbstractModifier.applicationType.DEFENSIVE) 
             damage = a.applyModifier(damage);
         }
-        
-        
         return damage;
     }
 
@@ -249,6 +265,7 @@ public class BaseBehavior : MonoBehaviour
     public void onReset()
     {
         GlowRen.color = Color.blue;
+        
     }
 
     public virtual void Initialize()

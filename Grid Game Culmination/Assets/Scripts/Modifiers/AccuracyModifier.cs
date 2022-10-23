@@ -10,6 +10,7 @@
             stackable = true;
             turnBased = false;
             type = Type.BUFF;
+            aType = applicationType.OFFENSIVE;
             amount = 5;
         }
         public AccuracyModifier(int stackAmount)
@@ -18,6 +19,7 @@
             stackable = true;
             turnBased = false;
             type = Type.BUFF;
+            aType = applicationType.OFFENSIVE;
             amount = stackAmount;
         }
         public AccuracyModifier(int stackAmount, int turnsLeft)
@@ -26,11 +28,12 @@
             stackable = true;
             turnBased = true;
             type = Type.BUFF;
+            aType = applicationType.OFFENSIVE;
             amount = stackAmount;
             turns = turnsLeft;
         }
         
-        public AccuracyModifier(bool canStack, bool turnBasedModifier, Type modifierType, int stackAmount, int turnsLeft) : base(canStack, turnBasedModifier, modifierType, stackAmount, turnsLeft)
+        public AccuracyModifier(bool canStack, bool turnBasedModifier, Type modifierType, applicationType applyType, int stackAmount, int turnsLeft) : base(canStack, turnBasedModifier, modifierType, applyType, stackAmount, turnsLeft)
         {
             ID = modID;
         }

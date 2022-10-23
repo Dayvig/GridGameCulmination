@@ -10,6 +10,7 @@ public class Model_Game : MonoBehaviour
     public GameObject Guy;
     public GameObject Guy2;
     public GameObject SwordGuy;
+    public GameObject MineGuy;
     public GameObject Display1;
     public GameObject Display2;
     public float cellOffset;
