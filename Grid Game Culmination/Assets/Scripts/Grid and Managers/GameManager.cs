@@ -89,15 +89,37 @@ public class GameManager : MonoBehaviour
 
     public void checkForNextTurn(Player player)
     {
-        if (gridManager.getCharList().Count == 1)
-        {
-            foreach (var characterBehavior in gridManager.getCharList())
+        bool Player1HasCharacters = false;
+        bool Player2HasCharacters = false;
+        foreach (var characterBehavior in gridManager.getCharList())
             {
-                winner = characterBehavior.owner;
+                if (characterBehavior.owner == Player.Player1)
+                    Player1HasCharacters = true;
+                else
+                {
+                    Player2HasCharacters = true;
+                }
             }
-            currentState = GameState.GameOver;
-            return;
-        }
+
+            if (!Player1HasCharacters && Player2HasCharacters)
+            {
+                winner = Player.Player2;
+                currentState = GameState.GameOver;
+                return;
+            }
+            if (!Player2HasCharacters && Player1HasCharacters)
+            {
+                winner = Player.Player2;
+                currentState = GameState.GameOver;
+                return;
+            }
+            if (!Player1HasCharacters && !Player2HasCharacters)
+            {
+                //tie
+                currentState = GameState.GameOver;
+                return;
+            }
+        
         bool isNext = true;
         foreach (var characterBehavior in gridManager.getCharList())
         {

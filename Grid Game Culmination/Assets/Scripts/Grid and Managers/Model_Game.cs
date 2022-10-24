@@ -13,6 +13,7 @@ public class Model_Game : MonoBehaviour
     public GameObject MineGuy;
     public GameObject Display1;
     public GameObject Display2;
+    public GameObject Mine;
     public float cellOffset;
     public List<Sprite> Terrainsprites = new List<Sprite>();
 

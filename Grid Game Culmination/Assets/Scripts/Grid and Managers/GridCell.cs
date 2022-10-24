@@ -13,6 +13,7 @@ namespace DefaultNamespace
         public int terrainType;
         public GameObject occupant;
         public List<int> modifiers = new List<int>();
+        //0: Has a mine
         public GameObject hover;
         public GameObject selector;
         public GridManager manager;
@@ -195,16 +196,27 @@ namespace DefaultNamespace
                 case GameManager.GameState.CharacterAttacking:
                     if (isAttackSelectable)
                     {
+                        //check if it is a ground targeted ability
                         if (manager.selectedCharacterBehavior.currentSelectedAttack.targeting == AbstractAttack.AttackType.GROUND && manager.selectedCharacterBehavior.currentSelectedAttack is GroundTarget)
                         {
                             manager.selectedCharacterBehavior.onAttackGround(this);
                         }
+                        //if not targeting the square the unit is on
                         else if (manager.selectedCharacterBehavior.currentCell != this)
                         {
+                            //if targeting a unit
                             if (occupant != null)
                             {
                                 BaseBehavior target = occupant.GetComponent<BaseBehavior>();
-                                manager.selectedCharacterBehavior.onAttack(target, isOptimal);
+                                //if the unit is an enemy and the ability targets enemies, attack it.
+                                if (target.owner != manager.selectedCharacterBehavior.owner)
+                                {
+                                    manager.selectedCharacterBehavior.onAttack(target, isOptimal);
+                                }
+                                else
+                                {
+                                    manager.DeselectAll();
+                                }
                             }
                             else
                             {
@@ -213,12 +225,14 @@ namespace DefaultNamespace
                         }
                         else
                         {
+                            //if it is a buffing attack
                             if (manager.selectedCharacterBehavior.currentSelectedAttack.targeting == AbstractAttack.AttackType.SELF)
                             {
                                 manager.selectedCharacterBehavior.onAttack(manager.selectedCharacterBehavior, false);
                             }
                             else
                             {
+                                //end the character's turn
                                 manager.selectedCharacterBehavior.endTurn();
                                 gameManager.currentState = GameManager.GameState.Neutral;
                             }

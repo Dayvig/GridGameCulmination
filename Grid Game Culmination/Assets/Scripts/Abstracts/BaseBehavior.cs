@@ -211,6 +211,17 @@ public class BaseBehavior : MonoBehaviour
         }
         return damage;
     }
+    
+    public int calculateDamage(int baseDamage, BaseBehavior target)
+    {
+        int damage = baseDamage;
+        foreach (AbstractModifier a in target.Modifiers)
+        {
+            if (a.aType == AbstractModifier.applicationType.DEFENSIVE) 
+                damage = a.applyModifier(damage);
+        }
+        return damage;
+    }
 
     public void endTurnModifierCheck()
     {

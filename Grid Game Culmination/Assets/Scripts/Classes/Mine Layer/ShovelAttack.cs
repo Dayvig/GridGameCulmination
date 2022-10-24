@@ -16,6 +16,12 @@ namespace DefaultNamespace
         {
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
+            
+            //puts the move on cooldown
+            onCooldown = true;
+            currentCooldown = cooldown;
+            initiator.currentSelectedAttack = initiator.Attacks[0];
+            
             if (target.occupant != null && target.occupant.GetComponent<BaseBehavior>().owner != initiator.owner)
             {
                 BaseBehavior t = target.occupant.GetComponent<BaseBehavior>();

@@ -1538,6 +1538,9 @@ GameObject:
   - component: {fileID: 1205803776}
   - component: {fileID: 1205803777}
   - component: {fileID: 1205803778}
+  - component: {fileID: 1205803779}
+  - component: {fileID: 1205803780}
+  - component: {fileID: 1205803781}
   m_Layer: 0
   m_Name: GameModel
   m_TagString: Untagged
@@ -1565,6 +1568,7 @@ MonoBehaviour:
   MineGuy: {fileID: 7534222056968149757, guid: ab74a12fafcf6b04aa0bc92ec084ac72, type: 3}
   Display1: {fileID: 1019806449}
   Display2: {fileID: 144254460}
+  Mine: {fileID: 8030469421164943848, guid: 85b880c226cb62b42bcf21a0b439a3c0, type: 3}
   cellOffset: 2.2
   Terrainsprites:
   - {fileID: 0}
@@ -2048,6 +2052,80 @@ MonoBehaviour:
   onCooldown: 0
   currentCooldown: 0
   cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &1205803779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7054f66e0dc904cbcb40a7885254d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 3
+  AttackDamage: 4
+  OptimalDamage: 5
+  AttackName: Mine Throw
+  AttackDesc: Throws a mine. Detonates when stepped on. Deals 1 damage to allies
+    only.
+  ID: 1
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 3
+  cooldown: 3
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &1205803780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0821bf11de5642e8853fcf6a5bf07548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  AttackName: Excavate
+  AttackDesc: Turns a tile into a hole.
+  ID: 3
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 3
+  cooldown: 3
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &1205803781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f2c3332f26499b8ffe5423adc1a878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 3
+  AttackDamage: 4
+  OptimalDamage: 6
+  AttackName: Grenade
+  AttackDesc: Hits a square an adjacent squares. Blasts adjacent enemies away one
+    zone.
+  ID: 2
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 4
+  cooldown: 4
   buffAmount: 0
   buffTurns: 0
 --- !u!1 &1324521589
