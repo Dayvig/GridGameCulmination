@@ -100,9 +100,9 @@ public class TracerRound : AbstractAttack
         while (currentMove <= range)
         {
             cursor.isOptimal = true;
-            if (getDirCellFromInt(i, cursor) != null)
+            if (cursor.getDirCellFromInt(i, cursor) != null)
             {
-                cursor = getDirCellFromInt(i, cursor);
+                cursor = cursor.getDirCellFromInt(i, cursor);
                 currentMove++;
             }
             else
@@ -111,24 +111,4 @@ public class TracerRound : AbstractAttack
             }
         }
     }
-
-    private GridCell getDirCellFromInt(int i, GridCell c)
-    {
-        switch (i)
-        {
-            case 0:
-                return c.getNorth();
-            case 1:
-                return c.getSouth();
-            case 2:
-                return c.getEast();
-            case 3:
-                return c.getWest();
-            default:
-                return c.getNorth();
-        }
-    }
-    
-    
-    
 }

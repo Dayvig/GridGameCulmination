@@ -390,6 +390,23 @@ namespace DefaultNamespace
             return (manager.selectedCharacterBehavior.currentMoves <= 0 &&
                    manager.selectedCharacterBehavior.currentAttacks <= 0);
         }
+        
+        public GridCell getDirCellFromInt(int i, GridCell c)
+        {
+            switch (i)
+            {
+                case 0:
+                    return c.getNorth();
+                case 1:
+                    return c.getSouth();
+                case 2:
+                    return c.getEast();
+                case 3:
+                    return c.getWest();
+                default:
+                    return c.getNorth();
+            }
+        }
 
         public void Update()
         {
