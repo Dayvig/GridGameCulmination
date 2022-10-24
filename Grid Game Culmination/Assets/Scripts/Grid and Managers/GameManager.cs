@@ -137,9 +137,9 @@ public class GameManager : MonoBehaviour
     {
         gridManager.MasterGrid.destroyAllCharacters();
         gridManager.MasterGrid.DeselectAll();
-        gridManager.displayIndex = 0;
-        gridManager.addNewCharacter(Instantiate(gameModel.SwordGuy), 0, 4, GameManager.Player.Player1);
-        gridManager.addNewCharacter(Instantiate(gameModel.Guy2), 9, 4, GameManager.Player.Player2);
+        gridManager.addNewCharacter(Instantiate(gameModel.SwordGuy), 0, 4, GameManager.Player.Player1, 0);
+        gridManager.addNewCharacter(Instantiate(gameModel.Guy2), 12, 4, GameManager.Player.Player2, 1);
+        gridManager.addNewCharacter(Instantiate(gameModel.MineGuy), 13, 4, GameManager.Player.Player2, 2);
         ResetCharacterValues(Player.Player1);
         ResetCharacterValues(Player.Player2);
         currentTurn = Player.Player1;

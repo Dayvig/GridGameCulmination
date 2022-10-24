@@ -11,8 +11,7 @@ public class Model_Game : MonoBehaviour
     public GameObject Guy2;
     public GameObject SwordGuy;
     public GameObject MineGuy;
-    public GameObject Display1;
-    public GameObject Display2;
+    public List <GameObject> Displays = new List<GameObject>();
     public GameObject Mine;
     public float cellOffset;
     public List<Sprite> Terrainsprites = new List<Sprite>();

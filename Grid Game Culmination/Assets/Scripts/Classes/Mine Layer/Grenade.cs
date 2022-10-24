@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -64,6 +65,8 @@ namespace DefaultNamespace
             previousCells.Add(startingCell);
         
             List<GridCell> surroundingCells = new List<GridCell>();
+            List<GridCell> allCheckedCells = new List<GridCell>();
+            allCheckedCells.Add(startingCell);
         
             while (currentMove < range)
             {
@@ -73,16 +76,25 @@ namespace DefaultNamespace
                             for (int i = 0; i < 8; i++)
                             {
                                 GridCell n = nextCell.neighbors[i];
-                                if (n != null)
+                                if (n != null && !allCheckedCells.Contains(n))
+                                {
                                     surroundingCells.Add(n);
+                                    allCheckedCells.Add(n);
+                                }
                             }
                 }
-            
-                //adds the accessible neighbors to the cells in range
-                inRangeCells.AddRange(surroundingCells);
+                
+                
+                if (currentMove != 0)
+                {
+                    inRangeCells.AddRange(surroundingCells);
+                }
 
                 //these new accessible neighbors become the previous cells
                 previousCells = surroundingCells.Distinct().ToList();
+                
+                //clears previous surrounding cells
+                surroundingCells.Clear();
                 
                 //reduces movement count
                 currentMove++;
@@ -113,9 +125,9 @@ namespace DefaultNamespace
         {
             if (currentMove == range)
                 cursor.isOptimal = true;
-            if (getDirCellFromInt(i, cursor) != null)
+            if (cursor.getDirCellFromInt(i, cursor) != null)
             {
-                cursor = getDirCellFromInt(i, cursor);
+                cursor = cursor.getDirCellFromInt(i, cursor);
                 currentMove++;
             }
             else
@@ -124,24 +136,5 @@ namespace DefaultNamespace
             }
         }
     }
-
-    private GridCell getDirCellFromInt(int i, GridCell c)
-    {
-        switch (i)
-        {
-            case 0:
-                return c.getNorth();
-            case 1:
-                return c.getSouth();
-            case 2:
-                return c.getEast();
-            case 3:
-                return c.getWest();
-            default:
-                return c.getNorth();
-        }
-    }
-        
-        
     }
 }

@@ -35,7 +35,6 @@ public class GridManager : MonoBehaviour
     public GameObject selectedCharacter;
     public BaseBehavior selectedCharacterBehavior;
     public int currentSelectedAttack = 0;
-    public int displayIndex = 0;
     public int count = 0;
     
     // Start is called before the first frame update
@@ -52,13 +51,13 @@ public class GridManager : MonoBehaviour
         selectedCell = null;
         
         //make the first guy
-        addNewCharacter(Instantiate(gameModel.SwordGuy), 0, 4, GameManager.Player.Player1);
+        addNewCharacter(Instantiate(gameModel.SwordGuy), 0, 4, GameManager.Player.Player1, 0);
         
         //make the second guy
-        addNewCharacter(Instantiate(gameModel.Guy2), 13, 4, GameManager.Player.Player2);
+        addNewCharacter(Instantiate(gameModel.Guy2), 13, 4, GameManager.Player.Player2, 1);
 
         //make the third guy
-        addNewCharacter(Instantiate(gameModel.MineGuy), 12, 4, GameManager.Player.Player2);
+        addNewCharacter(Instantiate(gameModel.MineGuy), 12, 4, GameManager.Player.Player2, 2);
 
         
     }
@@ -167,30 +166,19 @@ public class GridManager : MonoBehaviour
     }
     
     public void SetupDisplay(int index, BaseBehavior characterToAdd){
-        switch (index)
-        {
-            case 0:
-                CharacterDisplay thisDisplay = gameModel.Display1.GetComponent<CharacterDisplay>();
-                thisDisplay.character = characterToAdd;
-                thisDisplay.initialize();
-                break;
-            case 1:
-                CharacterDisplay thisDisplay2 = gameModel.Display2.GetComponent<CharacterDisplay>();
-                thisDisplay2.character = characterToAdd;
-                thisDisplay2.initialize();
-                break;
-        }
+        CharacterDisplay thisDisplay = gameModel.Displays[index].GetComponent<CharacterDisplay>();
+        thisDisplay.character = characterToAdd;
+        thisDisplay.initialize();
     }
 
-    public void addNewCharacter(GameObject newChar, int gridXPos, int gridYPos, GameManager.Player charOwner)
+    public void addNewCharacter(GameObject newChar, int gridXPos, int gridYPos, GameManager.Player charOwner, int disIndex)
     {
         MasterGrid.contents[gridXPos].contents[gridYPos].occupant = newChar;
         BaseBehavior behavior = newChar.GetComponent<BaseBehavior>();
         behavior.currentCell = MasterGrid.contents[gridXPos].contents[gridYPos];
         behavior.owner = charOwner;
         behavior.Initialize();
-        SetupDisplay(displayIndex, behavior);
-        displayIndex++;
+        SetupDisplay(disIndex, behavior);
     }
     
     

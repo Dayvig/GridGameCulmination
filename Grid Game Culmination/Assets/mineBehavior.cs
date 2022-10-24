@@ -10,11 +10,17 @@ public class mineBehavior : MonoBehaviour
     public GridCell cell;
     private int damage = 0;
     public GameManager.Player owner;
+    public GameManager gameManager;
 
     // Start is called before the first frame update
     public void setDamage(int d)
     {
         damage = d;
+    }
+
+    public void Start()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -56,6 +62,8 @@ public class mineBehavior : MonoBehaviour
             {
                 cell.modifiers.RemoveAt(toRemove);
             }
+            
+            gameManager.checkForNextTurn(owner);
             Destroy(this.gameObject);
         }
     }
