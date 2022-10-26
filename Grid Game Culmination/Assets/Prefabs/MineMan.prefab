@@ -257,8 +257,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
-  m_Color: {r: 0.94509804, g: 0.91521764, b: 0.5647059, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e86feb531be218443ba89455e95f0109, type: 3}
+  m_Color: {r: 0.8867924, g: 0.53960484, b: 0.53960484, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -307,6 +307,7 @@ MonoBehaviour:
   currentSelectedAttack: {fileID: 0}
   buffIcons: []
   buffTexts: []
+  portrait: {fileID: 21300000, guid: b4b321e94931ad347ab682e0b4ed0fd2, type: 3}
   owner: 0
 --- !u!1 &7801118295045406560
 GameObject:

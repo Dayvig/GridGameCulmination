@@ -31,10 +31,12 @@ public class BaseBehavior : MonoBehaviour
     public AbstractAttack currentSelectedAttack;
     public List<GameObject> buffIcons = new List<GameObject>();
     public List<TextMeshProUGUI> buffTexts = new List<TextMeshProUGUI>();
+    public Sprite portrait;
 
     public GameManager.Player owner;
     public List<AbstractModifier> Modifiers = new List<AbstractModifier>();
     public List<AbstractModifier> toRemove = new List<AbstractModifier>();
+    public bool specialMovement;
     
     void Start()
     {
@@ -44,6 +46,8 @@ public class BaseBehavior : MonoBehaviour
     {
         
     }
+
+    public virtual void onSpecialMovement() { }
 
     public void onSelect()
     {
@@ -62,7 +66,7 @@ public class BaseBehavior : MonoBehaviour
         }
     }
 
-    public void onMove(GridCell moveTo)
+    public virtual void onMove(GridCell moveTo)
     {
         currentMoves--;
         if (moveTo.movementCount < dash)
@@ -103,7 +107,7 @@ public class BaseBehavior : MonoBehaviour
                     if (g.neighbors[i] != null && g.neighbors[i].terrainType != 0)
                     {
                         int movePenaltyToGive = 1;
-                        if (g.terrainType == 2)
+                        if (g.terrainType == 2 || g.modifiers.Contains(0))
                         {
                             movePenaltyToGive = 2;
                         }
@@ -154,7 +158,7 @@ public class BaseBehavior : MonoBehaviour
         }
     }
 
-    public void onAttack(BaseBehavior target, bool isOptimal)
+    public virtual void onAttack(BaseBehavior target, bool isOptimal)
     {
         //launches the attack
         currentSelectedAttack.use(this, target, isOptimal);

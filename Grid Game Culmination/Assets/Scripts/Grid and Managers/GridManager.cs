@@ -58,6 +58,10 @@ public class GridManager : MonoBehaviour
 
         //make the third guy
         addNewCharacter(Instantiate(gameModel.MineGuy), 12, 4, GameManager.Player.Player2, 2);
+        
+        //make the third guy
+        addNewCharacter(Instantiate(gameModel.Knight), 1, 4, GameManager.Player.Player1, 3);
+
 
         
     }

@@ -48,8 +48,8 @@ public class UIManager : MonoBehaviour
 
     public void ButtonPressed(int index)
     {
-        //executes only if the attack is not on cooldown
-        if (!manager.selectedCharacterBehavior.Attacks[index].onCooldown)
+        //executes only if the attack is not on cooldown or unit is not out of attacks
+        if (!manager.selectedCharacterBehavior.Attacks[index].onCooldown && manager.selectedCharacterBehavior.currentAttacks > 0)
         {
             //Lets the grid manager know what attack is selected
             manager.currentSelectedAttack = index;
@@ -111,16 +111,33 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < manager.selectedCharacterBehavior.Attacks.Length; i++)
                 {
+                    
+                    
+                    
                     if (manager.selectedCharacterBehavior.Attacks[i] != null)
                     {
+                        //sets it to a normal state
+                        var colors = AttackButtonsReal[i].colors;
+                        colors.normalColor = Color.white;
+                        colors.selectedColor = Color.white;
+                        colors.highlightedColor = Color.red;
+                        AttackButtonsReal[i].colors = colors;
                         AttackButtons[i].SetActive(true);
                         ButtonTexts[i].text = manager.selectedCharacterBehavior.Attacks[i].AttackName;
+                        
+                        if (manager.selectedCharacterBehavior.currentAttacks <= 0)
+                        {
+                            colors.normalColor = Color.grey;
+                            colors.selectedColor = Color.grey;
+                            colors.highlightedColor = new Color(0.4f, 0.4f, 0.2f, 1f);
+                            AttackButtonsReal[i].colors = colors;
+                        }
                         if (manager.selectedCharacterBehavior.Attacks[i].onCooldown)
                         {
                             Clocks[i].SetActive(true);
                             cooldownDisplay[i].gameObject.SetActive(true);
                             cooldownDisplay[i].text = "" + manager.selectedCharacterBehavior.Attacks[i].currentCooldown;
-                            var colors = AttackButtonsReal[i].colors;
+                            colors = AttackButtonsReal[i].colors;
                             colors.normalColor = Color.grey;
                             colors.selectedColor = Color.grey;
                             colors.highlightedColor = new Color(0.4f, 0.4f, 0.2f, 1f);
@@ -130,11 +147,6 @@ public class UIManager : MonoBehaviour
                         {
                             Clocks[i].SetActive(false);
                             cooldownDisplay[i].gameObject.SetActive(false);
-                            var colors = AttackButtonsReal[i].colors;
-                            colors.normalColor = Color.white;
-                            colors.selectedColor = Color.white;
-                            colors.highlightedColor = Color.red;
-                            AttackButtonsReal[i].colors = colors;
                         }
                     }
                     else

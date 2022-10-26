@@ -24,6 +24,7 @@ public class CharacterDisplay : MonoBehaviour
     public List<TextMeshProUGUI> ModTexts = new List<TextMeshProUGUI>();
     public List<Image> ModIcons = new List<Image>();
     public Model_Modifiers modsModel;
+    public SpriteRenderer portrait;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,7 @@ public class CharacterDisplay : MonoBehaviour
         {
             g.SetActive(false);
         }
+        portrait.sprite = character.portrait;
     }
 
     // Update is called once per frame

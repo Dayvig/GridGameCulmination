@@ -194,6 +194,17 @@ namespace DefaultNamespace
                     }
                     break;
                 case GameManager.GameState.CharacterAttacking:
+                    if (isMovementSelectable && manager.selectedCharacterBehavior.specialMovement)
+                    {
+                        if (manager.selectedCharacterBehavior.currentCell != this)
+                        {
+                            BaseBehavior character = manager.selectedCharacterBehavior;
+                            character.onSpecialMovement();
+                            character.currentCell.occupant = null;
+                            character.currentCell = this;
+                            character.currentCell.occupant = character.gameObject;
+                        }
+                    }
                     if (isAttackSelectable)
                     {
                         //check if it is a ground targeted ability
