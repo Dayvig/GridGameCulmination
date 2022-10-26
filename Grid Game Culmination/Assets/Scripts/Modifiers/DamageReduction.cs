@@ -15,7 +15,7 @@ namespace DefaultNamespace
             amount = stackAmount;
             turns = turnsLeft;
         }
-        public override int applyModifier(int input)
+        public override int applyModifier(int input, BaseBehavior target, BaseBehavior initiator)
         {
             return input / (2 * amount);
         }

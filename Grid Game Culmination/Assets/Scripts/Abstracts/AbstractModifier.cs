@@ -49,7 +49,7 @@ namespace DefaultNamespace
         }
 
         public void endTurnTrigger() {}
-        public abstract int applyModifier(int input);
+        public abstract int applyModifier(int input, BaseBehavior target, BaseBehavior initiator);
         public abstract int getKey();
         public abstract void setStrings();
         

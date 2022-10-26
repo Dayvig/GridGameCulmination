@@ -82,7 +82,7 @@ namespace Classes.Knight
             
                 Attacks[0] = gameModel.GetComponent<BasicKnightAttack>();
                 Attacks[1] = gameModel.GetComponent<Charge>();
-                Attacks[2] = gameModel.GetComponent<Grenade>();
+                Attacks[2] = gameModel.GetComponent<Challenge>();
                 Attacks[3] = gameModel.GetComponent<Excavate>();
         
                 currentSelectedAttack = Attacks[0];

@@ -407,11 +407,11 @@ namespace DefaultNamespace
             switch (i)
             {
                 case 0:
-                    return c.getNorth();
-                case 1:
                     return c.getSouth();
-                case 2:
+                case 1:
                     return c.getEast();
+                case 2:
+                    return c.getNorth();
                 case 3:
                     return c.getWest();
                 default:

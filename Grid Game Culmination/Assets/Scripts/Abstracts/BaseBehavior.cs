@@ -206,12 +206,12 @@ public class BaseBehavior : MonoBehaviour
         foreach (AbstractModifier a in initiator.Modifiers)
         {
             if (a.aType == AbstractModifier.applicationType.OFFENSIVE) 
-                damage = a.applyModifier(damage);
+                damage = a.applyModifier(damage, target, initiator);
         }
         foreach (AbstractModifier a in target.Modifiers)
         {
             if (a.aType == AbstractModifier.applicationType.DEFENSIVE) 
-            damage = a.applyModifier(damage);
+            damage = a.applyModifier(damage, target, initiator);
         }
         return damage;
     }
@@ -222,7 +222,7 @@ public class BaseBehavior : MonoBehaviour
         foreach (AbstractModifier a in target.Modifiers)
         {
             if (a.aType == AbstractModifier.applicationType.DEFENSIVE) 
-                damage = a.applyModifier(damage);
+                damage = a.applyModifier(damage, target, this);
         }
         return damage;
     }

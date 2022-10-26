@@ -17,9 +17,9 @@ namespace DefaultNamespace
             turns = turnsLeft;
         }
 
-        public override int applyModifier(int damage)
+        public override int applyModifier(int input, BaseBehavior target, BaseBehavior initiator)
         {
-            return damage * (2 * amount);
+            return input * (2 * amount);
         }
 
         public override int getKey()

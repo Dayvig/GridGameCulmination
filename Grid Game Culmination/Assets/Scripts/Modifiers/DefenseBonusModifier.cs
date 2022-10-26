@@ -1,4 +1,6 @@
-﻿namespace DefaultNamespace
+﻿using UnityEngine;
+
+namespace DefaultNamespace
 {
     public class DefenseBonusModifier : AbstractModifier
     {
@@ -35,9 +37,9 @@
             ID = modID;
         }
         
-        public override int applyModifier(int damage)
+        public override int applyModifier(int input, BaseBehavior target, BaseBehavior initiator)
         {
-            return damage - amount;
+            return input - amount;
         }
 
         public override int getKey()
