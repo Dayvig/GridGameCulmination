@@ -25,7 +25,8 @@ namespace DefaultNamespace
         {
             ENEMY,
             SELF,
-            GROUND
+            GROUND,
+            ALLY
         }
 
         public abstract void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal);

@@ -13,6 +13,7 @@ namespace DefaultNamespace
         
         public String name;
         public Sprite image;
+        public String passiveText;
 
         public AbstractAttack[] Attacks = new AbstractAttack[5];
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI DescBox;
     public TextMeshProUGUI RangeBox;
     public TextMeshProUGUI DamageBox;
+    public TextMeshProUGUI PassiveBox;
     public GameObject SidePanel;
     public Button[] AttackButtonsReal = new Button[5];
     public GameObject[] Clocks = new GameObject[5];
@@ -83,6 +85,7 @@ public class UIManager : MonoBehaviour
                 SidePanel.SetActive(true);
                 AbstractAttack current = manager.selectedCharacterBehavior.currentSelectedAttack;
                 manager.currentSelectedAttack = manager.selectedCharacterBehavior.currentSelectedAttack.ID;
+                PassiveBox.text = "Passive: "+manager.selectedCharacterBehavior.passive;
                 if (current.targeting.Equals(AbstractAttack.AttackType.SELF))
                 {
                     DescBox.text = current.AttackDesc;
@@ -111,8 +114,6 @@ public class UIManager : MonoBehaviour
 
                 for (int i = 0; i < manager.selectedCharacterBehavior.Attacks.Length; i++)
                 {
-                    
-                    
                     
                     if (manager.selectedCharacterBehavior.Attacks[i] != null)
                     {

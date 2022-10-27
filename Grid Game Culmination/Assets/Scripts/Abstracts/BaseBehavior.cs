@@ -32,6 +32,7 @@ public class BaseBehavior : MonoBehaviour
     public List<GameObject> buffIcons = new List<GameObject>();
     public List<TextMeshProUGUI> buffTexts = new List<TextMeshProUGUI>();
     public Sprite portrait;
+    public String passive;
 
     public GameManager.Player owner;
     public List<AbstractModifier> Modifiers = new List<AbstractModifier>();
@@ -180,7 +181,6 @@ public class BaseBehavior : MonoBehaviour
 
     public void onAttackGround(GridCell target)
     {
-        Debug.Log("Hit da earf " + target.name);
         GroundTarget nextAttack = (GroundTarget)currentSelectedAttack;
         //launches the attack
         nextAttack.groundUse(this, target);
@@ -277,7 +277,7 @@ public class BaseBehavior : MonoBehaviour
     }
 
 
-    public void onReset()
+    public virtual void onReset()
     {
         GlowRen.color = Color.blue;
         

@@ -188,8 +188,8 @@ namespace DefaultNamespace
                         {
                             gameManager.currentState = GameManager.GameState.CharacterAttacking;
                             manager.selectedCharacterBehavior.currentMoves = 0;
-                            manager.selectedCharacterBehavior.onSelect();
                             manager.MasterGrid.WipeMovement();
+                            manager.selectedCharacterBehavior.onSelect();
                         }
                     }
                     break;
@@ -226,13 +226,14 @@ namespace DefaultNamespace
                                 }
                                 else
                                 {
-                                    manager.DeselectAll();
+                                    //if the ability targets allies
+                                    if (manager.selectedCharacterBehavior.currentSelectedAttack.targeting == AbstractAttack.AttackType.ALLY) {
+                                        manager.selectedCharacterBehavior.onAttack(target, isOptimal);
+                                    }
+                                    else { manager.DeselectAll(); }
                                 }
                             }
-                            else
-                            {
-                                manager.DeselectAll();
-                            }
+                            else { manager.DeselectAll(); }
                         }
                         else
                         {

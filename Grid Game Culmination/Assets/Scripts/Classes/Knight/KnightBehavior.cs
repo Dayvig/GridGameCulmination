@@ -5,7 +5,8 @@ namespace Classes.Knight
 {
     public class KnightBehavior : BaseBehavior
     {
-        public bool isRescuing;
+        public bool hasRescue = false;
+        public BaseBehavior RescueTarget;
 
         public override void onAttack(BaseBehavior target, bool isOptimal)
         {
@@ -78,15 +79,30 @@ namespace Classes.Knight
                 attacksPerTurn = values.attacksPerTurn;
                 currentAttacks = attack = values.attacksPerTurn;
                 currentMoves = movesPerTurn = values.movesPerTurn;
+                passive = values.passiveText;
 
-            
+
                 Attacks[0] = gameModel.GetComponent<BasicKnightAttack>();
                 Attacks[1] = gameModel.GetComponent<Charge>();
                 Attacks[2] = gameModel.GetComponent<Challenge>();
-                Attacks[3] = gameModel.GetComponent<Excavate>();
+                Attacks[3] = gameModel.GetComponent<Rescue>();
         
                 currentSelectedAttack = Attacks[0];
                 Debug.Assert(currentCell != null, "Character is not on a cell");
             }
+        
+        public override void onReset()
+        {
+            GlowRen.color = Color.blue;
+            specialMovement = false;
+            if (!hasRescue)
+            {
+                Attacks[4] = null;
+            }
+            else
+            {
+                Attacks[4] = gameModel.GetComponent<Drop>();
+            }
         }
     }
+}

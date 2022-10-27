@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Classes.Knight;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -67,26 +68,49 @@ public class GameManager : MonoBehaviour
 
     public void ResetCharacterValues(Player player)
     {
+        List<BaseBehavior> extraList = new List<BaseBehavior>();
         foreach (var characterBehavior in gridManager.getCharList())
         {
             if (characterBehavior.owner == player)
             {
-                characterBehavior.currentMoves = characterBehavior.movesPerTurn;
-                characterBehavior.currentAttacks = characterBehavior.attacksPerTurn;
-                characterBehavior.move = characterBehavior.baseMove;
-                foreach (AbstractAttack a in characterBehavior.Attacks)
+                ResetChar(characterBehavior);
+                //if a unit is picked up by a knight, it adds it to an extra list
+                if (characterBehavior is KnightBehavior)
                 {
-                    if (a != null && a.onCooldown)
+                    KnightBehavior knightB = (KnightBehavior) characterBehavior;
+                    if (knightB.hasRescue)
                     {
-                        a.reduceCooldown();
+                        extraList.Add(knightB.RescueTarget);
                     }
                 }
-                characterBehavior.endTurnModifierCheck();
-                characterBehavior.onReset();
+            }
+        }
+        
+        //updates all in the extra list
+        foreach (var characterBehavior in extraList)
+        {
+            if (characterBehavior.owner == player)
+            {
+                ResetChar(characterBehavior);
             }
         }
     }
 
+    public void ResetChar(BaseBehavior ch)
+    {
+        ch.currentMoves = ch.movesPerTurn;
+        ch.currentAttacks = ch.attacksPerTurn;
+        ch.move = ch.baseMove;
+        foreach (AbstractAttack a in ch.Attacks)
+        {
+            if (a != null && a.onCooldown)
+            {
+                a.reduceCooldown();
+            }
+        }
+        ch.endTurnModifierCheck();
+        ch.onReset();
+    }
     public void checkForNextTurn(Player player)
     {
         bool Player1HasCharacters = false;
