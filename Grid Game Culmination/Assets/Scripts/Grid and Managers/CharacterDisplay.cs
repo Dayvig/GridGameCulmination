@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
@@ -9,6 +10,7 @@ public class CharacterDisplay : MonoBehaviour
 {
 
     protected Model_Game gameModel;
+    public UIManager UI;
     public GameManager gameManager;
     public GridManager gridManager;
     public BaseBehavior character;
@@ -21,10 +23,10 @@ public class CharacterDisplay : MonoBehaviour
     public TextMeshProUGUI hpText;
     public List<GameObject> Mods = new List<GameObject>();
     public RectTransform HealthBar;
-    public List<TextMeshProUGUI> ModTexts = new List<TextMeshProUGUI>();
     public List<Image> ModIcons = new List<Image>();
     public Model_Modifiers modsModel;
     public SpriteRenderer portrait;
+    public int hoveredBuffID;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,8 @@ public class CharacterDisplay : MonoBehaviour
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         modsModel = GameObject.Find("GameModel").GetComponent<Model_Modifiers>();
+        UI = GameObject.Find("GameManager").GetComponent<UIManager>();
+
     }
 
     public void initialize()
@@ -55,13 +59,31 @@ public class CharacterDisplay : MonoBehaviour
         setBuffs();
         setHealth();
     }
-
+    
     void setHealth()
     {
         currentHP = character.HP;
         float hpScale = (float) currentHP / maxHP;
         HealthBar.localScale = new Vector3(1, hpScale, 1);
         hpText.text = "HP: " + currentHP + "/" + maxHP;
+    }
+
+    public void onEnter()
+    {
+        UI.toolTipTrigger = true;
+        UI.hoverCtr = 0;
+        UI.tooltiptext.text = SetToolText();
+    }
+
+    public void onExit()
+    {
+        UI.toolTipTrigger = false;
+        UI.hoverCtr = 0;
+    }
+    
+    private String SetToolText()
+    {
+        return character.Modifiers[hoveredBuffID].setDesc();
     }
 
     void setBuffs()
@@ -77,7 +99,6 @@ public class CharacterDisplay : MonoBehaviour
                 if (character.Modifiers[k] != null)
                 {
                     Mods[k].SetActive(true);
-                    ModTexts[k].text = character.Modifiers[k].setDesc();
                     ModIcons[k].sprite = modsModel.modIcons[character.Modifiers[k].getKey()];
                 }
             }

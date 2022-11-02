@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Transactions;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,7 +26,8 @@ namespace DefaultNamespace
         public bool isMovementSelectable;
         public bool isAttackSelectable;
         public bool isOptimal;
-        public GameManager gameManager; 
+        public GameManager gameManager;
+        public UIManager uiManager;
         public int movementCount = 0;
         public bool isNumModified;
         public SpriteRenderer TerrainSprite;
@@ -129,6 +132,7 @@ namespace DefaultNamespace
             manager = GameObject.Find("GameManager").GetComponent<GridManager>();
             gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            uiManager = GameObject.Find("GameManager").GetComponent<UIManager>();
             manager.selectedCell = null;
             hover.SetActive(false);
             selector.SetActive(false);
@@ -142,29 +146,81 @@ namespace DefaultNamespace
                 case 0:
                     cell.enabled = false;
                     break;
+                //case 1:
                 //normal
+                //Hills
                 case 2:
                     TerrainSprite.enabled = true;
                     TerrainSprite.sprite = gameModel.Terrainsprites[2];
+                    break;
+                //High Ground
+                case 3:
+                    TerrainSprite.enabled = true;
+                    TerrainSprite.sprite = gameModel.Terrainsprites[3];
                     break;
             }
         }
         void OnMouseEnter()
         {
+            //cell is hovered
             if (cell.enabled)
             {
                 hover.SetActive(true);
             }
-            //cell is hovered
+
+            uiManager.toolTipTrigger = true;
+            uiManager.hoverCtr = 0;
+            uiManager.tooltiptext.text = SetToolText(this);
+        }
+
+        private String SetToolText(GridCell g)
+        {
+            String tmp = "";
+            switch (terrainType)
+            {
+                case 0:
+                    tmp += "Hole Tile. Cannot be traversed.";
+                    break;
+                case 1:
+                    tmp += "Normal Tile.";
+                    break;
+                case 2:
+                    tmp += "Hill Tile. Costs 2 movement points to enter.";
+                    break;
+                case 3:
+                    tmp +=
+                        "High Ground. Costs 2 movement points to enter. Units on high ground deal +1 damage to units not on high ground.";
+                    break;
+                default:
+                    tmp += "What is you doing?";
+                    break;
+            }
+
+            foreach (int m in modifiers)
+            {
+                switch (m)
+                {
+                    case 0:
+                        tmp += "\nMine. Deals damage when stepped on, and Costs 3 movement points to enter.";
+                        break;
+                    default:
+                        tmp += "What is you doing?";
+                        break;
+                } 
+            }
+
+            return tmp;
         }
         
         void OnMouseExit()
         {
+            //cell is no longer hovered
             if (cell.enabled)
             {
                 hover.SetActive(false);
             }
-            //cell is no longer hovered
+            uiManager.toolTipTrigger = false;
+            uiManager.hoverCtr = 0;
         }
 
         public void OnMouseUp()
@@ -312,6 +368,18 @@ namespace DefaultNamespace
 
         }
 
+        public AbstractModifier getTerrainMod()
+        {
+            switch (terrainType)
+            {
+                case 3:
+                    return new HighGroundModifier();
+                    break;
+            }
+
+            return null;
+        }
+
         public void moveCharacterToCell(GridCell moveTo, BaseBehavior character)
         {
             character.currentCell.occupant = null;
@@ -394,6 +462,37 @@ namespace DefaultNamespace
         {
             isMovementSelectable = false;
             tint.gameObject.SetActive(false);
+        }
+
+        public int movementPenalty()
+        {
+            if (occupant != null && occupant.GetComponent<BaseBehavior>().owner != gameManager.currentTurn)
+                return 100;
+            
+            int penalty = 1;
+            switch (terrainType)
+            {
+                case 2:
+                    penalty = pickHighestPenalty(penalty, 2);
+                    break;
+                case 3:
+                    penalty = pickHighestPenalty(penalty, 2);
+                    break;
+            }
+
+            foreach (int i in modifiers)
+            {
+                if (i == 0)
+                {
+                    penalty = pickHighestPenalty(penalty, 2);
+                }
+            }
+            return penalty;
+        }
+
+        public int pickHighestPenalty(int penalty, int newPenalty)
+        {
+            return newPenalty > penalty ? newPenalty : penalty;
         }
 
         public bool checkForOutOfActions()

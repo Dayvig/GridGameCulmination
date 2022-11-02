@@ -17,8 +17,8 @@ public class GridManager : MonoBehaviour
         {1, 0, 1, 2, 0, 0, 1, 1, 0, 1, 1, 1, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-        {1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
+        {1, 0, 1, 1, 3, 3, 3, 3, 0, 1, 1, 1, 1},
+        {1, 0, 1, 1, 3, 3, 3, 3, 0, 1, 1, 1, 1},
         {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1},
@@ -182,6 +182,16 @@ public class GridManager : MonoBehaviour
         behavior.currentCell = MasterGrid.contents[gridXPos].contents[gridYPos];
         behavior.owner = charOwner;
         behavior.Initialize();
+        SpriteRenderer charImage = newChar.GetComponent<SpriteRenderer>();
+        switch (charOwner)
+        {
+            case GameManager.Player.Player1:
+                charImage.color = gameModel.blueTeamColor;
+                break;
+            case GameManager.Player.Player2:
+                charImage.color = gameModel.redTeamColor;
+                break;
+        }
         SetupDisplay(disIndex, behavior);
     }
     

@@ -27,6 +27,7 @@ namespace DefaultNamespace
         public int turns;
         public int key;
         public String[] modifierDescriptions = new String[3];
+        public bool isTerrainModifier = false;
 
         public AbstractModifier()
         {

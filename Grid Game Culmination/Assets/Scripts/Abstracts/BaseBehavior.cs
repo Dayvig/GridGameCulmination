@@ -69,6 +69,7 @@ public class BaseBehavior : MonoBehaviour
 
     public virtual void onMove(GridCell moveTo)
     {
+        onDisplace(moveTo);
         currentMoves--;
         if (moveTo.movementCount < dash)
         {
@@ -83,6 +84,29 @@ public class BaseBehavior : MonoBehaviour
             GlowRen.color = Color.red;
         }
         manager.checkForNextTurn(owner);
+    }
+
+    public virtual void onDisplace(GridCell moveTo)
+    {
+        List<AbstractModifier> toRemove = new List<AbstractModifier>();
+        foreach (AbstractModifier a in Modifiers)
+        {
+            if (a.isTerrainModifier)
+            {
+                toRemove.Add(a);
+            }
+        }
+        foreach (AbstractModifier r in toRemove)
+        {
+            Modifiers.Remove(r);
+        }
+
+        AbstractModifier newTerrainMod = moveTo.getTerrainMod();
+        if (newTerrainMod != null)
+        {
+            newTerrainMod.setStrings();
+            Modifiers.Add(newTerrainMod);
+        }
     }
     
     public virtual void showMovementSquares(GridCell startingCell, int movementValue, int dashValue)
@@ -107,17 +131,7 @@ public class BaseBehavior : MonoBehaviour
                 {
                     if (g.neighbors[i] != null && g.neighbors[i].terrainType != 0)
                     {
-                        int movePenaltyToGive = 1;
-                        if (g.terrainType == 2 || g.modifiers.Contains(0))
-                        {
-                            movePenaltyToGive = 2;
-                        }
-
-                        if (g.occupant != null && g.occupant.GetComponent<BaseBehavior>().owner !=
-                            manager.currentTurn)
-                        {
-                            movePenaltyToGive = 100;
-                        }
+                        int movePenaltyToGive = g.movementPenalty();
 
                         if (g.neighbors[i].movementCount < g.movementCount)
                         {

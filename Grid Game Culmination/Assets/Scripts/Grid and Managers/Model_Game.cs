@@ -27,5 +27,8 @@ public class Model_Game : MonoBehaviour
     //(0.4f, 1f, 0.3f, 0.4f);
     public Color movementTint2;
     //(0, 0.8f, 1f, 0.4f)
-
+    public Color blueTeamColor;
+    //(0.2, 0.5, 1, 0.4)
+    public Color redTeamColor;
+    //(1, 0.2, 0.2, 0.4)
 }

@@ -36,6 +36,7 @@ namespace Classes.Knight
         
         public override void onMove(GridCell moveTo)
         {
+            onDisplace(moveTo);
             currentMoves--;
             move = moveTo.movementCount - dash;
             if (move < 0) move = 0;

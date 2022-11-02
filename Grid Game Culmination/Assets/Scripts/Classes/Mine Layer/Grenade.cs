@@ -46,6 +46,7 @@ namespace DefaultNamespace
                             targetB.currentCell.occupant = null;
                             targetB.currentCell = targetB.currentCell.neighbors[i];
                             targetB.currentCell.occupant = targetB.gameObject;
+                            targetB.onDisplace(targetB.currentCell);
                         }
                     }
                 }

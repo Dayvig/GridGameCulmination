@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
@@ -25,6 +26,14 @@ public class UIManager : MonoBehaviour
     public GameObject[] Clocks = new GameObject[5];
     public TextMeshProUGUI[] cooldownDisplay = new TextMeshProUGUI[5];
     public Button ReplayButton;
+    public GameObject tooltip;
+    public TextMeshPro tooltiptext;
+    public int tooltipOffsetX;
+    public int tooltipOffsetY;
+    public int tooltipDist;
+    public float hoverCtr;
+    public float hoverTime;
+    public bool toolTipTrigger = false;
     
     // Start is called before the first frame update
     void Start()
@@ -32,6 +41,7 @@ public class UIManager : MonoBehaviour
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         manager = GameObject.Find("GameManager").GetComponent<GridManager>();
+        
         for (int i = 0; i < AttackButtons.Length; i++)
         {
             Button btn = AttackButtons[i].GetComponent<Button>();
@@ -65,12 +75,30 @@ public class UIManager : MonoBehaviour
             manager.selectedCharacterBehavior.onSelect();
         }
     }
-    
-    
 
+
+    public void tooltipUpdate()
+    {
+        if (toolTipTrigger) {hoverCtr += Time.deltaTime;}
+        if (toolTipTrigger && hoverCtr > hoverTime)
+        {
+            tooltip.SetActive(true);
+            Vector3 toPos = new Vector3(Input.mousePosition.x - tooltipOffsetX, Input.mousePosition.y - tooltipOffsetY,
+                tooltipDist);
+            tooltip.transform.position = Camera.main.ScreenToWorldPoint(toPos);
+        }
+        else
+        {
+            tooltip.SetActive(false);
+        }
+    }
+    
+    
     // Update is called once per frame
     void Update()
     {
+        tooltipUpdate();
+        
         if (gameManager.currentState == GameManager.GameState.GameOver)
         {
             SidePanel.SetActive(false);
@@ -155,10 +183,41 @@ public class UIManager : MonoBehaviour
                         AttackButtons[i].SetActive(false);
                     }
                 }
-            }
-            else
-            {
-                SidePanel.SetActive(false);
-            }
         }
+        else
+        { 
+            SidePanel.SetActive(false); 
+        }
+    }
+    
+    //From FlashG
+    /*https://gist.github.com/FlaShG/ac3afac0ef65d98411401f2b4d8a43a5
+        public static Vector3 WorldToCanvasPosition(this Canvas canvas, Vector3 worldPosition, Camera camera = null)
+        {
+            if (camera == null)
+            {
+                camera = Camera.main;
+            }
+            var viewportPosition = camera.WorldToViewportPoint(worldPosition);
+            return canvas.ViewportToCanvasPosition(viewportPosition);
+        }
+
+        public static Vector3 ScreenToCanvasPosition(this Canvas canvas, Vector3 screenPosition)
+        {
+            var viewportPosition = new Vector3(screenPosition.x / Screen.width,
+                screenPosition.y / Screen.height,
+                0);
+            return canvas.ViewportToCanvasPosition(viewportPosition);
+        }
+
+        public static Vector3 ViewportToCanvasPosition(this Canvas canvas, Vector3 viewportPosition)
+        {
+            var centerBasedViewPortPosition = viewportPosition - new Vector3(0.5f, 0.5f, 0);
+            var canvasRect = canvas.GetComponent<RectTransform>();
+            var scale = canvasRect.sizeDelta;
+            return Vector3.Scale(centerBasedViewPortPosition, scale);
+        }*/
+        
 }
+
+
