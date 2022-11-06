@@ -10,24 +10,27 @@ public class GridManager : MonoBehaviour
 {
     private static int[,] matrix =
     {
+        {3, 3, 1, 1, 3, 3, 3, 3, 1, 1, 1, 3, 3},
+        {3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1},
+        {1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+        {1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+        {2, 2, 2, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2},
+        {2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 2, 2, 2},
+        {1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+        {1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+        {1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 2, 0, 0, 1, 1, 0, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 3, 3, 3, 3, 0, 1, 1, 1, 1},
-        {1, 0, 1, 1, 3, 3, 3, 3, 0, 1, 1, 1, 1},
-        {1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        {3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3},
+        {3, 3, 1, 1, 3, 3, 3, 3, 1, 1, 1, 3, 3}
     };
-        
+
+    private static int[] hpPackLocations = {0, 9, 0, 6, 12, 9, 12, 6};
+    private static int[] boostPackLocations = {6, 8, 5, 7};
+
     public TacticsGrid MasterGrid;
     public Model_Game gameModel;
     public GameManager gameManager;
@@ -44,6 +47,8 @@ public class GridManager : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         MasterGrid.createGrid(matrix);
         MasterGrid.assignNeighbors();
+        MasterGrid.placeHealthPacks(hpPackLocations);
+        MasterGrid.placeBoostPacks(boostPackLocations);
         MasterGrid.transform.position = new Vector3(
             -(gameModel.cellOffset * matrix.GetLength(0) / 2) - 2,
             -(gameModel.cellOffset * matrix.GetLength(1) / 2) - 2,

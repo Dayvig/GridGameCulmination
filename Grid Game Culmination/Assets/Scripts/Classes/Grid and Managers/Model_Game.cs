@@ -31,4 +31,10 @@ public class Model_Game : MonoBehaviour
     //(0.2, 0.5, 1, 0.4)
     public Color redTeamColor;
     //(1, 0.2, 0.2, 0.4)
+    public Color attackSelectTint;
+    //1, 0.5, 0.5, 1
+    public Color buffSelectTint;
+    //0.7, 1, 0.5
+    public Color optimalSelectTint;
+    //1, 0.8, 0, 1
 }

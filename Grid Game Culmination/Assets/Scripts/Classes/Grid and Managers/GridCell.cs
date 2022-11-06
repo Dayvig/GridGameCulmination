@@ -31,7 +31,11 @@ namespace DefaultNamespace
         public int movementCount = 0;
         public bool isNumModified;
         public SpriteRenderer TerrainSprite;
-        
+        public bool isHealthPackZone = false;
+        public int healthPackCtr = 0;
+        public int boostPackCtr = 0;
+        public bool isBoostPackZone = false;
+
         public List<GridCell> neighbors = new List<GridCell>(8);
         //0 - S
         //1 - E
@@ -159,6 +163,27 @@ namespace DefaultNamespace
                     TerrainSprite.sprite = gameModel.Terrainsprites[3];
                     break;
             }
+
+            if (modifiers.Contains(2))
+            {
+                TerrainSprite.enabled = true;
+                TerrainSprite.sprite = gameModel.Terrainsprites[4];
+            }
+            else if (modifiers.Contains(3))
+            {
+                TerrainSprite.enabled = true;
+                TerrainSprite.sprite = gameModel.Terrainsprites[5];
+            }
+            else if (modifiers.Contains(4))
+            {
+                TerrainSprite.enabled = true;
+                TerrainSprite.sprite = gameModel.Terrainsprites[6];
+            }
+            else if (modifiers.Contains(5))
+            {
+                TerrainSprite.enabled = true;
+                TerrainSprite.sprite = gameModel.Terrainsprites[7];
+            }
         }
         void OnMouseEnter()
         {
@@ -166,6 +191,14 @@ namespace DefaultNamespace
             if (cell.enabled)
             {
                 hover.SetActive(true);
+                if (manager.selectedCharacterBehavior != null && gameManager.currentState == GameManager.GameState.CharacterAttacking && isAttackSelectable)
+                {
+                    manager.selectedCharacterBehavior.currentSelectedAttack.showSelectedSquares(this,
+                        manager.selectedCharacterBehavior.currentSelectedAttack.targeting ==
+                        AbstractAttack.AttackType.ALLY ||
+                        manager.selectedCharacterBehavior.currentSelectedAttack.targeting ==
+                        AbstractAttack.AttackType.SELF);
+                }
             }
 
             uiManager.toolTipTrigger = true;
@@ -198,15 +231,26 @@ namespace DefaultNamespace
 
             foreach (int m in modifiers)
             {
-                switch (m)
+                if (m == 0)
                 {
-                    case 0:
-                        tmp += "\nMine. Deals damage when stepped on, and Costs 3 movement points to enter.";
-                        break;
-                    default:
-                        tmp += "What is you doing?";
-                        break;
-                } 
+                    tmp += "\nMine. Deals damage when stepped on, and Costs 3 movement points to enter.";
+                }
+                if (m == 2)
+                {
+                    tmp += "\nHealth Pack. Heals 6 HP. Any health above the maximum will become Overheal which lowers by 1 each turn.";
+                }
+                if (m == 3)
+                {
+                    tmp += "\nDepleted Health Pack. Will return in "+(6-healthPackCtr)/2+" turns.";
+                }
+                if (m == 4)
+                {
+                    tmp += "\nBoost Pack. Increases your damage by 25% for 4 turns.";
+                }
+                if (m == 5)
+                {
+                    tmp += "\nDepleted Boost Pack. Will return in "+(6-boostPackCtr)/2+" turns.";
+                }
             }
 
             return tmp;
@@ -218,6 +262,12 @@ namespace DefaultNamespace
             if (cell.enabled)
             {
                 hover.SetActive(false);
+                if (manager.selectedCharacterBehavior != null && gameManager.currentState == GameManager.GameState.CharacterAttacking && isAttackSelectable)
+                {
+                    BaseBehavior chara = manager.selectedCharacterBehavior;
+                    manager.MasterGrid.WipeAttackingSquares();
+                    chara.currentSelectedAttack.showAttackingSquares(chara.currentCell, chara.currentSelectedAttack.AttackRange, chara.currentSelectedAttack.targeting);
+                }
             }
             uiManager.toolTipTrigger = false;
             uiManager.hoverCtr = 0;
@@ -464,6 +514,19 @@ namespace DefaultNamespace
             tint.gameObject.SetActive(false);
         }
 
+        public void showAttackHovered(bool isBuff)
+        {
+            tint.gameObject.SetActive(true);
+            if (isBuff)
+            {
+                tint.color = gameModel.optimalSelectTint;
+            }
+            else
+            {
+                tint.color = isOptimal ? gameModel.optimalSelectTint : gameModel.attackSelectTint;
+            }
+        }
+
         public int movementPenalty()
         {
             if (occupant != null && occupant.GetComponent<BaseBehavior>().owner != gameManager.currentTurn)
@@ -510,6 +573,7 @@ namespace DefaultNamespace
                     return c.getSouth();
                 case 1:
                     return c.getEast();
+                    return c.getEast();
                 case 2:
                     return c.getNorth();
                 case 3:
@@ -519,12 +583,75 @@ namespace DefaultNamespace
             }
         }
 
+        public void triggerBoost()
+        {
+            BaseBehavior newEntrant = occupant.GetComponent<BaseBehavior>();
+
+            BoostMod toAdd = new BoostMod(25, 4);
+            toAdd.setStrings();
+            newEntrant.Modifiers.Add(toAdd);
+            
+            int toRemove = -1;
+            for (int i = 0; i < modifiers.Count; i++){
+                if (modifiers[i] == 4)
+                {
+                    toRemove = i;
+                    break;
+                }
+            }
+            if (toRemove != -1)
+            {
+                modifiers.RemoveAt(toRemove);
+            }
+                    
+            modifiers.Add(5);
+            TerrainSprite.sprite = gameModel.Terrainsprites[7];
+        }
+
+        public void triggerHealthPack()
+        {
+            BaseBehavior newEntrant = occupant.GetComponent<BaseBehavior>();
+            int healing = 6;
+
+            newEntrant.HP += healing;
+            newEntrant.updateBars();
+            if (newEntrant.HP > newEntrant.values.hp)
+            {
+                newEntrant.isOverHealed = true;
+            }
+                    
+            int toRemove = -1;
+            for (int i = 0; i < modifiers.Count; i++){
+                if (modifiers[i] == 2)
+                {
+                    toRemove = i;
+                    break;
+                }
+            }
+            if (toRemove != -1)
+            {
+                modifiers.RemoveAt(toRemove);
+            }
+                    
+            modifiers.Add(3);
+            TerrainSprite.sprite = gameModel.Terrainsprites[5];
+
+        }
+
         public void Update()
         {
             if (occupant != null)
             {
                 occupant.transform.position = new Vector3(this.gameObject.transform.position.x,
                     gameObject.transform.position.y, gameObject.transform.position.z - 0.1f);
+                if (modifiers.Contains(2))
+                {
+                    triggerHealthPack();
+                }
+                if (modifiers.Contains(4))
+                {
+                    triggerBoost();
+                }
             }
         }
     }

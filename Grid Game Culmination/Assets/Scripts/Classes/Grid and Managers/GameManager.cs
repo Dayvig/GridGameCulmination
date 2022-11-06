@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
             ResetCharacterValues(Player.Player1);
             currentTurn = Player.Player1;
         }
+        gridManager.MasterGrid.tickHealthPacks();
     }
 
     public void ResetCharacterValues(Player player)

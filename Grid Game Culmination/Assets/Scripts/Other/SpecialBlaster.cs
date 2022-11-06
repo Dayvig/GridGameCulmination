@@ -13,6 +13,11 @@ namespace DefaultNamespace
             AttackName = "Special Blaster";
             AttackDesc = "A ray that hits an enemy in your column only.";
         }
+        
+        public override void showSelectedSquares(GridCell origin, bool isBuff)
+        {
+            origin.showAttackHovered(isBuff);
+        }
 
         public override void use(BaseBehavior initiator, BaseBehavior target, bool optimalAttack)
         {

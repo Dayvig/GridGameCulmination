@@ -35,7 +35,7 @@ namespace DefaultNamespace
         public override void setStrings()
         {
             modifierDescriptions[0] = "Deal +";
-            modifierDescriptions[1] = " damage.";
+            modifierDescriptions[1] = " damage to units not on High Ground.";
             modifierDescriptions[2] = "";
         }
     }

@@ -120,10 +120,65 @@ namespace DefaultNamespace
             }
         }
 
+        public void placeHealthPacks(int[] locations)
+        {
+            for (int i = 0; i < locations.Length; i += 2)
+            {
+                GridCell c = contents[locations[i+1]].contents[locations[i]];
+                c.isHealthPackZone = true;
+                c.modifiers.Add(2);
+            }
+        }
+        
+        public void placeBoostPacks(int[] locations)
+        {
+            for (int i = 0; i < locations.Length; i += 2)
+            {
+                GridCell c = contents[locations[i+1]].contents[locations[i]];
+                c.modifiers.Add(4);
+            }
+        }
+
+        public void tickHealthPacks()
+        {
+            GridCell targetCell;
+            //checks each cell in the matrix
+            for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
+            {
+                for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
+                {
+                    targetCell = contents[rowCursor].contents[colCursor];
+                    if (targetCell.modifiers.Contains(3))
+                    {
+                        targetCell.healthPackCtr++;
+                        if (targetCell.healthPackCtr >= 6)
+                        {
+                            targetCell.healthPackCtr = 0;
+                            targetCell.modifiers.Remove(3);
+                            targetCell.modifiers.Add(2);
+                            targetCell.TerrainSprite.sprite = gameModel.Terrainsprites[4];
+                        }
+                    }
+                    if (targetCell.modifiers.Contains(5))
+                    {
+                        targetCell.boostPackCtr++;
+                        if (targetCell.boostPackCtr >= 6)
+                        {
+                            targetCell.boostPackCtr = 0;
+                            targetCell.modifiers.Remove(5);
+                            targetCell.modifiers.Add(4);
+                            targetCell.TerrainSprite.sprite = gameModel.Terrainsprites[6];
+                        }
+                    }
+                    
+                }
+            }
+
+        }
+
         public void wipeTimesSeen()
         {
             GridCell targetCell;
-            GridCell temp;
             //checks each cell in the matrix
             for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
             {
@@ -140,7 +195,6 @@ namespace DefaultNamespace
         public void DeselectAll()
             {
                 GridCell targetCell;
-                GridCell temp;
                 //checks each cell in the matrix
                 for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
                 {
@@ -156,7 +210,6 @@ namespace DefaultNamespace
         public void WipeMovement()
         {
             GridCell targetCell;
-            GridCell temp;
             //checks each cell in the matrix
             for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
             {

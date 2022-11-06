@@ -35,6 +35,8 @@ namespace DefaultNamespace
             showAttackingSquares(startingCell, range, AttackType.ENEMY);
         }
 
+        public abstract void showSelectedSquares(GridCell origin, bool isBuff);
+
         public void reduceCooldown()
         {
             currentCooldown--;

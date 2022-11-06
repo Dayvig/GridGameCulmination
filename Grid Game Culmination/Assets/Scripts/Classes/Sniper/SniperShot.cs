@@ -28,6 +28,11 @@ public class SniperShot : AbstractAttack
                 target.HP -= damage;
                 target.updateBars();
             }
+     
+     public override void showSelectedSquares(GridCell origin, bool isBuff)
+     {
+         origin.showAttackHovered(isBuff);
+     }
     
             public override void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
             {

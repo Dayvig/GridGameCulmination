@@ -24,6 +24,7 @@ namespace DefaultNamespace
             currentAttacks = attack = values.attacksPerTurn;
             currentMoves = movesPerTurn = values.movesPerTurn;
             passive = values.passiveText;
+            portrait = values.image;
 
             
             Attacks[0] = gameModel.GetComponent<ShovelAttack>();

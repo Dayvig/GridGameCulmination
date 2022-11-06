@@ -40,6 +40,11 @@ namespace Classes.Knight
             }
         }
         
+        public override void showSelectedSquares(GridCell origin, bool isBuff)
+        {
+            origin.showAttackHovered(isBuff);
+        }
+        
         public void movementUse(BaseBehavior initiator)
         {
             initiator.currentAttacks--;

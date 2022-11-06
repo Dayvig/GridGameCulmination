@@ -38,6 +38,7 @@ public class BaseBehavior : MonoBehaviour
     public List<AbstractModifier> Modifiers = new List<AbstractModifier>();
     public List<AbstractModifier> toRemove = new List<AbstractModifier>();
     public bool specialMovement;
+    public bool isOverHealed;
     
     void Start()
     {
@@ -255,8 +256,6 @@ public class BaseBehavior : MonoBehaviour
                 }
             }
             //Activates any end of turn modifiers
-            
-            
         }
 
         //Removes the mods that have expired
@@ -268,6 +267,16 @@ public class BaseBehavior : MonoBehaviour
         if (Modifiers.Count > 0)
         {
             Debug.Log("Turns" + Modifiers[0].turns);
+        }
+        
+        //ticks down health if overhealed;
+        if (isOverHealed)
+        {
+            HP--;
+            if (HP <= values.hp)
+            {
+                isOverHealed = false;
+            }
         }
     }
 

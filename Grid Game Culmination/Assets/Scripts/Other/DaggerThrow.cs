@@ -59,6 +59,11 @@ namespace DefaultNamespace
                 g.isAttackable();
             }
         }
+        
+        public override void showSelectedSquares(GridCell origin, bool isBuff)
+        {
+            origin.showAttackHovered(isBuff);
+        }
 
         private void addCells(int i, int range, GridCell startingCell, List<GridCell> inRangeCells)
         {

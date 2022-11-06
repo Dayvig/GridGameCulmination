@@ -34,6 +34,11 @@ namespace DefaultNamespace
             }
 
         }
+        
+        public override void showSelectedSquares(GridCell origin, bool isBuff)
+        {
+            origin.showAttackHovered(isBuff);
+        }
 
         public override void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
         {

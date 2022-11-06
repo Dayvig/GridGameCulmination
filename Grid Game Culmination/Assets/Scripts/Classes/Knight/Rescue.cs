@@ -30,6 +30,11 @@ public class Rescue : AbstractAttack
         initiator.currentSelectedAttack = initiator.Attacks[0];
     }
     
+    public override void showSelectedSquares(GridCell origin, bool isBuff)
+    {
+        origin.showAttackHovered(isBuff);
+    }
+    
     public override void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
     {
         //Creates a list for all tiles that can be moved to, and adds the starting cell to it.

@@ -17,6 +17,11 @@ namespace DefaultNamespace
             //buff target
             target.Modifiers.Add(new AttackBonusModifier(buffAmount, buffTurns));
         }
+        
+        public override void showSelectedSquares(GridCell origin, bool isBuff)
+        {
+            origin.showAttackHovered(isBuff);
+        }
 
         public override void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
         {
