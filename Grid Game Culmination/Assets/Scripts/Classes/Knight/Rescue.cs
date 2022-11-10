@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Rescue : AbstractAttack
 {
+    
     public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
     {
         KnightBehavior initiatorKnight = (KnightBehavior) initiator;
@@ -19,6 +20,8 @@ public class Rescue : AbstractAttack
         {
             initiatorKnight.hasRescue = true;
             initiatorKnight.RescueTarget = target;
+            initiatorKnight.RescueTarget.currentAttacks = 0;
+            initiatorKnight.RescueTarget.currentMoves = 0;
             target.currentCell.occupant = null;
             target.currentCell = null;
             target.gameObject.SetActive(false);

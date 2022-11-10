@@ -27,6 +27,7 @@ public class CharacterDisplay : MonoBehaviour
     public Model_Modifiers modsModel;
     public SpriteRenderer portrait;
     public int hoveredBuffID;
+    public int index;
 
     // Start is called before the first frame update
     void Start()

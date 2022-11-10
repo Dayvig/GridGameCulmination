@@ -96,7 +96,7 @@ public class MineThrow : AbstractAttack, GroundTarget
                     g.isOptimal = false;
                 }
                 
-                if (g.terrainType != 0)
+                if (g.terrainType != 0 && g.occupant == null)
                     g.isAttackable();
             }
         }

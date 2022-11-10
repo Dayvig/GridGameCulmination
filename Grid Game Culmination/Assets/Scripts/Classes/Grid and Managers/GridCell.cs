@@ -184,6 +184,16 @@ namespace DefaultNamespace
                 TerrainSprite.enabled = true;
                 TerrainSprite.sprite = gameModel.Terrainsprites[7];
             }
+            else if (modifiers.Contains(7))
+            {
+                TerrainSprite.enabled = true;
+                TerrainSprite.sprite = gameModel.Terrainsprites[8];
+            }
+            else if (modifiers.Contains(8))
+            {
+                TerrainSprite.enabled = true;
+                TerrainSprite.sprite = gameModel.Terrainsprites[9];
+            }
         }
         void OnMouseEnter()
         {
@@ -204,6 +214,26 @@ namespace DefaultNamespace
             uiManager.toolTipTrigger = true;
             uiManager.hoverCtr = 0;
             uiManager.tooltiptext.text = SetToolText(this);
+
+            if (occupant != null && gameManager.currentState == GameManager.GameState.CharacterAttacking && manager.selectedCharacterBehavior != null)
+            {
+                BaseBehavior hoveredChar = occupant.GetComponent<BaseBehavior>();
+                if (hoveredChar.owner != gameManager.currentTurn)
+                {
+                    uiManager.dmgtoolTipTrigger = true;
+                    uiManager.dmghoverCtr = 0;
+                    uiManager.dmgtooltext.text = SetDMGToolText(manager.selectedCharacterBehavior, hoveredChar);
+                }
+            }
+        }
+
+        private String SetDMGToolText(BaseBehavior initiator, BaseBehavior target)
+        {
+            String tmp = "";
+            
+            tmp += initiator.calculateDamage(isOptimal ? initiator.currentSelectedAttack.OptimalDamage : initiator.currentSelectedAttack.AttackDamage, target, initiator);
+            tmp += " damage.";
+            return tmp;
         }
 
         private String SetToolText(GridCell g)
@@ -251,6 +281,14 @@ namespace DefaultNamespace
                 {
                     tmp += "\nDepleted Boost Pack. Will return in "+(6-boostPackCtr)/2+" turns.";
                 }
+                if (m == 7)
+                {
+                    tmp += "\nPlayer 2 Spawn. A ghost of a fallen unit will spawn here when Player 2 has only one unit left.";
+                }
+                if (m == 8)
+                {
+                    tmp += "\nPlayer 1 Spawn. A ghost of a fallen unit will spawn here when Player 1 has only one unit left.";
+                }
             }
 
             return tmp;
@@ -271,6 +309,8 @@ namespace DefaultNamespace
             }
             uiManager.toolTipTrigger = false;
             uiManager.hoverCtr = 0;
+            uiManager.dmgtoolTipTrigger = false;
+            uiManager.dmghoverCtr = 0;
         }
 
         public void OnMouseUp()
@@ -325,10 +365,12 @@ namespace DefaultNamespace
                             if (occupant != null)
                             {
                                 BaseBehavior target = occupant.GetComponent<BaseBehavior>();
+                                
                                 //if the unit is an enemy and the ability targets enemies, attack it.
                                 if (target.owner != manager.selectedCharacterBehavior.owner)
                                 {
-                                    manager.selectedCharacterBehavior.onAttack(target, isOptimal);
+                                    if (manager.selectedCharacterBehavior.currentSelectedAttack.targeting != AbstractAttack.AttackType.ALLY)
+                                        manager.selectedCharacterBehavior.onAttack(target, isOptimal);
                                 }
                                 else
                                 {
@@ -547,7 +589,7 @@ namespace DefaultNamespace
             {
                 if (i == 0)
                 {
-                    penalty = pickHighestPenalty(penalty, 2);
+                    penalty = pickHighestPenalty(penalty, 3);
                 }
             }
             return penalty;
@@ -560,7 +602,6 @@ namespace DefaultNamespace
 
         public bool checkForOutOfActions()
         {
-            Debug.LogFormat(manager.selectedCharacterBehavior.currentMoves + "|" + manager.selectedCharacterBehavior.currentAttacks);
             return (manager.selectedCharacterBehavior.currentMoves <= 0 &&
                    manager.selectedCharacterBehavior.currentAttacks <= 0);
         }
@@ -572,7 +613,6 @@ namespace DefaultNamespace
                 case 0:
                     return c.getSouth();
                 case 1:
-                    return c.getEast();
                     return c.getEast();
                 case 2:
                     return c.getNorth();

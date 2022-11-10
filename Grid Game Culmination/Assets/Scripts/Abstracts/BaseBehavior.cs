@@ -32,6 +32,7 @@ public class BaseBehavior : MonoBehaviour
     public List<GameObject> buffIcons = new List<GameObject>();
     public List<TextMeshProUGUI> buffTexts = new List<TextMeshProUGUI>();
     public Sprite portrait;
+    public SpriteRenderer mapRen;
     public String passive;
 
     public GameManager.Player owner;
@@ -39,6 +40,7 @@ public class BaseBehavior : MonoBehaviour
     public List<AbstractModifier> toRemove = new List<AbstractModifier>();
     public bool specialMovement;
     public bool isOverHealed;
+    public bool isGhost;
     
     void Start()
     {
@@ -297,13 +299,21 @@ public class BaseBehavior : MonoBehaviour
         {
             kill();
         }
+        
     }
 
 
     public virtual void onReset()
     {
         GlowRen.color = Color.blue;
-        
+        if (isGhost)
+        {
+            if (owner == GameManager.Player.Player1)
+            {
+                Color thisColor = mapRen.color;
+                mapRen.color = new Color(thisColor.r, thisColor.g, thisColor.b, 0.5f);
+            }
+        }
     }
 
     public virtual void Initialize()
@@ -311,6 +321,7 @@ public class BaseBehavior : MonoBehaviour
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
         gridManager = GameObject.Find("GameManager").GetComponent<GridManager>();
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        mapRen = GetComponent<SpriteRenderer>();
     }
 
     public void kill()

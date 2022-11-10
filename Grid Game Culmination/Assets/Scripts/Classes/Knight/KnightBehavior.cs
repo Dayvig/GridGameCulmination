@@ -27,23 +27,23 @@ namespace Classes.Knight
             manager.gridManager.DeselectAll();
             
             GlowRen.color = Color.blue;
-            if (currentMoves <= 0)
+            if (currentMoves <= 0 && move > 0)
             {
                 currentMoves++;
             }
-            Debug.Log(move);
         }
         
         public override void onMove(GridCell moveTo)
         {
             onDisplace(moveTo);
             currentMoves--;
-            move = moveTo.movementCount - dash;
-            if (move < 0) move = 0;
             if (moveTo.movementCount < dash)
             {
                 currentAttacks--;
             }
+            move = moveTo.movementCount - dash;
+            dash = 0;
+            if (move < 0) move = 0;
             if (currentMoves <= 0 && currentAttacks <= 0)
             {
                 GlowRen.color = Color.gray;
@@ -83,7 +83,6 @@ namespace Classes.Knight
                 passive = values.passiveText;
                 portrait = values.image;
 
-
                 Attacks[0] = gameModel.GetComponent<BasicKnightAttack>();
                 Attacks[1] = gameModel.GetComponent<Charge>();
                 Attacks[2] = gameModel.GetComponent<Challenge>();
@@ -105,6 +104,8 @@ namespace Classes.Knight
             {
                 Attacks[4] = gameModel.GetComponent<Drop>();
             }
+
+            dash = values.baseDash;
         }
     }
 }

@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
 {
     private static int[,] matrix =
     {
-        {3, 3, 1, 1, 3, 3, 3, 3, 1, 1, 1, 3, 3},
+        {3, 3, 1, 1, 1, 3, 3, 3, 3, 1, 1, 3, 3},
         {3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -29,7 +29,9 @@ public class GridManager : MonoBehaviour
     };
 
     private static int[] hpPackLocations = {0, 9, 0, 6, 12, 9, 12, 6};
-    private static int[] boostPackLocations = {6, 8, 5, 7};
+    private static int[] boostPackLocations = {6, 8, 5, 7, 8, 15, 4, 0};
+    private static int[] redSpawnLocations = {5, 1};
+    private static int[] blueSpawnLocations = {6, 14};
 
     public TacticsGrid MasterGrid;
     public Model_Game gameModel;
@@ -49,6 +51,7 @@ public class GridManager : MonoBehaviour
         MasterGrid.assignNeighbors();
         MasterGrid.placeHealthPacks(hpPackLocations);
         MasterGrid.placeBoostPacks(boostPackLocations);
+        MasterGrid.placeSpawns(blueSpawnLocations, redSpawnLocations);
         MasterGrid.transform.position = new Vector3(
             -(gameModel.cellOffset * matrix.GetLength(0) / 2) - 2,
             -(gameModel.cellOffset * matrix.GetLength(1) / 2) - 2,
@@ -56,18 +59,16 @@ public class GridManager : MonoBehaviour
         selectedCell = null;
         
         //make the first guy
-        addNewCharacter(Instantiate(gameModel.SwordGuy), 0, 4, GameManager.Player.Player1, 0);
+        addNewCharacter(Instantiate(gameModel.SwordGuy), 1, 4, GameManager.Player.Player1, 0, false);
         
         //make the second guy
-        addNewCharacter(Instantiate(gameModel.Guy2), 13, 4, GameManager.Player.Player2, 1);
+        addNewCharacter(Instantiate(gameModel.Guy2), 1, 6, GameManager.Player.Player1, 3, false);
 
         //make the third guy
-        addNewCharacter(Instantiate(gameModel.MineGuy), 12, 4, GameManager.Player.Player2, 2);
+        addNewCharacter(Instantiate(gameModel.MineGuy), 14, 7, GameManager.Player.Player2, 1, false);
         
         //make the third guy
-        addNewCharacter(Instantiate(gameModel.Knight), 1, 4, GameManager.Player.Player1, 3);
-
-
+        addNewCharacter(Instantiate(gameModel.Knight), 14, 5, GameManager.Player.Player2, 2, false);
         
     }
 
@@ -180,10 +181,11 @@ public class GridManager : MonoBehaviour
         thisDisplay.initialize();
     }
 
-    public void addNewCharacter(GameObject newChar, int gridXPos, int gridYPos, GameManager.Player charOwner, int disIndex)
+    public void addNewCharacter(GameObject newChar, int gridXPos, int gridYPos, GameManager.Player charOwner, int disIndex, bool isGhost)
     {
         MasterGrid.contents[gridXPos].contents[gridYPos].occupant = newChar;
         BaseBehavior behavior = newChar.GetComponent<BaseBehavior>();
+        behavior.isGhost = isGhost;
         behavior.currentCell = MasterGrid.contents[gridXPos].contents[gridYPos];
         behavior.owner = charOwner;
         behavior.Initialize();
@@ -198,9 +200,15 @@ public class GridManager : MonoBehaviour
                 break;
         }
         SetupDisplay(disIndex, behavior);
+        if (isGhost)
+        {
+            behavior.HP = behavior.values.hp / 4;
+            behavior.endTurn();
+        }
+        else {
+            behavior.GlowRen.color = (charOwner == GameManager.Player.Player1) ? Color.blue : Color.gray;
+        }
     }
-    
-    
 }
 
 

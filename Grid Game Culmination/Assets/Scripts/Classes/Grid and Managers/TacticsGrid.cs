@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Classes.Knight;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -138,6 +140,20 @@ namespace DefaultNamespace
                 c.modifiers.Add(4);
             }
         }
+        
+        public void placeSpawns(int[] bluelocations, int[] redlocations)
+        {
+            for (int i = 0; i < bluelocations.Length; i += 2)
+            {
+                GridCell c = contents[bluelocations[i+1]].contents[bluelocations[i]];
+                c.modifiers.Add(7);
+            }
+            for (int i = 0; i < redlocations.Length; i += 2)
+            {
+                GridCell c = contents[redlocations[i+1]].contents[redlocations[i]];
+                c.modifiers.Add(8);
+            }
+        }
 
         public void tickHealthPacks()
         {
@@ -173,7 +189,34 @@ namespace DefaultNamespace
                     
                 }
             }
+        }
 
+        public void ResetPacks()
+        {
+            GridCell targetCell;
+            //checks each cell in the matrix
+            for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
+            {
+                for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
+                {
+                    targetCell = contents[rowCursor].contents[colCursor];
+                    if (targetCell.modifiers.Contains(3))
+                    {
+                        targetCell.healthPackCtr = 0;
+                        targetCell.modifiers.Remove(3);
+                        targetCell.modifiers.Add(2);
+                        targetCell.TerrainSprite.sprite = gameModel.Terrainsprites[4];
+                    }
+
+                    if (targetCell.modifiers.Contains(5))
+                    {
+                        targetCell.boostPackCtr = 0;
+                        targetCell.modifiers.Remove(5);
+                        targetCell.modifiers.Add(4);
+                        targetCell.TerrainSprite.sprite = gameModel.Terrainsprites[6];
+                    }
+                }
+            }
         }
 
         public void wipeTimesSeen()
@@ -206,6 +249,34 @@ namespace DefaultNamespace
                     }
                 }
             }
+
+        public int[] returnSpawnLocation(GameManager.Player player)
+        {
+            GridCell targetCell;
+            List<int[]> coordList = new List<int[]>();
+            //checks each cell in the matrix
+            for (int rowCursor = 0; rowCursor < contents.Count; rowCursor++)
+            {
+                for (int colCursor = 0; colCursor < contents[rowCursor].contents.Count; colCursor++)
+                {
+                    targetCell = contents[rowCursor].contents[colCursor];
+                    if (targetCell.modifiers.Contains(7) && player.Equals(GameManager.Player.Player2))
+                    {
+                        int[] tempCoord = new [] {rowCursor, colCursor};
+                        coordList.Add(tempCoord);
+                    }
+                    if (targetCell.modifiers.Contains(8) && player.Equals(GameManager.Player.Player1))
+                    {
+                        int[] tempCoord = new [] {rowCursor, colCursor};
+                        coordList.Add(tempCoord);
+                    }
+                }
+            }
+
+            int rand = Random.Range(0, coordList.Count - 1);
+            return coordList[rand];
+            
+        }
 
         public void WipeMovement()
         {
@@ -253,11 +324,21 @@ namespace DefaultNamespace
                 {
                     if (contents[rowCursor].contents[colCursor].occupant != null)
                     {
-                        thisList.Add(contents[rowCursor].contents[colCursor].occupant.GetComponent<BaseBehavior>());
+                        BaseBehavior charBehavior = contents[rowCursor].contents[colCursor].occupant.GetComponent<BaseBehavior>();
+                        if (charBehavior is KnightBehavior)
+                        {
+                            KnightBehavior knightB = (KnightBehavior) charBehavior;
+                            if (knightB.hasRescue)
+                            {
+                                thisList.Add(knightB.RescueTarget);
+                            }
+                        }
+
+                        thisList.Add(charBehavior);
                     }
                 }
             }
-
+            
             return thisList;
         }
         

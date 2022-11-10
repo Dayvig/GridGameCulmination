@@ -35,6 +35,16 @@ public class UIManager : MonoBehaviour
     public float hoverTime;
     public bool toolTipTrigger = false;
     
+    public GameObject dmgtool;
+    public TextMeshPro dmgtooltext;
+    public int dmgtoolOffsetX;
+    public int dmgtoolOffsetY;
+    public int dmgtoolDist;
+    public float dmghoverCtr;
+    public float dmghoverTime;
+    public bool dmgtoolTipTrigger = false;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -93,11 +103,28 @@ public class UIManager : MonoBehaviour
         }
     }
     
+    public void dmgtooltipUpdate()
+    {
+        if (dmgtoolTipTrigger) {dmghoverCtr += Time.deltaTime;}
+        if (dmgtoolTipTrigger && dmghoverCtr > dmghoverTime)
+        {
+            dmgtool.SetActive(true);
+            Vector3 toPos = new Vector3(Input.mousePosition.x - dmgtoolOffsetX, Input.mousePosition.y - dmgtoolOffsetY,
+                dmgtoolDist);
+            dmgtool.transform.position = Camera.main.ScreenToWorldPoint(toPos);
+        }
+        else
+        {
+            dmgtool.SetActive(false);
+        }
+    }
+    
     
     // Update is called once per frame
     void Update()
     {
         tooltipUpdate();
+        dmgtooltipUpdate();
         
         if (gameManager.currentState == GameManager.GameState.GameOver)
         {

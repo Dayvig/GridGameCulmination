@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
@@ -21,36 +22,68 @@ namespace DefaultNamespace
             {
                 if (initiator.currentCell.neighbors[i].occupant != null && initiator.currentCell.neighbors[i].occupant.GetComponent<BaseBehavior>().Equals(target))
                 {
-                    //check available cells to push to, dealing extra damage if blocked
-                    if (target.currentCell.neighbors[i] == null || target.currentCell.neighbors[i].terrainType == 0 ||
-                        target.currentCell.neighbors[i].occupant != null)
+
+                    //checks if can be knocked 1 cell away
+                    if (canKnockBackToCell(target.currentCell.neighbors[i]))
                     {
-                        damage = initiator.calculateDamage(OptimalDamage, target, initiator);
-                        break;
+                        Debug.Log("Can be knocked 1 cell away");
+                        //checks if it can be knocked 2 cells away
+                        if (canKnockBackToCell(target.currentCell.neighbors[i].neighbors[i]))
+                        {
+                            Debug.Log("Can be knocked 2 cells away");
+                            //if it can, moves it to that zone and deals normal damage.
+                            damage = initiator.calculateDamage(AttackDamage, target, initiator);
+                            target.currentCell.occupant = null;
+                            target.currentCell = target.currentCell.neighbors[i].neighbors[i];
+                            target.currentCell.occupant = target.gameObject;
+                            target.onDisplace(target.currentCell);
+                            break;
+                        }
+                        //if not, deals extra damage to target, possible bonk damage, and moves one zone.
+                        else
+                        {
+                            Debug.Log("Can be knocked 1 cell away, 2nd cell blocked");
+                            damage = initiator.calculateDamage(OptimalDamage, target, initiator);
+                            bonkDamage(target.currentCell.neighbors[i].neighbors[i], initiator);
+                            target.currentCell.occupant = null;
+                            target.currentCell = target.currentCell.neighbors[i];
+                            target.currentCell.occupant = target.gameObject;
+                            target.onDisplace(target.currentCell);
+                            break;
+                        }
                     }
-                    else if (target.currentCell.neighbors[i].neighbors[i] == null || target.currentCell.neighbors[i].neighbors[i].terrainType == 0 ||
-                             target.currentCell.neighbors[i].neighbors[i].occupant != null)
-                    {
-                        damage = initiator.calculateDamage(OptimalDamage, target, initiator);
-                        target.currentCell.occupant = null;
-                        target.currentCell = target.currentCell.neighbors[i];
-                        target.currentCell.neighbors[i].occupant = target.gameObject;
-                        break;
-                    }
+                    //if not, deals extra damage to target, possible bonk damage, and doesn't move.
                     else
                     {
-                        damage = initiator.calculateDamage(AttackDamage, target, initiator);
-                        target.currentCell.occupant = null;
-                        target.currentCell = target.currentCell.neighbors[i].neighbors[i];
-                        target.currentCell.occupant = target.gameObject;
-                        target.onDisplace(target.currentCell);
+                        Debug.Log("1st Cell blocked");
+                        damage = initiator.calculateDamage(OptimalDamage, target, initiator);
+                        bonkDamage(target.currentCell.neighbors[i], initiator);
                         break;
                     }
                 }
             }
-
             target.HP -= damage;
             target.updateBars();
+        }
+
+        private void bonkDamage(GridCell g, BaseBehavior initiator)
+        {
+            if (g.occupant != null)
+            {
+                BaseBehavior bonkTarget = g.occupant.GetComponent<BaseBehavior>();
+                if (bonkTarget.owner != initiator.owner)
+                {
+                    int bonkDamage = bonkTarget.calculateDamage(2, bonkTarget);
+                    bonkTarget.HP -= bonkDamage;
+                    bonkTarget.updateBars();
+                }
+            }
+        }
+
+        private bool canKnockBackToCell(GridCell g)
+        {
+            Debug.Log(g.name);
+            return (g != null && g.terrainType != 0 && g.occupant == null);
         }
         
         public override void showSelectedSquares(GridCell origin, bool isBuff)
