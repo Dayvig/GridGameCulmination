@@ -13,6 +13,7 @@ public class Model_Game : MonoBehaviour
     public GameObject MineGuy;
     public GameObject Knight;
     public GameObject Striker;
+    public GameObject BattleDancer;
     public List <GameObject> Displays = new List<GameObject>();
     public GameObject Mine;
     public float cellOffset;
@@ -38,4 +39,6 @@ public class Model_Game : MonoBehaviour
     //0.7, 1, 0.5
     public Color optimalSelectTint;
     //1, 0.8, 0, 1
+    public Color moveSelectTint;
+    //
 }

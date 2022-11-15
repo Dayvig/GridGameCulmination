@@ -583,6 +583,17 @@ namespace DefaultNamespace
 
             tint.gameObject.SetActive(true);
         }
+        
+        public void isAttackable(bool isBuff, bool isMovement)
+        {
+            isAttackSelectable = true;
+            if (isBuff)
+                tint.color = gameModel.buffTint;
+            else if (isMovement)
+                tint.color = gameModel.movementTint;
+
+            tint.gameObject.SetActive(true);
+        }
 
         public void isNotAttackable()
         {
@@ -602,7 +613,30 @@ namespace DefaultNamespace
             tint.gameObject.SetActive(true);
             if (isBuff)
             {
-                tint.color = gameModel.optimalSelectTint;
+                tint.color = gameModel.buffSelectTint;
+            }
+            else
+            {
+                tint.color = isOptimal ? gameModel.optimalSelectTint : gameModel.attackSelectTint;
+            }
+        }
+        
+        public void showOptimalAttackHovered()
+        {
+            tint.gameObject.SetActive(true);
+            tint.color = gameModel.optimalSelectTint;
+        }
+        
+        public void showAttackHovered(bool isBuff, bool isMove)
+        {
+            tint.gameObject.SetActive(true);
+            if (isMove)
+            {
+                tint.color = gameModel.moveSelectTint;
+            }
+            else if (isBuff)
+            {
+                tint.color = gameModel.buffSelectTint;
             }
             else
             {

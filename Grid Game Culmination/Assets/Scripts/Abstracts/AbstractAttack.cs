@@ -11,6 +11,8 @@ namespace DefaultNamespace
         public int AttackRange;
         public int AttackDamage; 
         public int OptimalDamage;
+        public int Healing;
+        public int OptimalHealing;
         public string AttackName;
         public string AttackDesc;
         public int ID;

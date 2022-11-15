@@ -10,14 +10,12 @@ public class ModDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Hovered");
         thisDisplay.hoveredBuffID = ID;
         thisDisplay.onEnter();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Unhover");
         thisDisplay.onExit();
         thisDisplay.hoveredBuffID = -1;
     }
