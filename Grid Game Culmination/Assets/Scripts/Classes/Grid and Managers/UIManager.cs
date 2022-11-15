@@ -71,7 +71,9 @@ public class UIManager : MonoBehaviour
     public void ButtonPressed(int index)
     {
         //executes only if the attack is not on cooldown or unit is not out of attacks
-        if (!manager.selectedCharacterBehavior.Attacks[index].onCooldown && manager.selectedCharacterBehavior.currentAttacks > 0)
+        if (!manager.selectedCharacterBehavior.Attacks[index].onCooldown && 
+            manager.selectedCharacterBehavior.currentAttacks > 0 && 
+            (!manager.selectedCharacterBehavior.cannotUseSpecial || index == 0))
         {
             //Lets the grid manager know what attack is selected
             manager.currentSelectedAttack = index;
@@ -188,11 +190,21 @@ public class UIManager : MonoBehaviour
                             colors.highlightedColor = new Color(0.4f, 0.4f, 0.2f, 1f);
                             AttackButtonsReal[i].colors = colors;
                         }
-                        if (manager.selectedCharacterBehavior.Attacks[i].onCooldown)
+                        if (manager.selectedCharacterBehavior.Attacks[i].onCooldown || 
+                            (i != 0 && manager.selectedCharacterBehavior.cannotUseSpecial))
                         {
                             Clocks[i].SetActive(true);
                             cooldownDisplay[i].gameObject.SetActive(true);
-                            cooldownDisplay[i].text = "" + manager.selectedCharacterBehavior.Attacks[i].currentCooldown;
+                            if (manager.selectedCharacterBehavior.Attacks[i].onCooldown)
+                            {
+                                cooldownDisplay[i].text =
+                                    "" + manager.selectedCharacterBehavior.Attacks[i].currentCooldown;
+                            }
+                            else
+                            {
+                                cooldownDisplay[i].text =
+                                    "X";
+                            }
                             colors = AttackButtonsReal[i].colors;
                             colors.normalColor = Color.grey;
                             colors.selectedColor = Color.grey;

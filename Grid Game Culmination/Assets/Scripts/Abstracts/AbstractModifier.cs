@@ -49,7 +49,7 @@ namespace DefaultNamespace
             turns = turnsLeft;
         }
 
-        public void endTurnTrigger() {}
+        public virtual void endTurnTrigger(BaseBehavior target) {}
         public abstract int applyModifier(int input, BaseBehavior target, BaseBehavior initiator);
         public abstract int getKey();
         public abstract void setStrings();

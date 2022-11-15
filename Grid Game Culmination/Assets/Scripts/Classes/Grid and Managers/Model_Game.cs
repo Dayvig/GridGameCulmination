@@ -12,6 +12,7 @@ public class Model_Game : MonoBehaviour
     public GameObject SwordGuy;
     public GameObject MineGuy;
     public GameObject Knight;
+    public GameObject Striker;
     public List <GameObject> Displays = new List<GameObject>();
     public GameObject Mine;
     public float cellOffset;

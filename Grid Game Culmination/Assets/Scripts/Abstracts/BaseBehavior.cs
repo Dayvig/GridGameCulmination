@@ -41,6 +41,7 @@ public class BaseBehavior : MonoBehaviour
     public bool specialMovement;
     public bool isOverHealed;
     public bool isGhost;
+    public bool cannotUseSpecial = false;
     
     void Start()
     {
@@ -68,6 +69,7 @@ public class BaseBehavior : MonoBehaviour
             gridManager.MasterGrid.wipeTimesSeen();
             showMovementSquares(this.currentCell, move, dash);
         }
+        checkMods();
     }
 
     public virtual void onMove(GridCell moveTo)
@@ -110,6 +112,7 @@ public class BaseBehavior : MonoBehaviour
             newTerrainMod.setStrings();
             Modifiers.Add(newTerrainMod);
         }
+        checkMods();
     }
     
     public virtual void showMovementSquares(GridCell startingCell, int movementValue, int dashValue)
@@ -194,6 +197,7 @@ public class BaseBehavior : MonoBehaviour
         //resets the gamestate and checks for next turn
         manager.gridManager.DeselectAll();
         manager.checkForNextTurn(owner);
+        checkMods();
     }
 
     public void onAttackGround(GridCell target)
@@ -258,6 +262,7 @@ public class BaseBehavior : MonoBehaviour
                 }
             }
             //Activates any end of turn modifiers
+            Modifiers[i].endTurnTrigger(this);
         }
 
         //Removes the mods that have expired
@@ -299,7 +304,7 @@ public class BaseBehavior : MonoBehaviour
         {
             kill();
         }
-        
+        checkMods();
     }
 
 
@@ -312,6 +317,19 @@ public class BaseBehavior : MonoBehaviour
             {
                 Color thisColor = mapRen.color;
                 mapRen.color = new Color(thisColor.r, thisColor.g, thisColor.b, 0.5f);
+            }
+        }
+        checkMods();
+    }
+
+    public void checkMods()
+    {
+        cannotUseSpecial = false;
+        foreach (AbstractModifier m in Modifiers)
+        {
+            if (m.ID.Equals("Shock and Awe"))
+            {
+                cannotUseSpecial = true;
             }
         }
     }

@@ -69,7 +69,10 @@ public class GridManager : MonoBehaviour
         
         //make the third guy
         addNewCharacter(Instantiate(gameModel.Knight), 14, 5, GameManager.Player.Player2, 2, false);
-        
+       
+        //make the third guy again
+        addNewCharacter(Instantiate(gameModel.Striker), 1, 8, GameManager.Player.Player1, 4, false);
+
     }
 
     public int numCalls = 0;

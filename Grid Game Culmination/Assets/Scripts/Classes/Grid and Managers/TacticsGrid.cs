@@ -64,9 +64,9 @@ namespace DefaultNamespace
                     targetCell = contents[rowCursor].contents[colCursor];
 
                     //North
-                    if (rowCursor != 0)
+                    if (rowCursor != contents.Count - 1)
                     {
-                        temp = contents[rowCursor - 1].contents[colCursor];
+                        temp = contents[rowCursor + 1].contents[colCursor];
                         targetCell.setNorth(temp);
                     }
 
@@ -85,9 +85,9 @@ namespace DefaultNamespace
                     }
 
                     //South
-                    if (rowCursor != contents.Count - 1)
+                    if (rowCursor != 0)
                     {
-                        temp = contents[rowCursor + 1].contents[colCursor];
+                        temp = contents[rowCursor - 1].contents[colCursor];
                         targetCell.setSouth(temp);
                     }
                     
@@ -99,9 +99,9 @@ namespace DefaultNamespace
                     }
                     
                     //NorthWest
-                    if (rowCursor != 0 && colCursor != 0)
+                    if (rowCursor != contents.Count - 1 && colCursor != 0)
                     {
-                        temp = contents[rowCursor - 1].contents[colCursor - 1];
+                        temp = contents[rowCursor + 1].contents[colCursor - 1];
                         targetCell.setNorthWest(temp);
                     }
                     
@@ -113,9 +113,9 @@ namespace DefaultNamespace
                     }
                     
                     //SouthWest
-                    if (rowCursor != contents.Count - 1 && colCursor != 0)
+                    if (rowCursor != 0 && colCursor != 0)
                     {
-                        temp = contents[rowCursor + 1].contents[colCursor - 1];
+                        temp = contents[rowCursor - 1].contents[colCursor - 1];
                         targetCell.setSouthWest(temp);
                     }
                 }

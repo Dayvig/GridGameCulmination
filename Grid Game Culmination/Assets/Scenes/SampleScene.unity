@@ -549,6 +549,7 @@ RectTransform:
   - {fileID: 144254463}
   - {fileID: 1104013416}
   - {fileID: 1967391253}
+  - {fileID: 1653748344}
   - {fileID: 344774975}
   - {fileID: 1725766736}
   - {fileID: 1837028525}
@@ -1009,7 +1010,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 139318225}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1995,7 +1996,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9207422082994630274, guid: 2a64f44af08477c43a0a799cc6f91ad6, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9207422082994630274, guid: 2a64f44af08477c43a0a799cc6f91ad6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2246,27 +2247,21 @@ GameObject:
   m_Component:
   - component: {fileID: 1205803759}
   - component: {fileID: 1205803758}
+  - component: {fileID: 1205803760}
   - component: {fileID: 1205803782}
   - component: {fileID: 1205803787}
   - component: {fileID: 1205803785}
   - component: {fileID: 1205803786}
   - component: {fileID: 1205803784}
   - component: {fileID: 1205803783}
-  - component: {fileID: 1205803761}
   - component: {fileID: 1205803768}
-  - component: {fileID: 1205803760}
-  - component: {fileID: 1205803763}
-  - component: {fileID: 1205803762}
-  - component: {fileID: 1205803764}
   - component: {fileID: 1205803766}
-  - component: {fileID: 1205803767}
-  - component: {fileID: 1205803769}
-  - component: {fileID: 1205803765}
-  - component: {fileID: 1205803770}
-  - component: {fileID: 1205803771}
   - component: {fileID: 1205803775}
-  - component: {fileID: 1205803772}
   - component: {fileID: 1205803773}
+  - component: {fileID: 1205803767}
+  - component: {fileID: 1205803765}
+  - component: {fileID: 1205803763}
+  - component: {fileID: 1205803771}
   - component: {fileID: 1205803774}
   - component: {fileID: 1205803776}
   - component: {fileID: 1205803777}
@@ -2274,6 +2269,17 @@ GameObject:
   - component: {fileID: 1205803779}
   - component: {fileID: 1205803780}
   - component: {fileID: 1205803781}
+  - component: {fileID: 1205803789}
+  - component: {fileID: 1205803791}
+  - component: {fileID: 1205803788}
+  - component: {fileID: 1205803790}
+  - component: {fileID: 1205803792}
+  - component: {fileID: 1205803761}
+  - component: {fileID: 1205803762}
+  - component: {fileID: 1205803764}
+  - component: {fileID: 1205803769}
+  - component: {fileID: 1205803770}
+  - component: {fileID: 1205803772}
   m_Layer: 0
   m_Name: GameModel
   m_TagString: Untagged
@@ -2300,11 +2306,13 @@ MonoBehaviour:
   SwordGuy: {fileID: 1184873978730594304, guid: 38ee0540c8648c940a4dc58ed6796a64, type: 3}
   MineGuy: {fileID: 7534222056968149757, guid: ab74a12fafcf6b04aa0bc92ec084ac72, type: 3}
   Knight: {fileID: 1517377278297755735, guid: d7c990a927372ca44b39470732f387c3, type: 3}
+  Striker: {fileID: 6427290603242516469, guid: 9f730252409997341865200d7c8de578, type: 3}
   Displays:
   - {fileID: 1019806449}
   - {fileID: 144254460}
   - {fileID: 1104013413}
   - {fileID: 1967391250}
+  - {fileID: 1653748343}
   Mine: {fileID: 8030469421164943848, guid: 85b880c226cb62b42bcf21a0b439a3c0, type: 3}
   cellOffset: 2.2
   Terrainsprites:
@@ -2316,6 +2324,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a7b066240ef6a534e8a1269f3a59cb61, type: 3}
   - {fileID: 21300000, guid: 5c84b78fb6b462a45b1650266f3d19d8, type: 3}
   - {fileID: 21300000, guid: f7ded07766b2da74381804256f290983, type: 3}
+  - {fileID: 21300000, guid: 81e400922b9482946ba5bf9581b4d62e, type: 3}
+  - {fileID: 21300000, guid: 892e4f820681d4347b5b92ba49e145d3, type: 3}
   movementTint: {r: 0, g: 0.4, b: 1, a: 0.4}
   attackTint: {r: 1, g: 0.4, b: 0.4, a: 0.4}
   optimalTint: {r: 1, g: 0.9, b: 0.3, a: 0.4}
@@ -2526,7 +2536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feea8f333daf1d74eb05973030d44627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 4
+  AttackRange: 6
   AttackDamage: 2
   OptimalDamage: 3
   AttackName: Gun Attack
@@ -2730,7 +2740,7 @@ MonoBehaviour:
   AttackName: Focus
   AttackDesc: Focus your aim, doubling the damage on your next attack.
   ID: 2
-  targeting: 3
+  targeting: 1
   onCooldown: 0
   currentCooldown: 4
   cooldown: 4
@@ -3036,6 +3046,135 @@ MonoBehaviour:
   cooldown: 0
   buffAmount: 0
   buffTurns: 0
+--- !u!114 &1205803788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b774336775debeb4a8c787d6dd5b99cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 4
+  AttackDamage: 2
+  OptimalDamage: 4
+  AttackName: Sweep Fire
+  AttackDesc: A rain of bullets that hits all enemies in a cone.
+  ID: 1
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 3
+  cooldown: 3
+  buffAmount: 0
+  buffTurns: 0
+  NorthCone: []
+  EastCone: []
+  SouthCone: []
+  WestCone: []
+  HoveredCone: []
+  Storage: []
+--- !u!114 &1205803789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c425b2094bad44f9ae11f9799f224376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 20
+  baseMove: 4
+  attacksPerTurn: 1
+  movesPerTurn: 1
+  baseDash: 2
+  name: Striker
+  image: {fileID: 21300000, guid: 01c6508400f92204aa8ca7abf298f30e, type: 3}
+  passiveText: +50% damage against full health targets
+  Attacks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1205803790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390db0117a43400f8767f84942350800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  AttackName: Sprint
+  AttackDesc: Doubles movement next turn.
+  ID: 2
+  targeting: 1
+  onCooldown: 0
+  currentCooldown: 2
+  cooldown: 2
+  buffAmount: 1
+  buffTurns: 1
+--- !u!114 &1205803791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4685ac4bc7dd4443af140662a96bb500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 3
+  AttackDamage: 2
+  OptimalDamage: 4
+  AttackName: Basic Strike
+  AttackDesc: Basic Attack that hits hard up close.
+  ID: 0
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &1205803792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6927f5d488d949be93182548d4680859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 2
+  AttackDamage: 1
+  OptimalDamage: 1
+  AttackName: Shock and Awe
+  AttackDesc: Applies Shellshocked (Cannot use special attacks) for 2 turns. If the
+    target is at full health, apply for 3 turns instead.
+  ID: 3
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 5
+  cooldown: 5
+  buffAmount: 1
+  buffTurns: 2
 --- !u!1001 &1257837762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3733,6 +3872,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480596471}
   m_CullTransparentMesh: 1
+--- !u!1001 &1482510282
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 139318225}
+    m_Modifications:
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 503
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 314
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.227112
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358995734738664482, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: m_Name
+      value: CharacterDisplay (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2645937696264656812, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+      propertyPath: index
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
 --- !u!114 &1543760919 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6836957341374775639, guid: 05b6c76a0021b6f47b3848796ea2f190, type: 3}
@@ -3744,6 +3956,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1653748343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2358995734738664482, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+  m_PrefabInstance: {fileID: 1482510282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1653748344 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1676320089571124589, guid: 634771bb9f44eff4292639cb7047e9cc, type: 3}
+  m_PrefabInstance: {fileID: 1482510282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1725766735
 GameObject:
   m_ObjectHideFlags: 0
@@ -3783,7 +4005,7 @@ RectTransform:
   - {fileID: 733612851}
   - {fileID: 1877948658}
   m_Father: {fileID: 139318225}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4033,7 +4255,7 @@ RectTransform:
   m_Children:
   - {fileID: 1799911438}
   m_Father: {fileID: 139318225}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4751,7 +4973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9207422082994630274, guid: 2a64f44af08477c43a0a799cc6f91ad6, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9207422082994630274, guid: 2a64f44af08477c43a0a799cc6f91ad6, type: 3}
       propertyPath: m_LocalPosition.x

@@ -37,14 +37,14 @@ namespace DefaultNamespace
         public bool isBoostPackZone = false;
 
         public List<GridCell> neighbors = new List<GridCell>(8);
-        //0 - S
+        //0 - N
         //1 - E
-        //2 - N
+        //2 - s
         //3 - W
         //4 - NE
         //5 - NW
-        //6 - SE
-        //7 - SW
+        //6 - SW
+        //7 - SE
 
         //Constructor and Access methods
         public GridCell()
@@ -83,12 +83,12 @@ namespace DefaultNamespace
 
         public GridCell getSouthEast()
         {
-            return neighbors[6];
+            return neighbors[7];
         }
 
         public GridCell getSouthWest()
         {
-            return neighbors[7];
+            return neighbors[6];
         }
 
         public void setNorth(GridCell g)
@@ -118,11 +118,52 @@ namespace DefaultNamespace
         }
         public void setSouthEast(GridCell g)
         {
-            neighbors[6] = g;
+            neighbors[7] = g;
         }
         public void setSouthWest(GridCell g)
         {
-            neighbors[7] = g;
+            neighbors[6] = g;
+        }
+
+        public bool isNorthFacing(GridCell origin, GridCell g)
+        {
+            return (g.Equals(origin.getNorth()) || g.Equals(origin.getNorthEast()) || g.Equals(origin.getNorthWest()));
+        }
+        
+        public bool isEastFacing(GridCell origin, GridCell g)
+        {
+            return (g.Equals(origin.getEast()) || g.Equals(origin.getNorthEast()) || g.Equals(origin.getSouthEast()));
+        }
+        
+        public bool isWestFacing(GridCell origin, GridCell g)
+        {
+            return (g.Equals(origin.getWest()) || g.Equals(origin.getNorthWest()) || g.Equals(origin.getSouthWest()));
+        }
+        
+        public bool isSouthFacing(GridCell origin, GridCell g)
+        {
+            return (g.Equals(origin.getSouth()) || g.Equals(origin.getSouthEast()) || g.Equals(origin.getSouthWest()));
+        }
+
+        public GridCell[] allNorthFacing(GridCell origin)
+        {
+            GridCell[] ret = {origin.getNorth(), origin.getNorthEast(), origin.getNorthWest()};
+            return ret;
+        }
+        public GridCell[] allEastFacing(GridCell origin)
+        {
+            GridCell[] ret = {origin.getEast(), origin.getNorthEast(), origin.getSouthEast()};
+            return ret;
+        }
+        public GridCell[] allSouthFacing(GridCell origin)
+        {
+            GridCell[] ret = {origin.getSouth(), origin.getSouthEast(), origin.getSouthWest()};
+            return ret;
+        }
+        public GridCell[] allWestFacing(GridCell origin)
+        {
+            GridCell[] ret = {origin.getWest(), origin.getNorthWest(), origin.getSouthWest()};
+            return ret;
         }
         
         
