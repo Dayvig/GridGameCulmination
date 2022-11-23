@@ -25,8 +25,7 @@ public class SniperShot : AbstractAttack
                 {
                     damage = initiator.calculateDamage(AttackDamage, target, initiator);
                 }
-                target.HP -= damage;
-                target.updateBars();
+                initiator.damageTarget(damage, target);
             }
      
      public override void showSelectedSquares(GridCell origin, bool isBuff)

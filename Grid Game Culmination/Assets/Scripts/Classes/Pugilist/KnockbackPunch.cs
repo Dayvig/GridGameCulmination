@@ -52,8 +52,7 @@ namespace DefaultNamespace
                     {
                         bonkDamage(destinationCell.neighbors[dir], initiator);
                     }
-                    target.HP -= damage;
-                    target.updateBars();
+                    initiator.damageTarget(damage, target);
                     return;
                 }
                 destinationCell = destinationCell.neighbors[dir];
@@ -64,8 +63,7 @@ namespace DefaultNamespace
             target.currentCell = destinationCell;
             target.currentCell.occupant = target.gameObject;
             target.onDisplace(target.currentCell);
-            target.HP -= damage;
-            target.updateBars();
+            initiator.damageTarget(damage, target);
         }
 
         private void bonkDamage(GridCell g, BaseBehavior initiator)

@@ -25,8 +25,7 @@ namespace Classes.Knight
             //Attack target
             int damage = initiator.calculateDamage(isOptimal ? OptimalDamage : AttackDamage, target, initiator);
             damage += (AttackRange-1) - target.currentCell.movementCount;
-            target.HP -= damage;
-            target.updateBars();
+            initiator.damageTarget(damage, target);
             
             //move into adjacent zone
             for (int i = 0; i < 4; i++)

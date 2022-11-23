@@ -8,8 +8,7 @@ namespace DefaultNamespace
         {
             //Attack target
             int damage = initiator.calculateDamage(isOptimal ? OptimalDamage : AttackDamage, target, initiator);
-            target.HP -= damage;
-            target.updateBars();
+            initiator.damageTarget(damage, target);
         }
 
         public void groundUse(BaseBehavior initiator, GridCell target)

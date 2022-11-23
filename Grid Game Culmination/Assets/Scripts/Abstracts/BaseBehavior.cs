@@ -231,10 +231,6 @@ public class BaseBehavior : MonoBehaviour
 
     public int calculateDamage(int baseDamage, BaseBehavior target, BaseBehavior initiator)
     {
-        if (target.redirectTo != null)
-        {
-            target = target.redirectTo;
-        }
         int damage = baseDamage;
         foreach (AbstractModifier a in initiator.Modifiers)
         {
@@ -248,9 +244,24 @@ public class BaseBehavior : MonoBehaviour
         }
         return damage;
     }
+
+    public void damageTarget(int damage, BaseBehavior target)
+    {
+        if (target.redirectTo != null)
+        {
+            target = target.redirectTo;
+        }
+
+        target.HP -= damage;
+        target.updateBars();
+    }
     
     public int calculateDamage(int baseDamage, BaseBehavior target)
     {
+        if (target.redirectTo != null)
+        {
+            target = target.redirectTo;
+        }
         int damage = baseDamage;
         foreach (AbstractModifier a in target.Modifiers)
         {
