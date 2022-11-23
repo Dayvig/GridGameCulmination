@@ -47,7 +47,7 @@ namespace DefaultNamespace
                 contents[k] = cells[k].GetComponent<GridCell>();
             }
         }
-        public void createCells(int[] values)
+        public void createCells(int[] values, int indexVal)
         {
             cells.Clear();
             contents.Clear();
@@ -55,6 +55,8 @@ namespace DefaultNamespace
             {
                 tempCell = Instantiate(gameModel.BaseCell, transform);
                 tempCell.name = this.name+"-"+k;
+                tempCell.GetComponent<GridCell>().row = indexVal;
+                tempCell.GetComponent<GridCell>().column = k;
                 cells.Add(tempCell);
                 tempCell.transform.position = new Vector3(k *gameModel.cellOffset, transform.position.y, 20);
 

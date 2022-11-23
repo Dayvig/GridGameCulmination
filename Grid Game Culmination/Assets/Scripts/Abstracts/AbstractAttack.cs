@@ -30,7 +30,6 @@ namespace DefaultNamespace
             GROUND,
             ALLY
         }
-
         public abstract void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal);
         public void showAttackingSquares(GridCell startingCell, int range)
         {
@@ -58,69 +57,7 @@ namespace DefaultNamespace
                 currentCooldown = cooldown;
             }
         }
-        
-        public virtual void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType)
-        {
-            
-            Debug.Log(targetingType);
-            
-            //Creates a list for all tiles that can be moved to, and adds the starting cell to it.
-            List<GridCell> inRangeCells = new List<GridCell>();
-            inRangeCells.Add(startingCell);
-            //sets the move counter to 0
-            int currentMove = 0;
 
-            //tracks the currently selected tiles
-            List<GridCell> previousCells = new List<GridCell>();
-            previousCells.Add(startingCell);
-        
-            List<GridCell> surroundingCells = new List<GridCell>();
-        
-            while (currentMove < range)
-            {
-                //Looks at the previous cells accessed, then returns all of its accessible neighbors
-                foreach (GridCell nextCell in previousCells)
-                {
-                    
-                    //Adds to surrounding differently depending on attack type
-                    switch (targetingType)
-                    {
-                        case AttackType.ENEMY:
-                            for (int i = 0; i < 4; i++)
-                            {
-                                GridCell n = nextCell.neighbors[i];
-                                if (n != null)
-                                    surroundingCells.Add(n);
-                            }
-                            break;
-                        default:
-                            foreach (GridCell n in nextCell.neighbors)
-                            {
-                                if (n != null)
-                                    surroundingCells.Add(n);
-                            }
-                            break;
-                    }
-                }
-            
-                //adds the accessible neighbors to the cells in range
-                inRangeCells.AddRange(surroundingCells);
-            
-                //these new accessible neighbors become the previous cells
-                previousCells = surroundingCells.Distinct().ToList();
-            
-                //reduces movement count
-                currentMove++;
-            }
-
-            foreach (GridCell g in inRangeCells)
-            {
-                if (g.Equals(startingCell))
-                {
-                    g.isOptimal = false;
-                }
-                g.isAttackable();
-            }
-        }
+        public virtual void showAttackingSquares(GridCell startingCell, int range, AttackType targetingType) { }
     }
 }

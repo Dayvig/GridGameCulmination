@@ -74,7 +74,7 @@ public class GridManager : MonoBehaviour
         addNewCharacter(Instantiate(gameModel.Striker), 1, 8, GameManager.Player.Player1, 4, false);
 
         //make the third guy once more
-        addNewCharacter(Instantiate(gameModel.BattleDancer), 14, 9, GameManager.Player.Player2, 5, false);
+        addNewCharacter(Instantiate(gameModel.Guardian), 14, 9, GameManager.Player.Player2, 5, false);
 
     }
 

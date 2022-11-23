@@ -48,7 +48,7 @@ namespace DefaultNamespace
                     contents.Add(null);
                     contents[i] = nextRow.GetComponent<GridRow>();
                     contents[i].Setup();
-                    contents[i].createCells(getArrayFromMatrix(gridMatrix, gridMatrix.GetLength(1),i));
+                    contents[i].createCells(getArrayFromMatrix(gridMatrix, gridMatrix.GetLength(1),i), i);
             }
         }
 
@@ -246,6 +246,11 @@ namespace DefaultNamespace
                         targetCell = contents[rowCursor].contents[colCursor];
                         targetCell.movementCount = 0;
                         targetCell.Deselect();
+                        if (targetCell.occupant != null)
+                        {
+                            targetCell.occupant.GetComponent<BaseBehavior>().redirectTo = null;
+                            targetCell.occupant.GetComponent<BaseBehavior>().updateBars();
+                        }
                     }
                 }
             }

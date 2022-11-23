@@ -42,7 +42,11 @@ public class BaseBehavior : MonoBehaviour
     public bool isOverHealed;
     public bool isGhost;
     public bool cannotUseSpecial = false;
-    
+    public BaseBehavior redirectTo = null;
+    public SpriteRenderer aboveHoverSprite;
+    public delegate void OnAttackLaunch(BaseBehavior initiator);
+    public static event OnAttackLaunch InitAttack;
+
     void Start()
     {
     }
@@ -61,6 +65,10 @@ public class BaseBehavior : MonoBehaviour
             manager.currentState = GameManager.GameState.CharacterAttacking;
             gridManager.currentSelectedAttack = currentSelectedAttack.ID;
             currentSelectedAttack.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange, currentSelectedAttack.targeting);
+            if (InitAttack != null)
+            {
+                InitAttack(this);
+            }
         }
         else
         {
@@ -223,6 +231,10 @@ public class BaseBehavior : MonoBehaviour
 
     public int calculateDamage(int baseDamage, BaseBehavior target, BaseBehavior initiator)
     {
+        if (target.redirectTo != null)
+        {
+            target = target.redirectTo;
+        }
         int damage = baseDamage;
         foreach (AbstractModifier a in initiator.Modifiers)
         {
@@ -305,6 +317,20 @@ public class BaseBehavior : MonoBehaviour
             kill();
         }
         checkMods();
+        updateGuardianEffect();
+    }
+
+    private void updateGuardianEffect()
+    {
+        if (redirectTo != null)
+        {
+            aboveHoverSprite.sprite = gameModel.guardianShield;
+            aboveHoverSprite.enabled = true;
+        }
+        else
+        {
+            aboveHoverSprite.enabled = false;
+        }
     }
 
 

@@ -35,6 +35,8 @@ namespace DefaultNamespace
         public int healthPackCtr = 0;
         public int boostPackCtr = 0;
         public bool isBoostPackZone = false;
+        public int row;
+        public int column;
 
         public List<GridCell> neighbors = new List<GridCell>(8);
         //0 - N

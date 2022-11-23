@@ -14,10 +14,12 @@ public class Model_Game : MonoBehaviour
     public GameObject Knight;
     public GameObject Striker;
     public GameObject BattleDancer;
+    public GameObject Guardian;
     public List <GameObject> Displays = new List<GameObject>();
     public GameObject Mine;
     public float cellOffset;
     public List<Sprite> Terrainsprites = new List<Sprite>();
+    public Sprite guardianShield;
 
     public Color movementTint;
     //(0, 0.4f, 1f, 0.4f);

@@ -2302,6 +2302,9 @@ GameObject:
   - component: {fileID: 1205803764}
   - component: {fileID: 1205803795}
   - component: {fileID: 1205803796}
+  - component: {fileID: 1205803797}
+  - component: {fileID: 1205803799}
+  - component: {fileID: 1205803798}
   - component: {fileID: 1205803772}
   m_Layer: 0
   m_Name: GameModel
@@ -2331,6 +2334,7 @@ MonoBehaviour:
   Knight: {fileID: 1517377278297755735, guid: d7c990a927372ca44b39470732f387c3, type: 3}
   Striker: {fileID: 6427290603242516469, guid: 9f730252409997341865200d7c8de578, type: 3}
   BattleDancer: {fileID: 820233401738039777, guid: cd0b3afe7569fcc45b7c29a5d02b589a, type: 3}
+  Guardian: {fileID: 8281906039378730104, guid: 6a6e5b65600f48e48aaaf58395fa5b88, type: 3}
   Displays:
   - {fileID: 1019806449}
   - {fileID: 144254460}
@@ -2351,6 +2355,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f7ded07766b2da74381804256f290983, type: 3}
   - {fileID: 21300000, guid: 81e400922b9482946ba5bf9581b4d62e, type: 3}
   - {fileID: 21300000, guid: 892e4f820681d4347b5b92ba49e145d3, type: 3}
+  guardianShield: {fileID: 21300000, guid: 0c449cd77ed166e4d8bc75197f8e8f19, type: 3}
   movementTint: {r: 0, g: 0.4, b: 1, a: 0.4}
   attackTint: {r: 1, g: 0.4, b: 0.4, a: 0.4}
   optimalTint: {r: 1, g: 0.9, b: 0.3, a: 0.4}
@@ -2702,7 +2707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modIcons:
-  - {fileID: 21300000, guid: 0c449cd77ed166e4d8bc75197f8e8f19, type: 3}
+  - {fileID: 21300000, guid: 791c337c2a1403146900a47248fb34b1, type: 3}
   - {fileID: 21300000, guid: 791c337c2a1403146900a47248fb34b1, type: 3}
   - {fileID: 21300000, guid: eeac403ef83443046b46f07df2c63329, type: 3}
   - {fileID: 21300000, guid: eeac403ef83443046b46f07df2c63329, type: 3}
@@ -3354,6 +3359,86 @@ MonoBehaviour:
   onCooldown: 0
   currentCooldown: 5
   cooldown: 0
+  buffAmount: 1
+  buffTurns: 3
+--- !u!114 &1205803797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bb691be5b5461eb7448ffa981e6715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 32
+  baseMove: 2
+  attacksPerTurn: 1
+  movesPerTurn: 1
+  baseDash: 2
+  name: Guardian
+  image: {fileID: 21300000, guid: 81e400922b9482946ba5bf9581b4d62e, type: 3}
+  passiveText: Guards allies behind this unit if they are within 2 spaces. All attacks
+    targeted towards guarded units hit the guardian instead.
+  Attacks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1205803798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d942ee6a3864e97b68aefa3ccac5b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 1
+  OptimalDamage: 3
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Shield Bash
+  AttackDesc: Knocks an enemy back 3 spaces.
+  ID: 2
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 3
+  cooldown: 3
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &1205803799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205803757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b7cf83f4e1472582516f1f5b0e1255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 0
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Shield Block
+  AttackDesc: Raises a shield in a direction. All attacks from that direction deal
+    4 reduced damage.
+  ID: 1
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 2
+  cooldown: 2
   buffAmount: 1
   buffTurns: 3
 --- !u!1001 &1257837762

@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class KnockbackPunch : AbstractAttack
+    public class ShieldBash : AbstractAttack
     {
-        private int knockback = 2;
+        private int knockback = 3;
         public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
         {
             //Decrease the current amount of attacks
