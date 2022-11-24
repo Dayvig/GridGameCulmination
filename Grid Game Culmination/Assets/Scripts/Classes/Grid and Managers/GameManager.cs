@@ -15,9 +15,12 @@ public class GameManager : MonoBehaviour
     public GridManager gridManager;
     private bool SpawnGhostP1;
     private bool SpawnGhostP2;
+    public GridCell lastMovementCell;
+    public GameObject containedMine;
 
     public enum GameState
     {
+        CharacterSelection,
         Neutral,
         CharacterMovement,
         CharacterAttacking,
@@ -40,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
         gridManager = GetComponent<GridManager>();
-        currentState = GameState.Neutral;
+        currentState = GameState.CharacterSelection;
         currentTurn = Player.Player1;
     }
 
@@ -246,5 +249,36 @@ public class GameManager : MonoBehaviour
         currentTurn = Player.Player1;
         currentState = GameState.Neutral;
         
+    }
+
+    public void UndoMovement(BaseBehavior ch)
+    {
+        Debug.Log("test");
+        if (lastMovementCell != null)
+        {
+            GridCell tmp = ch.currentCell;
+            ch.currentCell.occupant = null;
+            ch.currentCell = lastMovementCell;
+            ch.currentCell.occupant = ch.gameObject;
+            ch.currentMoves++;
+            gridManager.selectedCharacterBehavior = ch;
+            currentState = GameState.CharacterMovement;
+            gridManager.MasterGrid.WipeMovement();
+            ch.GlowRen.color = Color.blue;
+            ch.onSelect();
+            
+            
+            if (containedMine != null)
+            {
+                tmp.modifiers.Add(0);
+                GameObject newMine = Instantiate(containedMine, tmp.gameObject.transform.position, Quaternion.identity);
+                mineBehavior newMineB = newMine.GetComponent<mineBehavior>();
+                newMineB.setDamage(containedMine.GetComponent<mineBehavior>().damage);
+                newMineB.cell = tmp;
+                newMineB.owner = (ch.owner == Player.Player1) ? Player.Player2 : Player.Player1;
+            }
+
+            lastMovementCell = null;
+        }
     }
 }

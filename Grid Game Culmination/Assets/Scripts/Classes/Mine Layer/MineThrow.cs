@@ -35,6 +35,7 @@ public class MineThrow : AbstractAttack, GroundTarget
             newMineB.setDamage(target.isOptimal ? OptimalDamage : AttackDamage);
             newMineB.cell = target;
             newMineB.owner = initiator.owner;
+            newMineB.cell.mine = newMine;
         }
     }
     

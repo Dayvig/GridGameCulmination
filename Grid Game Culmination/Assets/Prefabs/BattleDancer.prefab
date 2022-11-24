@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c55da543eb994ac45b70ec9b5f526347, type: 3}
-  m_Color: {r: 0.8867924, g: 0.53960484, b: 0.53960484, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   buffIcons: []
   buffTexts: []
   portrait: {fileID: 21300000, guid: c55da543eb994ac45b70ec9b5f526347, type: 3}
+  portraitglow: {fileID: 21300000, guid: 79d2021a783b2eb4bb7c3a38a669bc15, type: 3}
   mapRen: {fileID: 0}
   passive: 
   owner: 0
@@ -355,7 +356,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ca07a2329ec51fc40855d054c4d18769, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79d2021a783b2eb4bb7c3a38a669bc15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

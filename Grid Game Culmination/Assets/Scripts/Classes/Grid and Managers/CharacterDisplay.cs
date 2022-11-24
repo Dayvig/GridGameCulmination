@@ -26,9 +26,10 @@ public class CharacterDisplay : MonoBehaviour
     public List<Image> ModIcons = new List<Image>();
     public Model_Modifiers modsModel;
     public SpriteRenderer portrait;
+    public SpriteRenderer glow;
     public int hoveredBuffID;
     public int index;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,6 @@ public class CharacterDisplay : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         modsModel = GameObject.Find("GameModel").GetComponent<Model_Modifiers>();
         UI = GameObject.Find("GameManager").GetComponent<UIManager>();
-
     }
 
     public void initialize()
@@ -51,14 +51,39 @@ public class CharacterDisplay : MonoBehaviour
         {
             g.SetActive(false);
         }
-        portrait.sprite = character.portrait;
+        
+
+        switch (character.owner)
+        {
+            case GameManager.Player.Player2:
+                portrait.color = new Color(0.2f, 0.5f, 1, 1f);
+                portrait.sprite = character.portrait;
+                glow.sprite = character.portraitglow;
+                break;
+            case GameManager.Player.Player1:
+                portrait.color = new Color(1f, 0.2f, 0.2f, 1f);
+                portrait.sprite = character.portrait;
+                glow.sprite = character.portraitglow;
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        setBuffs();
-        setHealth();
+        if (gameManager.currentState == GameManager.GameState.CharacterSelection)
+        {
+            transform.localScale = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            transform.localScale = new Vector3(68, 68, 68);
+        }
+        if (character != null)
+        {
+            setBuffs();
+            setHealth();
+        }
     }
     
     void setHealth()

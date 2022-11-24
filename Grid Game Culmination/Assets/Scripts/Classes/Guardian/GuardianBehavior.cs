@@ -40,8 +40,7 @@ public class GuardianBehavior : BaseBehavior
         //if attack is initiated by opposing team
         if (initiator.owner != this.owner)
         {
-            Debug.Log("GuardianTest");
-            foreach (BaseBehavior b in gridManager.MasterGrid.getAllCharacters())
+                foreach (BaseBehavior b in gridManager.MasterGrid.getAllCharacters())
             {
                 b.redirectTo = null;
                 if (b.owner != initiator.owner)
@@ -50,12 +49,7 @@ public class GuardianBehavior : BaseBehavior
                     if (isGuardianTarget(pos, b))
                     {
                         b.redirectTo = this;
-                        Debug.Log("Guarded " + b.name);
                         b.updateBars();
-                    }
-                    else
-                    {
-                        Debug.Log("Not Guarded " + b.name);
                     }
                 }
             }

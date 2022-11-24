@@ -35,10 +35,12 @@ public class GridManager : MonoBehaviour
 
     public TacticsGrid MasterGrid;
     public Model_Game gameModel;
+    public UIManager uiManager;
     public GameManager gameManager;
     public GridCell selectedCell;
     public GameObject selectedCharacter;
     public BaseBehavior selectedCharacterBehavior;
+    public BaseBehavior lastSelectedCharacterBehavior;
     public int currentSelectedAttack = 0;
     public int count = 0;
     
@@ -47,6 +49,25 @@ public class GridManager : MonoBehaviour
     {
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        uiManager = GameObject.Find("GameManager").GetComponent<UIManager>();
+    }
+
+    public void StartGame()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (uiManager.team1[i] == null)
+            {
+                return;
+            }
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            if (uiManager.team2[i] == null)
+            {
+                return;
+            }
+        }
         MasterGrid.createGrid(matrix);
         MasterGrid.assignNeighbors();
         MasterGrid.placeHealthPacks(hpPackLocations);
@@ -59,23 +80,29 @@ public class GridManager : MonoBehaviour
         selectedCell = null;
         
         //make the first guy
-        addNewCharacter(Instantiate(gameModel.SwordGuy), 1, 4, GameManager.Player.Player1, 0, false);
+        addNewCharacter(Instantiate(uiManager.team1[0]), 1, 4, GameManager.Player.Player1, 0, false);
         
         //make the second guy
-        addNewCharacter(Instantiate(gameModel.Guy2), 1, 6, GameManager.Player.Player1, 3, false);
+        addNewCharacter(Instantiate(uiManager.team1[1]), 1, 6, GameManager.Player.Player1, 1, false);
 
         //make the third guy
-        addNewCharacter(Instantiate(gameModel.MineGuy), 14, 7, GameManager.Player.Player2, 1, false);
+        addNewCharacter(Instantiate(uiManager.team1[2]), 1, 8, GameManager.Player.Player1, 2, false);
         
         //make the third guy
-        addNewCharacter(Instantiate(gameModel.Knight), 14, 5, GameManager.Player.Player2, 2, false);
+        addNewCharacter(Instantiate(uiManager.team2[0]), 14, 5, GameManager.Player.Player2, 3, false);
        
         //make the third guy again
-        addNewCharacter(Instantiate(gameModel.Striker), 1, 8, GameManager.Player.Player1, 4, false);
+        addNewCharacter(Instantiate(uiManager.team2[1]), 14, 7, GameManager.Player.Player2, 4, false);
 
         //make the third guy once more
-        addNewCharacter(Instantiate(gameModel.Guardian), 14, 9, GameManager.Player.Player2, 5, false);
-
+        addNewCharacter(Instantiate(uiManager.team2[2]), 14, 9, GameManager.Player.Player2, 5, false);
+        
+        foreach (GameObject g in uiManager.CharacterSelectObjects)
+        {
+            g.SetActive(false);
+        }
+        
+        gameManager.currentState = GameManager.GameState.Neutral;
     }
 
     public int numCalls = 0;

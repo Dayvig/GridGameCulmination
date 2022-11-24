@@ -14,7 +14,9 @@ namespace DefaultNamespace
 
         public int terrainType;
         public GameObject occupant;
+
         public List<int> modifiers = new List<int>();
+
         //0: Has a mine
         public GameObject hover;
         public GameObject selector;
@@ -37,6 +39,7 @@ namespace DefaultNamespace
         public bool isBoostPackZone = false;
         public int row;
         public int column;
+        public GameObject mine;
 
         public List<GridCell> neighbors = new List<GridCell>(8);
         //0 - N
@@ -54,11 +57,12 @@ namespace DefaultNamespace
             terrainType = 0;
             occupant = null;
         }
-        
+
         public GridCell getNorth()
         {
             return neighbors[0];
         }
+
         public GridCell getEast()
         {
             return neighbors[1];
@@ -73,11 +77,12 @@ namespace DefaultNamespace
         {
             return neighbors[2];
         }
-        
+
         public GridCell getNorthEast()
         {
             return neighbors[4];
         }
+
         public GridCell getNorthWest()
         {
             return neighbors[5];
@@ -97,31 +102,37 @@ namespace DefaultNamespace
         {
             neighbors[0] = g;
         }
+
         public void setSouth(GridCell g)
         {
             neighbors[2] = g;
         }
+
         public void setEast(GridCell g)
         {
             neighbors[1] = g;
         }
+
         public void setWest(GridCell g)
         {
             neighbors[3] = g;
         }
-        
+
         public void setNorthEast(GridCell g)
         {
             neighbors[4] = g;
         }
+
         public void setNorthWest(GridCell g)
         {
             neighbors[5] = g;
         }
+
         public void setSouthEast(GridCell g)
         {
             neighbors[7] = g;
         }
+
         public void setSouthWest(GridCell g)
         {
             neighbors[6] = g;
@@ -131,17 +142,17 @@ namespace DefaultNamespace
         {
             return (g.Equals(origin.getNorth()) || g.Equals(origin.getNorthEast()) || g.Equals(origin.getNorthWest()));
         }
-        
+
         public bool isEastFacing(GridCell origin, GridCell g)
         {
             return (g.Equals(origin.getEast()) || g.Equals(origin.getNorthEast()) || g.Equals(origin.getSouthEast()));
         }
-        
+
         public bool isWestFacing(GridCell origin, GridCell g)
         {
             return (g.Equals(origin.getWest()) || g.Equals(origin.getNorthWest()) || g.Equals(origin.getSouthWest()));
         }
-        
+
         public bool isSouthFacing(GridCell origin, GridCell g)
         {
             return (g.Equals(origin.getSouth()) || g.Equals(origin.getSouthEast()) || g.Equals(origin.getSouthWest()));
@@ -152,25 +163,28 @@ namespace DefaultNamespace
             GridCell[] ret = {origin.getNorth(), origin.getNorthEast(), origin.getNorthWest()};
             return ret;
         }
+
         public GridCell[] allEastFacing(GridCell origin)
         {
             GridCell[] ret = {origin.getEast(), origin.getNorthEast(), origin.getSouthEast()};
             return ret;
         }
+
         public GridCell[] allSouthFacing(GridCell origin)
         {
             GridCell[] ret = {origin.getSouth(), origin.getSouthEast(), origin.getSouthWest()};
             return ret;
         }
+
         public GridCell[] allWestFacing(GridCell origin)
         {
             GridCell[] ret = {origin.getWest(), origin.getNorthWest(), origin.getSouthWest()};
             return ret;
         }
-        
-        
+
+
         // Regular Methods
-        
+
         Ray ray;
         RaycastHit hit;
 
@@ -186,6 +200,11 @@ namespace DefaultNamespace
             tint.gameObject.SetActive(false);
             isMovementSelectable = false;
             movementTintColor = gameModel.movementTint;
+            setTerrainSprite();
+        }
+
+        public void setTerrainSprite()
+        {
             TerrainSprite.enabled = false;
             switch (terrainType)
             {
@@ -238,6 +257,7 @@ namespace DefaultNamespace
                 TerrainSprite.sprite = gameModel.Terrainsprites[9];
             }
         }
+
         void OnMouseEnter()
         {
             //cell is hovered
@@ -371,6 +391,15 @@ namespace DefaultNamespace
                     {
                         if (manager.selectedCharacterBehavior.currentCell != this)
                         {
+                            gameManager.lastMovementCell = manager.selectedCharacterBehavior.currentCell;
+                            if (modifiers.Contains(0))
+                            {
+                                gameManager.containedMine = mine;
+                            }
+                            else
+                            {
+                                gameManager.containedMine = null;
+                            }
                             moveCharacterToCell(this, manager.selectedCharacterBehavior);
                         }
                         else
@@ -383,6 +412,7 @@ namespace DefaultNamespace
                     }
                     break;
                 case GameManager.GameState.CharacterAttacking:
+                    gameManager.lastMovementCell = null;
                     if (isMovementSelectable && manager.selectedCharacterBehavior.specialMovement)
                     {
                         if (manager.selectedCharacterBehavior.currentCell != this)
@@ -464,6 +494,7 @@ namespace DefaultNamespace
                         manager.selectedCell.selector.SetActive(true);
                         manager.selectedCharacter = manager.selectedCell.occupant;
                         manager.selectedCharacterBehavior = manager.selectedCharacter.GetComponent<BaseBehavior>();
+                        manager.lastSelectedCharacterBehavior = manager.selectedCharacterBehavior;
                         manager.selectedCharacterBehavior.onSelect();
                     }
                 }
@@ -582,6 +613,10 @@ namespace DefaultNamespace
             isAttackSelectable = true;
             if (isBuff)
                 tint.color = gameModel.buffTint;
+            else
+            {
+                tint.color = gameModel.attackTint;
+            }
 
             tint.gameObject.SetActive(true);
         }

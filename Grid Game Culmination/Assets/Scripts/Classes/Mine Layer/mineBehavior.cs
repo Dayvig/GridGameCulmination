@@ -8,7 +8,7 @@ public class mineBehavior : MonoBehaviour
 {
 
     public GridCell cell;
-    private int damage = 0;
+    public int damage = 0;
     public GameManager.Player owner;
     public GameManager gameManager;
 

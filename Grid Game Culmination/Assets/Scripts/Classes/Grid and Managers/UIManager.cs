@@ -5,6 +5,7 @@ using DefaultNamespace;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
@@ -26,6 +27,8 @@ public class UIManager : MonoBehaviour
     public GameObject[] Clocks = new GameObject[5];
     public TextMeshProUGUI[] cooldownDisplay = new TextMeshProUGUI[5];
     public Button ReplayButton;
+    public Button UndoButton;
+    public Button StartGameButton;
     public GameObject tooltip;
     public TextMeshPro tooltiptext;
     public int tooltipOffsetX;
@@ -44,6 +47,12 @@ public class UIManager : MonoBehaviour
     public float dmghoverTime;
     public bool dmgtoolTipTrigger = false;
 
+    public GameObject[] team1 = new GameObject[3];
+    public GameObject[] team2 = new GameObject[3];
+    public GameObject[] characters = new GameObject[9];
+    public GameObject selectedCharacter;
+
+    public List<GameObject> CharacterSelectObjects = new List<GameObject>();
     
     // Start is called before the first frame update
     void Start()
@@ -65,6 +74,28 @@ public class UIManager : MonoBehaviour
         }
         
         ReplayButton.onClick.AddListener(delegate { gameManager.Replay(); });
+        UndoButton.onClick.AddListener(delegate { gameManager.UndoMovement(manager.lastSelectedCharacterBehavior); });
+        StartGameButton.onClick.AddListener(delegate { manager.StartGame(); });
+        addCharacters();
+    }
+
+    private void addCharacters()
+    {
+        characters[0] = Instantiate(gameModel.Airbender, characters[0].transform);
+        characters[1] = Instantiate(gameModel.Guardian, characters[1].transform);
+        characters[2] = Instantiate(gameModel.SwordGuy, characters[2].transform);
+        characters[3] = Instantiate(gameModel.Striker, characters[3].transform);
+        characters[4] = Instantiate(gameModel.MineGuy, characters[4].transform);
+        characters[5] = Instantiate(gameModel.Knight, characters[5].transform);
+        characters[6] = Instantiate(gameModel.Guy2, characters[6].transform);
+        characters[6] = Instantiate(gameModel.BattleDancer, characters[7].transform);
+        foreach (GameObject g in characters)
+        {
+            g.GetComponent<BaseBehavior>().Initialize();
+            Drag tmp = g.AddComponent<Drag>();
+            tmp.dist = 40;
+            tmp.held = false;
+        }
     }
 
 
@@ -134,7 +165,19 @@ public class UIManager : MonoBehaviour
             ReplayButton.gameObject.SetActive(true);
             return;
         }
+        if (gameManager.currentState == GameManager.GameState.CharacterSelection)
+        {
+            charSelectUpdate();
+        }
+        else
+        {
+            gameplayUpdate();
+        }
         
+    }
+
+    void gameplayUpdate()
+    {
         ReplayButton.gameObject.SetActive(false);
         
         if (manager.selectedCharacter != null)
@@ -227,6 +270,11 @@ public class UIManager : MonoBehaviour
         { 
             SidePanel.SetActive(false); 
         }
+    }
+
+    void charSelectUpdate()
+    {
+        
     }
     
     //From FlashG

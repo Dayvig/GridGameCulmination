@@ -32,6 +32,7 @@ public class BaseBehavior : MonoBehaviour
     public List<GameObject> buffIcons = new List<GameObject>();
     public List<TextMeshProUGUI> buffTexts = new List<TextMeshProUGUI>();
     public Sprite portrait;
+    public Sprite portraitglow;
     public SpriteRenderer mapRen;
     public String passive;
 
@@ -78,6 +79,13 @@ public class BaseBehavior : MonoBehaviour
             showMovementSquares(this.currentCell, move, dash);
         }
         checkMods();
+    }
+
+    public void onFakeSelect(int ID)
+    {
+        manager.currentState = GameManager.GameState.CharacterAttacking;
+        gridManager.currentSelectedAttack = ID;
+        currentSelectedAttack.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange, currentSelectedAttack.targeting);
     }
 
     public virtual void onMove(GridCell moveTo)

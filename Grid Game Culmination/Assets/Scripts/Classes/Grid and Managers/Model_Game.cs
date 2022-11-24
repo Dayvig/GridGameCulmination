@@ -15,6 +15,7 @@ public class Model_Game : MonoBehaviour
     public GameObject Striker;
     public GameObject BattleDancer;
     public GameObject Guardian;
+    public GameObject Airbender;
     public List <GameObject> Displays = new List<GameObject>();
     public GameObject Mine;
     public float cellOffset;

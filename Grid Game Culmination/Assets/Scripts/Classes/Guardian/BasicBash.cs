@@ -39,7 +39,7 @@ namespace DefaultNamespace
             //adds the cells manually
             for (int i = 0; i < 8; i++)
             {
-                if (startingCell.neighbors[i] != null && startingCell.neighbors[i].terrainType != 0)
+                if (startingCell.neighbors[i] != null)
                 {
                     inRangeCells.Add(startingCell.neighbors[i]);
                     if (facingUp)
