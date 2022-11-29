@@ -31,6 +31,10 @@ namespace Classes.Knight
             {
                 currentMoves++;
             }
+            if (checkForEndTurn())
+            {
+                endTurn();
+            }
         }
         
         public override void onMove(GridCell moveTo)
@@ -52,7 +56,10 @@ namespace Classes.Knight
             {
                 GlowRen.color = Color.red;
             }
-            manager.checkForNextTurn(owner);
+            if (checkForEndTurn())
+            {
+                endTurn();
+            }
         }
 
         public override void onSpecialMovement()
@@ -66,6 +73,7 @@ namespace Classes.Knight
             }
             manager.gridManager.DeselectAll();
             manager.currentState = GameManager.GameState.Neutral;
+            base.onSpecialMovement();
         }
         
         public override void Initialize()
@@ -89,7 +97,6 @@ namespace Classes.Knight
                 Attacks[3] = gameModel.GetComponent<Rescue>();
         
                 currentSelectedAttack = Attacks[0];
-                Debug.Assert(currentCell != null, "Character is not on a cell");
             }
         
         public override void onReset()

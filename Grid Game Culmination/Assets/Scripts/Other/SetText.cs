@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetText : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SetText : MonoBehaviour
     public GameManager gameManager;
     public GameManager.Player prevTurn;
     public TextMeshProUGUI text;
+    public Image background;
     
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,14 @@ public class SetText : MonoBehaviour
 
         if (gameManager.currentState == GameManager.GameState.GameOver)
         {
-            text.text = gameManager.winner.ToString()+" wins!";
+            text.enabled = true;
+            background.enabled = true;
+            text.text = gameManager.winner +" wins!";
+        }
+        else
+        {
+            text.enabled = false;
+            background.enabled = false;
         }
     }
 }

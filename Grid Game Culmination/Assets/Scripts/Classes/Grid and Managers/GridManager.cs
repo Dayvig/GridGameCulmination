@@ -68,6 +68,12 @@ public class GridManager : MonoBehaviour
                 return;
             }
         }
+        
+        foreach (GameObject display in gameModel.Displays)
+        {
+            display.SetActive(true);
+        }
+        uiManager.UndoButton.gameObject.SetActive(true);
         MasterGrid.createGrid(matrix);
         MasterGrid.assignNeighbors();
         MasterGrid.placeHealthPacks(hpPackLocations);
@@ -100,6 +106,11 @@ public class GridManager : MonoBehaviour
         foreach (GameObject g in uiManager.CharacterSelectObjects)
         {
             g.SetActive(false);
+            BaseBehavior[] bb = g.GetComponentsInChildren<BaseBehavior>();
+            foreach (BaseBehavior b in bb)
+            {
+                b.enabled = false;
+            }
         }
         
         gameManager.currentState = GameManager.GameState.Neutral;
@@ -192,16 +203,6 @@ public class GridManager : MonoBehaviour
         return MasterGrid.getAllCharacters();
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonUp(1))
-        {
-            DeselectAll();   
-        }
-    }
-
     public void DeselectAll()
     {
         MasterGrid.DeselectAll();
@@ -218,10 +219,12 @@ public class GridManager : MonoBehaviour
     {
         MasterGrid.contents[gridXPos].contents[gridYPos].occupant = newChar;
         BaseBehavior behavior = newChar.GetComponent<BaseBehavior>();
+        behavior.enabled = true;
         behavior.isGhost = isGhost;
         behavior.currentCell = MasterGrid.contents[gridXPos].contents[gridYPos];
         behavior.owner = charOwner;
         behavior.Initialize();
+        behavior.onSpawn();
         SpriteRenderer charImage = newChar.GetComponent<SpriteRenderer>();
         switch (charOwner)
         {
@@ -235,8 +238,11 @@ public class GridManager : MonoBehaviour
         SetupDisplay(disIndex, behavior);
         if (isGhost)
         {
-            behavior.HP = behavior.values.hp / 4;
-            behavior.endTurn();
+            behavior.HP = behavior.values.hp / 2;
+            if (behavior.HP <= 0)
+            {
+                behavior.HP = 1;
+            }
         }
         else {
             behavior.GlowRen.color = (charOwner == GameManager.Player.Player1) ? Color.blue : Color.gray;

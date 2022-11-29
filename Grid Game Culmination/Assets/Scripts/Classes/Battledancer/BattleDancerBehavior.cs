@@ -27,6 +27,5 @@ public class BattleDancerBehavior : BaseBehavior
         Attacks[3] = gameModel.GetComponent<Cadence>();
         
         currentSelectedAttack = Attacks[0];
-        Debug.Assert(currentCell != null, "Character is not on a cell");
     }
 }

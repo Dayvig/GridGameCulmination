@@ -82,7 +82,6 @@ namespace DefaultNamespace
 
         private bool canKnockBackToCell(GridCell g)
         {
-            Debug.Log(g.name);
             return (g != null && g.terrainType != 0 && g.occupant == null);
         }
         

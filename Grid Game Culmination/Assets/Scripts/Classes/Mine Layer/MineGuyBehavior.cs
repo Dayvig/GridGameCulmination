@@ -33,7 +33,6 @@ namespace DefaultNamespace
             Attacks[3] = gameModel.GetComponent<Excavate>();
         
             currentSelectedAttack = Attacks[0];
-            Debug.Assert(currentCell != null, "Character is not on a cell");
         }
     }
 }

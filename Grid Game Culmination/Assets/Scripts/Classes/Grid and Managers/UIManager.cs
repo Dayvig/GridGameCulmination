@@ -74,6 +74,7 @@ public class UIManager : MonoBehaviour
         }
         
         ReplayButton.onClick.AddListener(delegate { gameManager.Replay(); });
+        ReplayButton.gameObject.SetActive(false);
         UndoButton.onClick.AddListener(delegate { gameManager.UndoMovement(manager.lastSelectedCharacterBehavior); });
         StartGameButton.onClick.AddListener(delegate { manager.StartGame(); });
         addCharacters();
@@ -88,7 +89,7 @@ public class UIManager : MonoBehaviour
         characters[4] = Instantiate(gameModel.MineGuy, characters[4].transform);
         characters[5] = Instantiate(gameModel.Knight, characters[5].transform);
         characters[6] = Instantiate(gameModel.Guy2, characters[6].transform);
-        characters[6] = Instantiate(gameModel.BattleDancer, characters[7].transform);
+        characters[7] = Instantiate(gameModel.BattleDancer, characters[7].transform);
         foreach (GameObject g in characters)
         {
             g.GetComponent<BaseBehavior>().Initialize();
@@ -178,6 +179,11 @@ public class UIManager : MonoBehaviour
 
     void gameplayUpdate()
     {
+        if (Input.GetMouseButtonUp(1))
+        {
+            manager.DeselectAll();   
+        }
+        
         ReplayButton.gameObject.SetActive(false);
         
         if (manager.selectedCharacter != null)

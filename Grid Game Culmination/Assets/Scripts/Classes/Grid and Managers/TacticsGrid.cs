@@ -281,13 +281,43 @@ namespace DefaultNamespace
                     targetCell = contents[rowCursor].contents[colCursor];
                     if (targetCell.modifiers.Contains(7) && player.Equals(GameManager.Player.Player2))
                     {
-                        int[] tempCoord = new [] {rowCursor, colCursor};
-                        coordList.Add(tempCoord);
+                        int[] tempCoord = null;
+                        if (targetCell.occupant == null)
+                        {
+                            tempCoord = new []{rowCursor, colCursor};
+                        }
+                        else
+                        {
+                            GridCell surrounding = trySurrounding(targetCell);
+                            if (surrounding != null)
+                            {
+                                tempCoord = new []{surrounding.row, surrounding.column};
+                            }
+                        }
+                        if (tempCoord != null)
+                        {
+                            coordList.Add(tempCoord);
+                        }
                     }
                     if (targetCell.modifiers.Contains(8) && player.Equals(GameManager.Player.Player1))
                     {
-                        int[] tempCoord = new [] {rowCursor, colCursor};
-                        coordList.Add(tempCoord);
+                        int[] tempCoord = null;
+                        if (targetCell.occupant == null)
+                        {
+                            tempCoord = new []{rowCursor, colCursor};
+                        }
+                        else
+                        {
+                            GridCell surrounding = trySurrounding(targetCell);
+                            if (surrounding != null)
+                            {
+                                tempCoord = new []{surrounding.row, surrounding.column};
+                            }
+                        }
+                        if (tempCoord != null)
+                        {
+                            coordList.Add(tempCoord);
+                        }
                     }
                 }
             }
@@ -295,6 +325,18 @@ namespace DefaultNamespace
             int rand = Random.Range(0, coordList.Count - 1);
             return coordList[rand];
             
+        }
+
+        public GridCell trySurrounding(GridCell origin)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (origin.neighbors[i] != null && origin.neighbors[i].occupant == null)
+                {
+                    return origin.neighbors[i];
+                }
+            }
+            return null;
         }
 
         public void WipeMovement()

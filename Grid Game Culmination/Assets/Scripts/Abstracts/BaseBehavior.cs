@@ -43,6 +43,7 @@ public class BaseBehavior : MonoBehaviour
     public bool isOverHealed;
     public bool isGhost;
     public bool cannotUseSpecial = false;
+    public bool dashed = false;
     public BaseBehavior redirectTo = null;
     public SpriteRenderer aboveHoverSprite;
     public delegate void OnAttackLaunch(BaseBehavior initiator);
@@ -54,22 +55,39 @@ public class BaseBehavior : MonoBehaviour
 
     void Update()
     {
-        
+        if (isGhost)
+        {
+            var color = mapRen.color;
+            Color ghostColor = new Color(color.r, color.g, color.b, 0.4f);
+            mapRen.color = ghostColor;
+        }
     }
 
-    public virtual void onSpecialMovement() { }
+    public virtual void onSpecialMovement()
+    {
+        if (checkForEndTurn())
+        {
+            endTurn();
+        }
+    }
 
     public void onSelect()
     {
+        if (checkForEndTurn())
+        {
+            endTurn();
+            return;
+        }
         if (currentMoves <= 0)
         {
             manager.currentState = GameManager.GameState.CharacterAttacking;
             gridManager.currentSelectedAttack = currentSelectedAttack.ID;
-            currentSelectedAttack.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange, currentSelectedAttack.targeting);
-            if (InitAttack != null)
-            {
-                InitAttack(this);
-            }
+            currentSelectedAttack.showAttackingSquares(this.currentCell, currentSelectedAttack.AttackRange,
+                    currentSelectedAttack.targeting);
+                if (InitAttack != null)
+                {
+                    InitAttack(this);
+                }
         }
         else
         {
@@ -79,6 +97,11 @@ public class BaseBehavior : MonoBehaviour
             showMovementSquares(this.currentCell, move, dash);
         }
         checkMods();
+    }
+
+    public virtual void onSpawn()
+    {
+        
     }
 
     public void onFakeSelect(int ID)
@@ -95,6 +118,7 @@ public class BaseBehavior : MonoBehaviour
         if (moveTo.movementCount < dash)
         {
             currentAttacks--;
+            dashed = true;
         }
         if (currentMoves <= 0 && currentAttacks <= 0)
         {
@@ -104,7 +128,10 @@ public class BaseBehavior : MonoBehaviour
         {
             GlowRen.color = Color.red;
         }
-        manager.checkForNextTurn(owner);
+        if (checkForEndTurn())
+        {
+            endTurn();
+        }
     }
 
     public virtual void onDisplace(GridCell moveTo)
@@ -212,7 +239,10 @@ public class BaseBehavior : MonoBehaviour
         
         //resets the gamestate and checks for next turn
         manager.gridManager.DeselectAll();
-        manager.checkForNextTurn(owner);
+        if (checkForEndTurn())
+        {
+            endTurn();
+        }
         checkMods();
     }
 
@@ -232,9 +262,13 @@ public class BaseBehavior : MonoBehaviour
             GlowRen.color = Color.red;
         }
         
+        if (checkForEndTurn())
+        {
+            endTurn();
+        }
+        
         //resets the gamestate and checks for next turn
         manager.gridManager.DeselectAll();
-        manager.checkForNextTurn(owner);
     }
 
     public int calculateDamage(int baseDamage, BaseBehavior target, BaseBehavior initiator)
@@ -318,6 +352,10 @@ public class BaseBehavior : MonoBehaviour
         }
     }
 
+    public bool checkForEndTurn()
+    {
+        return currentAttacks <= 0 && currentMoves <= 0;
+    }
     public void endTurn()
     {
         currentAttacks = 0;
@@ -329,11 +367,12 @@ public class BaseBehavior : MonoBehaviour
     
     public void updateBars()
     {
+        if (HP < 0) { HP = 0; }
         float hpScale = (float) HP / values.hp;
         HealthBar.localScale = new Vector3(1, hpScale, 1);
         if (HP <= 0)
         {
-            kill();
+            kill(); 
         }
         checkMods();
         updateGuardianEffect();

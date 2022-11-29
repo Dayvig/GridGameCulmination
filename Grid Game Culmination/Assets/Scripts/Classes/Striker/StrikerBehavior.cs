@@ -32,6 +32,5 @@ public class StrikerBehavior : BaseBehavior
         Modifiers.Add(firstStrike);
 
         currentSelectedAttack = Attacks[0];
-        Debug.Assert(currentCell != null, "Character is not on a cell");
     }
 }

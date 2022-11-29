@@ -29,7 +29,6 @@ public class AirbenderBehavior : BaseBehavior
         Attacks[3] = GetComponent<WindManip>();
         
         currentSelectedAttack = Attacks[0];
-        Debug.Assert(currentCell != null, "Character is not on a cell");
     }
 
     public override void showMovementSquares(GridCell startingCell, int movementValue, int dashValue)

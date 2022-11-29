@@ -31,7 +31,7 @@ namespace Classes.Airbender
             //hits all enemies around and knocks back
             for (int i = 0; i < 8; i++)
             {
-                if (target.neighbors[i].occupant != null)
+                if (target.neighbors[i] != null && target.neighbors[i].occupant != null)
                 {
                     BaseBehavior targetB = target.neighbors[i].occupant.GetComponent<BaseBehavior>();
                     if (targetB.owner != initiator.owner)
@@ -96,7 +96,6 @@ namespace Classes.Airbender
 
         private bool canKnockBackToCell(GridCell g)
         {
-            Debug.Log(g.name);
             return (g != null && g.terrainType != 0 && g.occupant == null);
         }
         

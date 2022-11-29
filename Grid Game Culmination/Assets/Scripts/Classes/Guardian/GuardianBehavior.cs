@@ -30,19 +30,20 @@ public class GuardianBehavior : BaseBehavior
         Attacks[3] = GetComponent<Rally>();
         
         currentSelectedAttack = Attacks[0];
-        Debug.Assert(currentCell != null, "Character is not on a cell");
 
-        InitAttack += ApplyGuard;
     }
 
+    public override void onSpawn()
+    {
+        InitAttack += ApplyGuard;
+    }
     void ApplyGuard(BaseBehavior initiator)
     {
         //if attack is initiated by opposing team
         if (initiator.owner != this.owner)
         {
-                foreach (BaseBehavior b in gridManager.MasterGrid.getAllCharacters())
+            foreach (BaseBehavior b in gridManager.MasterGrid.getAllCharacters())
             {
-                b.redirectTo = null;
                 if (b.owner != initiator.owner)
                 {
                     int pos = checkDir(initiator);
@@ -50,6 +51,7 @@ public class GuardianBehavior : BaseBehavior
                     {
                         b.redirectTo = this;
                         b.updateBars();
+                        break;
                     }
                 }
             }

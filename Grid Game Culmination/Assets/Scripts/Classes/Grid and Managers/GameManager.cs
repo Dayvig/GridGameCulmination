@@ -6,17 +6,20 @@ using Classes.Knight;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public Model_Game gameModel;
+    public UIManager uiManager;
     public GridManager gridManager;
-    private bool SpawnGhostP1;
-    private bool SpawnGhostP2;
+    public bool SpawnGhostP1;
+    public bool SpawnGhostP2;
     public GridCell lastMovementCell;
     public GameObject containedMine;
+    public bool nextTurnChecked = false;
 
     public enum GameState
     {
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameModel = GameObject.Find("GameModel").GetComponent<Model_Game>();
+        uiManager = GetComponent<UIManager>();
         gridManager = GetComponent<GridManager>();
         currentState = GameState.CharacterSelection;
         currentTurn = Player.Player1;
@@ -63,23 +67,21 @@ public class GameManager : MonoBehaviour
     {
         if (currentTurn == Player.Player1)
         {
-            ResetCharacterValues(Player.Player2);
+            Debug.Log("P1");
             if (SpawnGhostP2)
             {
                 SpawnGhost(Player.Player2);
-                SpawnGhostP2 = false;
             }
-            currentTurn = Player.Player2;
+            SetTurn(Player.Player2);
         }
         else if (currentTurn == Player.Player2)
         {
-            ResetCharacterValues(Player.Player1);
+            Debug.Log("P2");
             if (SpawnGhostP1)
             {
                 SpawnGhost(Player.Player1);
-                SpawnGhostP1 = false;
             }
-            currentTurn = Player.Player1;
+            SetTurn(Player.Player1);
         }
         gridManager.MasterGrid.tickHealthPacks();
     }
@@ -119,6 +121,7 @@ public class GameManager : MonoBehaviour
         ch.currentMoves = ch.movesPerTurn;
         ch.currentAttacks = ch.attacksPerTurn;
         ch.move = ch.baseMove;
+        ch.dashed = false;
         foreach (AbstractAttack a in ch.Attacks)
         {
             if (a != null && a.onCooldown)
@@ -131,6 +134,7 @@ public class GameManager : MonoBehaviour
     }
     public void checkForNextTurn(Player player)
     {
+        Debug.Log("Next turn check");
         int Player1Count = 0;
         int Player2Count = 0;
         int P1NonGhostCount = 0;
@@ -150,8 +154,7 @@ public class GameManager : MonoBehaviour
                     P2NonGhostCount++;
             }
         }
-
-            if (P1NonGhostCount != 0 && P2NonGhostCount == 0)
+        if (P1NonGhostCount != 0 && P2NonGhostCount == 0)
             {
                 winner = Player.Player1;
                 currentState = GameState.GameOver;
@@ -207,24 +210,17 @@ public class GameManager : MonoBehaviour
         int rand = Random.Range(0, displayList.Count-1);
         CharacterDisplay randDisplay = displayList[rand].GetComponent<CharacterDisplay>();
         int[] spawnCoords = gridManager.MasterGrid.returnSpawnLocation(player);
-        gridManager.addNewCharacter(Instantiate(returnCharacterPrefab(randDisplay.character)), spawnCoords[0], spawnCoords[1], player, randDisplay.index, true);
-    }
-
-    public GameObject returnCharacterPrefab(BaseBehavior b)
-    {
-        switch (b.name)
+        GameObject newChar;
+        if (player.Equals(Player.Player1))
         {
-            case "Knight":
-                return gameModel.Knight;
-            case "Mine Layer":
-                return gameModel.MineGuy;
-            case "Gun Man":
-                return gameModel.Guy2;
-            case "Sword Man":
-                return gameModel.SwordGuy;
-            default:
-                return gameModel.Guy2;
+            newChar = Instantiate(uiManager.team1[randDisplay.index]);
         }
+        else
+        {
+            newChar = Instantiate(uiManager.team2[randDisplay.index - 3]);
+        }
+        gridManager.addNewCharacter(newChar, spawnCoords[0], spawnCoords[1], player, randDisplay.index, true);
+        SpawnGhostP1 = false;
     }
 
 
@@ -232,28 +228,41 @@ public class GameManager : MonoBehaviour
     {
         gridManager.MasterGrid.destroyAllCharacters();
         gridManager.MasterGrid.DeselectAll();
-        gridManager.MasterGrid.ResetPacks();
-        //make the first guy
-        gridManager.addNewCharacter(Instantiate(gameModel.SwordGuy), 1, 4, GameManager.Player.Player1, 0, false);
-        
-        //make the second guy
-        gridManager.addNewCharacter(Instantiate(gameModel.Guy2), 1, 6, GameManager.Player.Player1, 3, false);
+        foreach (GameObject display in gameModel.Displays)
+        {
+            display.SetActive(false);
+        }
 
-        //make the third guy
-        gridManager.addNewCharacter(Instantiate(gameModel.MineGuy), 14, 7, GameManager.Player.Player2, 1, false);
-        
-        //make the third guy
-        gridManager.addNewCharacter(Instantiate(gameModel.Knight), 14, 5, GameManager.Player.Player2, 2, false);
+        foreach (GridRow row in gridManager.MasterGrid.contents)
+        {
+            Destroy(row.gameObject);
+        }
+        foreach (GameObject rowobject in gridManager.MasterGrid.rows)
+        {
+            Destroy(rowobject.gameObject);
+        }
+        gridManager.MasterGrid.contents.Clear();
+        gridManager.MasterGrid.rows.Clear();
+        gridManager.MasterGrid.transform.position = new Vector3(-5, -1, 20);
         ResetCharacterValues(Player.Player1);
         ResetCharacterValues(Player.Player2);
         currentTurn = Player.Player1;
-        currentState = GameState.Neutral;
-        
+        currentState = GameState.CharacterSelection;
+        foreach (GameObject g in uiManager.CharacterSelectObjects)
+        {
+            g.SetActive(true);
+            BaseBehavior[] bb = g.GetComponentsInChildren<BaseBehavior>();
+            foreach (BaseBehavior b in bb)
+            {
+                b.enabled = true;
+            }
+        }
+        uiManager.ReplayButton.gameObject.SetActive(false);
+        uiManager.UndoButton.gameObject.SetActive(false);
     }
 
     public void UndoMovement(BaseBehavior ch)
     {
-        Debug.Log("test");
         if (lastMovementCell != null)
         {
             GridCell tmp = ch.currentCell;
@@ -261,10 +270,16 @@ public class GameManager : MonoBehaviour
             ch.currentCell = lastMovementCell;
             ch.currentCell.occupant = ch.gameObject;
             ch.currentMoves++;
-            gridManager.selectedCharacterBehavior = ch;
+            if (ch.dashed)
+            {
+                ch.currentAttacks++;
+                ch.dashed = false;
+            }
             currentState = GameState.CharacterMovement;
             gridManager.MasterGrid.WipeMovement();
             ch.GlowRen.color = Color.blue;
+            gridManager.selectedCharacter = ch.gameObject;
+            gridManager.selectedCharacterBehavior = ch;
             ch.onSelect();
             
             
