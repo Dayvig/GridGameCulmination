@@ -15,6 +15,8 @@ namespace Classes.Knight
         }
         public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
         {
+            GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
             initiator.currentAttacks--;
             
             //puts the move on cooldown

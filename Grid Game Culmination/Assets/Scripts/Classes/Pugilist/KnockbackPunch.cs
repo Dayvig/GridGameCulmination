@@ -8,6 +8,8 @@ namespace DefaultNamespace
         private int knockback = 2;
         public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
         {
+            GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
             

@@ -18,6 +18,8 @@ public class MineThrow : AbstractAttack, GroundTarget
 
     public void groundUse(BaseBehavior initiator, GridCell target)
     {
+        GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
         //Decrease the current amount of attacks
         initiator.currentAttacks--;
 

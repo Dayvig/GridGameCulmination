@@ -300,6 +300,7 @@ MonoBehaviour:
   isOverHealed: 0
   isGhost: 0
   cannotUseSpecial: 0
+  dashed: 0
   redirectTo: {fileID: 0}
   aboveHoverSprite: {fileID: 4721485262999262589}
 --- !u!114 &9103148296403869849
@@ -328,6 +329,7 @@ MonoBehaviour:
   cooldown: 0
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 59c9e1f3c9ee6b342a250395004a072b, type: 3}
 --- !u!114 &7826242609669121289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +356,7 @@ MonoBehaviour:
   cooldown: 0
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 59c9e1f3c9ee6b342a250395004a072b, type: 3}
 --- !u!114 &8108312638310456765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,6 +383,7 @@ MonoBehaviour:
   cooldown: 5
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 52cb7ada0599600459791fd63d7811c1, type: 3}
 --- !u!114 &251636440018646511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +411,7 @@ MonoBehaviour:
   cooldown: 2
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 52cb7ada0599600459791fd63d7811c1, type: 3}
   upArrow: {fileID: 21300000, guid: e94da8ce3da5ffc4492b6e82d7616013, type: 3}
   downArrow: {fileID: 21300000, guid: dd2129124e567d745bae783eb8f00638, type: 3}
   targetColumn: 0

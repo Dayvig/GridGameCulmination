@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -7,6 +8,7 @@ namespace DefaultNamespace
     {
         public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
         {
+            StartCoroutine(Punches(2));            
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
             
@@ -32,6 +34,16 @@ namespace DefaultNamespace
                 initiator.currentMoves++;
             }
 
+        }
+        
+        IEnumerator Punches(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Debug.Log("Throw");
+                GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+                yield return new WaitForSeconds(0.04f);
+            }
         }
         
         public override void showSelectedSquares(GridCell origin, bool isBuff)

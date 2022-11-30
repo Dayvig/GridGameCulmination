@@ -9,6 +9,8 @@ public class Drop : AbstractAttack, GroundTarget
 {
     public void groundUse(BaseBehavior initiator, GridCell target)
     {
+        GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
         KnightBehavior initiatorKnight = (KnightBehavior) initiator;
         
         //Decrease the current amount of attacks

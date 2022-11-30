@@ -11,6 +11,7 @@ public class mineBehavior : MonoBehaviour
     public int damage = 0;
     public GameManager.Player owner;
     public GameManager gameManager;
+    public AudioClip attackSound;
 
     // Start is called before the first frame update
     public void setDamage(int d)
@@ -49,6 +50,8 @@ public class mineBehavior : MonoBehaviour
 
             newEntrant.HP -= damage;
             newEntrant.updateBars();
+            GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
             int toRemove = -1;
             for (int i = 0; i < cell.modifiers.Count; i++){
                 if (cell.modifiers[i] == 0)
@@ -63,7 +66,6 @@ public class mineBehavior : MonoBehaviour
                 cell.modifiers.RemoveAt(toRemove);
             }
             
-            gameManager.checkForNextTurn(owner);
             Destroy(this.gameObject);
         }
     }

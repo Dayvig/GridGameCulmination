@@ -512,6 +512,7 @@ MonoBehaviour:
   cooldown: 2
   buffAmount: 1
   buffTurns: 3
+  attackSound: {fileID: 8300000, guid: d6733b1330eee104b8f1ae40972baa87, type: 3}
 --- !u!114 &1599700465774852232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +539,7 @@ MonoBehaviour:
   cooldown: 0
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 55dca4b9ee05ea44395bf87b23e08e89, type: 3}
   facingUp: 1
 --- !u!114 &5288598926106097937
 MonoBehaviour:
@@ -566,6 +568,7 @@ MonoBehaviour:
   cooldown: 3
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 4f394f5ca1dfc4e4a9af906e841a8fff, type: 3}
 --- !u!114 &8221147695965276599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,6 +596,7 @@ MonoBehaviour:
   cooldown: 3
   buffAmount: 4
   buffTurns: 3
+  attackSound: {fileID: 8300000, guid: 12dce0d7ac8963d49b81c554f37c2a59, type: 3}
 --- !u!1 &8512631653100714469
 GameObject:
   m_ObjectHideFlags: 0

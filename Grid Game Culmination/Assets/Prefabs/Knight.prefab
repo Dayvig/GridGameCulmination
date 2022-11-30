@@ -320,6 +320,7 @@ MonoBehaviour:
   cooldown: 0
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 88489a73384af3d47896b9f8264ed2e3, type: 3}
 --- !u!114 &3271609849640159027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +348,7 @@ MonoBehaviour:
   cooldown: 3
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 41c5236529d78db4a92fe0b05ae5d7de, type: 3}
   gameModel: {fileID: 0}
   gridManager: {fileID: 0}
 --- !u!114 &4211908485759515630
@@ -370,12 +372,13 @@ MonoBehaviour:
   AttackDesc: Picks up a unit, keeping them safe from damage. Drop them on a future
     turn.
   ID: 3
-  targeting: 2
+  targeting: 3
   onCooldown: 0
   currentCooldown: 0
   cooldown: 2
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 12dce0d7ac8963d49b81c554f37c2a59, type: 3}
 --- !u!114 &3921411199001414767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +406,7 @@ MonoBehaviour:
   cooldown: 5
   buffAmount: 1
   buffTurns: 2
+  attackSound: {fileID: 8300000, guid: 4467955d429ba8c4d94e6dd7b518be5c, type: 3}
 --- !u!114 &1143989913592157508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +433,7 @@ MonoBehaviour:
   cooldown: 0
   buffAmount: 0
   buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 59c9e1f3c9ee6b342a250395004a072b, type: 3}
 --- !u!1 &5230688964089334558
 GameObject:
   m_ObjectHideFlags: 0

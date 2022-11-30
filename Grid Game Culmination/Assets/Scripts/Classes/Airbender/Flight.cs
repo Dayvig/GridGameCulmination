@@ -21,6 +21,8 @@ public class Flight : AbstractAttack, GroundTarget
 
     public void groundUse(BaseBehavior initiator, GridCell target)
     {
+        GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
         //puts the move on cooldown
         onCooldown = true;
         currentCooldown = cooldown;

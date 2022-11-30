@@ -181,6 +181,7 @@ namespace DefaultNamespace
 
         public void groundUse(BaseBehavior initiator, GridCell target)
         {
+            GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
             use(initiator, initiator, initiator.currentCell);
         }
     }

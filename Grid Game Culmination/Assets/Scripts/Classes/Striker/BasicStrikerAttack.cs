@@ -9,7 +9,7 @@ public class BasicStrikerAttack : AbstractAttack
 {
     public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
     {
-        //GameManager.Sounds.PlayOneShot(attackSound);
+        GameManager.Sounds.PlayOneShot(attackSound);
         //Decrease the current amount of attacks
         initiator.currentAttacks--;
 

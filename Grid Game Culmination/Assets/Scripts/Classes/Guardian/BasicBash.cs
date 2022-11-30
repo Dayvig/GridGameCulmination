@@ -9,6 +9,7 @@ namespace DefaultNamespace
         public bool facingUp = true;
         public override void use(BaseBehavior initiator, BaseBehavior target, bool optimalAttack)
         {
+            GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
 

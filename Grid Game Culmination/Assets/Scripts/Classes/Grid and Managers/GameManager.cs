@@ -25,8 +25,10 @@ public class GameManager : MonoBehaviour
     public AudioSource MainMusic;
     public static AudioSource Sounds;
     public static float MasterVolume;
+    public AudioClip Cheer;
 
     public float startVolume = 0.25f;
+    public float musicAdjust = -0.15f;
     [Range(0.0f, 2.0f)] public float volAdjust;
 
     public enum GameState
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         MasterVolume = startVolume * volAdjust;
-        MainMusic.volume = startVolume * volAdjust;
+        MainMusic.volume = (startVolume + musicAdjust) * volAdjust;
     }
 
     public void SetTurn(Player player)
@@ -170,12 +172,14 @@ public class GameManager : MonoBehaviour
             {
                 winner = Player.Player1;
                 currentState = GameState.GameOver;
+                Sounds.PlayOneShot(Cheer, GameManager.MasterVolume * 2f);
                 return;
             }
             if (P1NonGhostCount == 0 && P2NonGhostCount != 0)
             {
                 winner = Player.Player2;
                 currentState = GameState.GameOver;
+                Sounds.PlayOneShot(Cheer, GameManager.MasterVolume * 2f);
                 return;
             }
             if (P1NonGhostCount == 0 && P2NonGhostCount == 0)
@@ -184,7 +188,7 @@ public class GameManager : MonoBehaviour
                 currentState = GameState.GameOver;
                 return;
             }
-
+            
             if (Player1Count == 1)
             {
                 SpawnGhostP1 = true;

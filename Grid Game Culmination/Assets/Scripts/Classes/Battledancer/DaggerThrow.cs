@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEngine;
 
 namespace Classes.Battledancer
 {
@@ -14,7 +16,17 @@ namespace Classes.Battledancer
             int damage = initiator.calculateDamage(isOptimal ? OptimalDamage : AttackDamage, target, initiator);
             initiator.damageTarget(damage, target);
         }
-
+        
+        IEnumerator ThrowDaggers(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Debug.Log("Throw");
+                GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+                yield return new WaitForSeconds(0.04f);
+            }
+        }
+        
         public override void showSelectedSquares(GridCell origin, bool isBuff)
         {
             origin.showAttackHovered(isBuff, true);
@@ -72,6 +84,8 @@ namespace Classes.Battledancer
 
         public void groundUse(BaseBehavior initiator, GridCell target)
         {
+            StartCoroutine(ThrowDaggers(4));
+
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
             

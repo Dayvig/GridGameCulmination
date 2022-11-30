@@ -539,7 +539,7 @@ MonoBehaviour:
   cooldown: 2
   buffAmount: 1
   buffTurns: 1
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 4e5c76f24432bad4dadf4e4a79359e32, type: 3}
 --- !u!114 &2198297055014352806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,7 +566,7 @@ MonoBehaviour:
   cooldown: 3
   buffAmount: 0
   buffTurns: 0
-  attackSound: {fileID: 8300000, guid: 1f98f4bbe1a9fe344a68a5b0bf59c0e6, type: 3}
+  attackSound: {fileID: 8300000, guid: b4630bbbea69b954caecb656be8ce980, type: 3}
   NorthCone: []
   EastCone: []
   SouthCone: []
@@ -593,14 +593,14 @@ MonoBehaviour:
   AttackName: Shock and Awe
   AttackDesc: Applies Shellshocked (Cannot use special attacks) for 2 turns. If the
     target is at full health, apply for 3 turns instead.
-  ID: 0
+  ID: 3
   targeting: 0
   onCooldown: 0
   currentCooldown: 0
   cooldown: 5
   buffAmount: 1
   buffTurns: 2
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 407c36f67767f244ca9c985e251d2770, type: 3}
 --- !u!1 &6773306135559359080
 GameObject:
   m_ObjectHideFlags: 0

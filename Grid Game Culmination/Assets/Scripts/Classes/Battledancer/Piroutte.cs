@@ -26,6 +26,8 @@ namespace Classes.Battledancer
 
         public void groundUse(BaseBehavior initiator, GridCell target)
         {
+            GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
             //Decrease the current amount of attacks
             initiator.currentAttacks--;
             
@@ -38,7 +40,7 @@ namespace Classes.Battledancer
             //hits all enemies around
             for (int i = 0; i < 8; i++)
             {
-                if (target.neighbors[i].occupant != null)
+                if (target.neighbors[i] != null && target.neighbors[i].occupant != null)
                 {
                     BaseBehavior targetB = target.neighbors[i].occupant.GetComponent<BaseBehavior>();
                     if (targetB.owner != initiator.owner)

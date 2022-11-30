@@ -10,6 +10,8 @@ public class Rescue : AbstractAttack
     
     public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
     {
+        GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
+
         KnightBehavior initiatorKnight = (KnightBehavior) initiator;
         
         //Decrease the current amount of attacks
