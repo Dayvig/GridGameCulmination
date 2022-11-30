@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     public Button ReplayButton;
     public Button UndoButton;
     public Button StartGameButton;
+    public Slider volSlider;
     public GameObject tooltip;
     public TextMeshPro tooltiptext;
     public int tooltipOffsetX;
@@ -159,6 +160,7 @@ public class UIManager : MonoBehaviour
     {
         tooltipUpdate();
         dmgtooltipUpdate();
+        gameManager.volAdjust = volSlider.value;
         
         if (gameManager.currentState == GameManager.GameState.GameOver)
         {

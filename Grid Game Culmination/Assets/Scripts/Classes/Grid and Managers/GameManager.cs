@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     public GridCell lastMovementCell;
     public GameObject containedMine;
     public bool nextTurnChecked = false;
+    public AudioClip BattleTheme;
+    public AudioClip SelectTheme;
+    public AudioSource MainMusic;
+    public float startVolume = 0.25f;
+    [Range(0.0f, 2.0f)] public float volAdjust;
 
     public enum GameState
     {
@@ -49,12 +54,14 @@ public class GameManager : MonoBehaviour
         gridManager = GetComponent<GridManager>();
         currentState = GameState.CharacterSelection;
         currentTurn = Player.Player1;
+        MainMusic.clip = SelectTheme;
+        MainMusic.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        MainMusic.volume = startVolume * volAdjust;
     }
 
     public void SetTurn(Player player)
