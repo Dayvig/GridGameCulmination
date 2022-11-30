@@ -209,7 +209,10 @@ public class GridManager : MonoBehaviour
     public void DeselectAll()
     {
         MasterGrid.DeselectAll();
-        gameManager.currentState = GameManager.GameState.Neutral;
+        if (gameManager.currentState != GameManager.GameState.GameOver && gameManager.currentState != GameManager.GameState.CharacterSelection)
+        {
+            gameManager.currentState = GameManager.GameState.Neutral;
+        }
     }
     
     public void SetupDisplay(int index, BaseBehavior characterToAdd){
