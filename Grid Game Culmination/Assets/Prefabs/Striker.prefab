@@ -356,6 +356,10 @@ GameObject:
   - component: {fileID: 7984311364967954106}
   - component: {fileID: 8195034728968900790}
   - component: {fileID: 5571786348365549887}
+  - component: {fileID: 8485122575477980603}
+  - component: {fileID: 6001327607265589856}
+  - component: {fileID: 2198297055014352806}
+  - component: {fileID: 8640304507615427912}
   m_Layer: 5
   m_Name: Striker
   m_TagString: Untagged
@@ -479,8 +483,124 @@ MonoBehaviour:
   isOverHealed: 0
   isGhost: 0
   cannotUseSpecial: 0
+  dashed: 0
   redirectTo: {fileID: 0}
   aboveHoverSprite: {fileID: 7732189360561974384}
+--- !u!114 &8485122575477980603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427290603242516469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4685ac4bc7dd4443af140662a96bb500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 3
+  AttackDamage: 2
+  OptimalDamage: 4
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Basic Strike
+  AttackDesc: Basic Attack that hits hard up close.
+  ID: 0
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 05c5045b72ae4734dba80cd53c34cb93, type: 3}
+--- !u!114 &6001327607265589856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427290603242516469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390db0117a43400f8767f84942350800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Sprint
+  AttackDesc: Doubles movement next turn.
+  ID: 2
+  targeting: 1
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 2
+  buffAmount: 1
+  buffTurns: 1
+  attackSound: {fileID: 0}
+--- !u!114 &2198297055014352806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427290603242516469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b774336775debeb4a8c787d6dd5b99cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 4
+  AttackDamage: 2
+  OptimalDamage: 4
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Sweep Fire
+  AttackDesc: A rain of bullets that hits all enemies in a cone.
+  ID: 1
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 3
+  buffAmount: 0
+  buffTurns: 0
+  attackSound: {fileID: 8300000, guid: 1f98f4bbe1a9fe344a68a5b0bf59c0e6, type: 3}
+  NorthCone: []
+  EastCone: []
+  SouthCone: []
+  WestCone: []
+  HoveredCone: []
+  Storage: []
+--- !u!114 &8640304507615427912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427290603242516469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6927f5d488d949be93182548d4680859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 2
+  AttackDamage: 1
+  OptimalDamage: 1
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Shock and Awe
+  AttackDesc: Applies Shellshocked (Cannot use special attacks) for 2 turns. If the
+    target is at full health, apply for 3 turns instead.
+  ID: 0
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 5
+  buffAmount: 1
+  buffTurns: 2
+  attackSound: {fileID: 0}
 --- !u!1 &6773306135559359080
 GameObject:
   m_ObjectHideFlags: 0

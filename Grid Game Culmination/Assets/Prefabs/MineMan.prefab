@@ -281,6 +281,10 @@ GameObject:
   - component: {fileID: 6877354147612541874}
   - component: {fileID: 4613411565967271358}
   - component: {fileID: 4367719028018256159}
+  - component: {fileID: 4575834518483101456}
+  - component: {fileID: 3822879760231693972}
+  - component: {fileID: 6000157461828348893}
+  - component: {fileID: 6581269348976229514}
   m_Layer: 5
   m_Name: MineMan
   m_TagString: Untagged
@@ -404,8 +408,116 @@ MonoBehaviour:
   isOverHealed: 0
   isGhost: 0
   cannotUseSpecial: 0
+  dashed: 0
   redirectTo: {fileID: 0}
   aboveHoverSprite: {fileID: 8065853849676758341}
+--- !u!114 &4575834518483101456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7534222056968149757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a178be759b4533a06dc4360338f4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 1
+  OptimalDamage: 2
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Shovel Attack
+  AttackDesc: Low damage hit from a shovel. Can fill in holes, making them normal    
+    terrain. Can also pick up mines to gain an extra Mine Throw next turn.
+  ID: 0
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &3822879760231693972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7534222056968149757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0821bf11de5642e8853fcf6a5bf07548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Excavate
+  AttackDesc: Turns a tile into a hole.
+  ID: 3
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 2
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &6000157461828348893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7534222056968149757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f2c3332f26499b8ffe5423adc1a878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 3
+  AttackDamage: 4
+  OptimalDamage: 6
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Grenade
+  AttackDesc: Hits a square an adjacent squares. Blasts adjacent enemies away one
+    zone.
+  ID: 2
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 4
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &6581269348976229514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7534222056968149757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7054f66e0dc904cbcb40a7885254d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 3
+  AttackDamage: 4
+  OptimalDamage: 5
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Mine Throw
+  AttackDesc: Throws a mine. Detonates when stepped on. Enemies take full damage,
+    allies take 1 damage only.
+  ID: 1
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 2
+  buffAmount: 0
+  buffTurns: 0
 --- !u!1 &7801118295045406560
 GameObject:
   m_ObjectHideFlags: 0

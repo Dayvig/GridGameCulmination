@@ -86,6 +86,10 @@ GameObject:
   - component: {fileID: 2416800616870132558}
   - component: {fileID: 4538879741768506690}
   - component: {fileID: 2365299602657903454}
+  - component: {fileID: 8370409473632800628}
+  - component: {fileID: 3573803827465254891}
+  - component: {fileID: 6008535710325629199}
+  - component: {fileID: 7176252872100497578}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -209,8 +213,115 @@ MonoBehaviour:
   isOverHealed: 0
   isGhost: 0
   cannotUseSpecial: 0
+  dashed: 0
   redirectTo: {fileID: 0}
   aboveHoverSprite: {fileID: 8441532430171379113}
+--- !u!114 &8370409473632800628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618368386381881857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a89bc383284a28908de9b19c828593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Focus
+  AttackDesc: Focus your aim, doubling the damage on your next attack.
+  ID: 2
+  targeting: 1
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 4
+  buffAmount: 1
+  buffTurns: 2
+--- !u!114 &3573803827465254891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618368386381881857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17310af8fea77845a603fce28e1bbd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 8
+  AttackDamage: 4
+  OptimalDamage: 7
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Sniper Shot
+  AttackDesc: A long range shot that only hits in a column. Deals heavy damage if
+    optimal.
+  ID: 1
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 4
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &6008535710325629199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618368386381881857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feea8f333daf1d74eb05973030d44627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 6
+  AttackDamage: 2
+  OptimalDamage: 3
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Shot
+  AttackDesc: A basic long ranged attack.
+  ID: 0
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &7176252872100497578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618368386381881857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 144bbb4cf6f048d6bed30ce65bc86863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 5
+  AttackDamage: 1
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Tracer Round
+  AttackDesc: Shoots a tracer round, making an enemy vulnerable. Hitting optimal
+    squares increases the duration by 1 turn.
+  ID: 3
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 3
+  buffAmount: 1
+  buffTurns: 2
 --- !u!1 &5182706696000566243
 GameObject:
   m_ObjectHideFlags: 0

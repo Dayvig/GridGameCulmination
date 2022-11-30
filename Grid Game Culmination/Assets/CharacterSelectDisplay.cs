@@ -46,6 +46,10 @@ public class CharacterSelectDisplay : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             descriptions[2 + i].text = behavior.Attacks[i].AttackDesc;
+            if (behavior.Attacks[i].AttackRange != 0)
+            {
+                descriptions[2 + i].text += "\nRange: "+behavior.Attacks[i].AttackRange;
+            }
             if (behavior.Attacks[i].AttackDamage != 0)
             {
                 descriptions[2 + i].text += "\nDamage: "+behavior.Attacks[i].AttackDamage;
@@ -72,7 +76,7 @@ public class CharacterSelectDisplay : MonoBehaviour
             }
             if (behavior.Attacks[i].cooldown != 0)
             {
-                descriptions[2 + i].text += "\nCooldown: "+behavior.Attacks[i].buffTurns;
+                descriptions[2 + i].text += "\nCooldown: "+behavior.Attacks[i].cooldown;
             }
         }
 

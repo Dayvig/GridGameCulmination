@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public AudioClip BattleTheme;
     public AudioClip SelectTheme;
     public AudioSource MainMusic;
+    public static AudioSource Sounds;
+    public static float MasterVolume;
+
     public float startVolume = 0.25f;
     [Range(0.0f, 2.0f)] public float volAdjust;
 
@@ -56,11 +59,13 @@ public class GameManager : MonoBehaviour
         currentTurn = Player.Player1;
         MainMusic.clip = SelectTheme;
         MainMusic.Play();
+        Sounds = GameObject.Find("SoundManager").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        MasterVolume = startVolume * volAdjust;
         MainMusic.volume = startVolume * volAdjust;
     }
 
@@ -266,6 +271,10 @@ public class GameManager : MonoBehaviour
         }
         uiManager.ReplayButton.gameObject.SetActive(false);
         uiManager.UndoButton.gameObject.SetActive(false);
+        MainMusic.Stop();
+        MainMusic.clip = SelectTheme;
+        MainMusic.Play();
+
     }
 
     public void UndoMovement(BaseBehavior ch)
@@ -284,6 +293,7 @@ public class GameManager : MonoBehaviour
             }
             currentState = GameState.CharacterMovement;
             gridManager.MasterGrid.WipeMovement();
+            gridManager.MasterGrid.WipeAttackingSquares();
             ch.GlowRen.color = Color.blue;
             gridManager.selectedCharacter = ch.gameObject;
             gridManager.selectedCharacterBehavior = ch;

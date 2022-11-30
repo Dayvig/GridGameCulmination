@@ -42,10 +42,10 @@ namespace DefaultNamespace
             passive = values.passiveText;
 
             
-            Attacks[0] = gameModel.GetComponent<BasicGuyAttack>();
-            Attacks[1] = gameModel.GetComponent<FlySting>();
-            Attacks[2] = gameModel.GetComponent<KnockbackPunch>();
-            Attacks[3] = gameModel.GetComponent<Brace>();
+            Attacks[0] = GetComponent<BasicGuyAttack>();
+            Attacks[1] = GetComponent<FlySting>();
+            Attacks[2] = GetComponent<KnockbackPunch>();
+            Attacks[3] = GetComponent<Brace>();
         
             currentSelectedAttack = Attacks[0];
         }

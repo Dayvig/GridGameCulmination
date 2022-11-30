@@ -23,6 +23,7 @@ public class SweepFire : AbstractAttack, GroundTarget
     
     public void groundUse(BaseBehavior initiator, GridCell target)
     {
+        //GameManager.Sounds.PlayOneShot(attackSound);
         //Decrease the current amount of attacks
         initiator.currentAttacks--;
             

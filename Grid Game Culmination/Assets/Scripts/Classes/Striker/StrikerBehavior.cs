@@ -21,10 +21,10 @@ public class StrikerBehavior : BaseBehavior
         passive = values.passiveText;
         portrait = values.image;
 
-        Attacks[0] = gameModel.GetComponent<BasicStrikerAttack>();
-        Attacks[1] = gameModel.GetComponent<SweepFire>();
-        Attacks[2] = gameModel.GetComponent<Sprint>();
-        Attacks[3] = gameModel.GetComponent<ShockAndAwe>();
+        Attacks[0] = GetComponent<BasicStrikerAttack>();
+        Attacks[1] = GetComponent<SweepFire>();
+        Attacks[2] = GetComponent<Sprint>();
+        Attacks[3] = GetComponent<ShockAndAwe>();
 
         FirstStrikeModifier firstStrike = new FirstStrikeModifier(1);
         firstStrike.setStrings();

@@ -158,12 +158,12 @@ MonoBehaviour:
   Healing: 0
   OptimalHealing: 0
   AttackName: Blade Dance
-  AttackDesc: 'Throws daggers in a '
-  ID: 1
+  AttackDesc: Throws daggers in diagonal lines, damaging all enemies.
+  ID: 2
   targeting: 2
   onCooldown: 0
   currentCooldown: 0
-  cooldown: 0
+  cooldown: 3
   buffAmount: 0
   buffTurns: 0
 --- !u!114 &1716403322134315540
@@ -178,13 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c53d2ede2b4f31b49d631148f60813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 0
-  AttackDamage: 0
+  AttackRange: 1
+  AttackDamage: 2
   OptimalDamage: 0
   Healing: 0
   OptimalHealing: 0
-  AttackName: 
-  AttackDesc: 
+  AttackName: Piroutte
+  AttackDesc: A spinning attack that hits all enemies next to you.
   ID: 0
   targeting: 2
   onCooldown: 0
@@ -209,15 +209,15 @@ MonoBehaviour:
   OptimalDamage: 0
   Healing: 0
   OptimalHealing: 0
-  AttackName: 
-  AttackDesc: 
+  AttackName: Tempo
+  AttackDesc: Get in the zone, gaining an extra attack per turn.
   ID: 3
   targeting: 2
   onCooldown: 0
   currentCooldown: 0
-  cooldown: 0
-  buffAmount: 0
-  buffTurns: 0
+  cooldown: 5
+  buffAmount: 1
+  buffTurns: 3
 --- !u!114 &-7727378490882637102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,15 +233,16 @@ MonoBehaviour:
   AttackRange: 0
   AttackDamage: 0
   OptimalDamage: 0
-  Healing: 0
+  Healing: 2
   OptimalHealing: 0
-  AttackName: 
-  AttackDesc: 
-  ID: 2
+  AttackName: Inspiring Performance
+  AttackDesc: Raises allies' spirits, healing 2 HP to all surrounding allies and
+    reducing their cooldowns by 1.
+  ID: 1
   targeting: 2
   onCooldown: 0
   currentCooldown: 0
-  cooldown: 0
+  cooldown: 2
   buffAmount: 0
   buffTurns: 0
 --- !u!1 &1130334400194884732

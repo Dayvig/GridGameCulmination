@@ -38,7 +38,7 @@ namespace DefaultNamespace
 
             for (int i = 0; i < 8; i++)
             {
-                if (initiator.currentCell.neighbors[i].occupant != null)
+                if (initiator.currentCell.neighbors[i] != null && initiator.currentCell.neighbors[i].occupant != null)
                 {
                     BaseBehavior targetB = initiator.currentCell.neighbors[i].occupant.GetComponent<BaseBehavior>();
                     if (targetB.owner == initiator.owner)

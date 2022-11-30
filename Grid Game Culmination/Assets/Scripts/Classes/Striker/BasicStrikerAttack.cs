@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 public class BasicStrikerAttack : AbstractAttack
 {
     public override void use(BaseBehavior initiator, BaseBehavior target, bool isOptimal)
     {
+        //GameManager.Sounds.PlayOneShot(attackSound);
         //Decrease the current amount of attacks
         initiator.currentAttacks--;
 

@@ -173,6 +173,10 @@ GameObject:
   - component: {fileID: 2850266987260139855}
   - component: {fileID: 4105394937250512707}
   - component: {fileID: 7387200133173085040}
+  - component: {fileID: 7705009468100477774}
+  - component: {fileID: 5789624972716273126}
+  - component: {fileID: 4251427764838906457}
+  - component: {fileID: 965449915761807578}
   m_Layer: 5
   m_Name: SwordMan
   m_TagString: Untagged
@@ -296,8 +300,114 @@ MonoBehaviour:
   isOverHealed: 0
   isGhost: 0
   cannotUseSpecial: 0
+  dashed: 0
   redirectTo: {fileID: 0}
   aboveHoverSprite: {fileID: 8516394121205565055}
+--- !u!114 &7705009468100477774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184873978730594304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4ee6776e7a4693a28d0093bd181c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 3
+  OptimalDamage: 4
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Basic Attack
+  AttackDesc: Hit the enemy with your fists. Has a mean right hook!
+  ID: 0
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &5789624972716273126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184873978730594304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ea9f8c210c4a96be2492e67bd4e2a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 0
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Not Down Yet!
+  AttackDesc: Push ahead through sheer force of will, halving all damage dealt.
+  ID: 3
+  targeting: 1
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 7
+  buffAmount: 1
+  buffTurns: 3
+--- !u!114 &4251427764838906457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184873978730594304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16ed44c09384602934c41302c1fc850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 0
+  AttackDamage: 3
+  OptimalDamage: 4
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Float & Sting
+  AttackDesc: A quick hit that allows you to move again afterwards.
+  ID: 1
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 2
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &965449915761807578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184873978730594304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8509febe8f4d4982bdc875510c3f46ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 0
+  AttackDamage: 4
+  OptimalDamage: 6
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Knockback Punch
+  AttackDesc: A powerful punch that knocks an opponent back 2 squares. Deals 2 impact
+    damage if hitting another unit or hole.
+  ID: 2
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 3
+  buffAmount: 0
+  buffTurns: 0
 --- !u!1 &1494148685675881885
 GameObject:
   m_ObjectHideFlags: 0

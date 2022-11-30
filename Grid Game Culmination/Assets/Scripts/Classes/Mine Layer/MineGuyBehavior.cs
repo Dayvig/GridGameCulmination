@@ -27,10 +27,10 @@ namespace DefaultNamespace
             portrait = values.image;
 
             
-            Attacks[0] = gameModel.GetComponent<ShovelAttack>();
-            Attacks[1] = gameModel.GetComponent<MineThrow>();
-            Attacks[2] = gameModel.GetComponent<Grenade>();
-            Attacks[3] = gameModel.GetComponent<Excavate>();
+            Attacks[0] = GetComponent<ShovelAttack>();
+            Attacks[1] = GetComponent<MineThrow>();
+            Attacks[2] = GetComponent<Grenade>();
+            Attacks[3] = GetComponent<Excavate>();
         
             currentSelectedAttack = Attacks[0];
         }

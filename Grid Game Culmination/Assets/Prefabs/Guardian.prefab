@@ -483,6 +483,7 @@ MonoBehaviour:
   isOverHealed: 0
   isGhost: 0
   cannotUseSpecial: 0
+  dashed: 0
   redirectTo: {fileID: 0}
   aboveHoverSprite: {fileID: 1492986124210239844}
 --- !u!114 &5912511070975416277
@@ -561,7 +562,7 @@ MonoBehaviour:
   ID: 1
   targeting: 0
   onCooldown: 0
-  currentCooldown: 3
+  currentCooldown: 0
   cooldown: 3
   buffAmount: 0
   buffTurns: 0
@@ -588,7 +589,7 @@ MonoBehaviour:
   ID: 2
   targeting: 2
   onCooldown: 0
-  currentCooldown: 3
+  currentCooldown: 0
   cooldown: 3
   buffAmount: 4
   buffTurns: 3

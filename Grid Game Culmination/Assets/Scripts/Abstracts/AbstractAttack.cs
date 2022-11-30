@@ -22,7 +22,7 @@ namespace DefaultNamespace
         public int cooldown;
         public int buffAmount;
         public int buffTurns;
-
+        public AudioClip attackSound;
         public enum AttackType
         {
             ENEMY,

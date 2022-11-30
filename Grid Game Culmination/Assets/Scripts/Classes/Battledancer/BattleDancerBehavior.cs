@@ -21,10 +21,10 @@ public class BattleDancerBehavior : BaseBehavior
         passive = values.passiveText;
         portrait = values.image;
 
-        Attacks[0] = gameModel.GetComponent<Piroutte>();
-        Attacks[1] = gameModel.GetComponent<Inspiring>();
-        Attacks[2] = gameModel.GetComponent<DaggerThrow>();
-        Attacks[3] = gameModel.GetComponent<Cadence>();
+        Attacks[0] = GetComponent<Piroutte>();
+        Attacks[1] = GetComponent<Inspiring>();
+        Attacks[2] = GetComponent<DaggerThrow>();
+        Attacks[3] = GetComponent<Cadence>();
         
         currentSelectedAttack = Attacks[0];
     }

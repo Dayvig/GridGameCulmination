@@ -79,6 +79,7 @@ public class UIManager : MonoBehaviour
         UndoButton.onClick.AddListener(delegate { gameManager.UndoMovement(manager.lastSelectedCharacterBehavior); });
         StartGameButton.onClick.AddListener(delegate { manager.StartGame(); });
         addCharacters();
+        volSlider.value = 1f;
     }
 
     private void addCharacters()

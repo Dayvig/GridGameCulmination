@@ -114,6 +114,9 @@ public class GridManager : MonoBehaviour
         }
         
         gameManager.currentState = GameManager.GameState.Neutral;
+        gameManager.MainMusic.Stop();
+        gameManager.MainMusic.clip = gameManager.BattleTheme;
+        gameManager.MainMusic.Play();
     }
 
     public int numCalls = 0;

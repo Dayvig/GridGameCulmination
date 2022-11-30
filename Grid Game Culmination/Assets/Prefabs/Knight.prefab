@@ -161,6 +161,11 @@ GameObject:
   - component: {fileID: 2517904418722105624}
   - component: {fileID: 4433231926659673876}
   - component: {fileID: 2329642445389838543}
+  - component: {fileID: -2304457373404141795}
+  - component: {fileID: 3271609849640159027}
+  - component: {fileID: 4211908485759515630}
+  - component: {fileID: 3921411199001414767}
+  - component: {fileID: 1143989913592157508}
   m_Layer: 5
   m_Name: Knight
   m_TagString: Untagged
@@ -284,10 +289,146 @@ MonoBehaviour:
   isOverHealed: 0
   isGhost: 0
   cannotUseSpecial: 0
+  dashed: 0
   redirectTo: {fileID: 0}
   aboveHoverSprite: {fileID: 5883627932608275796}
   hasRescue: 0
   RescueTarget: {fileID: 0}
+--- !u!114 &-2304457373404141795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517377278297755735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809a7310113a46dcbef21656c8804561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 2
+  OptimalDamage: 4
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Mounted Slash
+  AttackDesc: A basic slash that hits targets to the side effectively.
+  ID: 0
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &3271609849640159027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517377278297755735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1047fe78e14270b818cf2939b81c1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 4
+  AttackDamage: 2
+  OptimalDamage: 6
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Charge!!
+  AttackDesc: Charges up to 4 squares in a straight line then strikes, dealing extra
+    damage for each square traveled.
+  ID: 1
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 3
+  buffAmount: 0
+  buffTurns: 0
+  gameModel: {fileID: 0}
+  gridManager: {fileID: 0}
+--- !u!114 &4211908485759515630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517377278297755735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be3586f07d147ca947308e908384432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Rescue
+  AttackDesc: Picks up a unit, keeping them safe from damage. Drop them on a future
+    turn.
+  ID: 3
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 2
+  buffAmount: 0
+  buffTurns: 0
+--- !u!114 &3921411199001414767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517377278297755735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b16afe43ba4367a70d3970edff8c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 2
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Knightly Challenge
+  AttackDesc: Challenges an opponent, decreasing their damage dealt to anyone except
+    you by 50% for 2 turns, 3 if optimal.
+  ID: 2
+  targeting: 0
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 5
+  buffAmount: 1
+  buffTurns: 2
+--- !u!114 &1143989913592157508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517377278297755735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c3b634ec72a47dd85463fde7046e95d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackRange: 1
+  AttackDamage: 0
+  OptimalDamage: 0
+  Healing: 0
+  OptimalHealing: 0
+  AttackName: Drop
+  AttackDesc: Drops a unit you've picked up.
+  ID: 4
+  targeting: 2
+  onCooldown: 0
+  currentCooldown: 0
+  cooldown: 0
+  buffAmount: 0
+  buffTurns: 0
 --- !u!1 &5230688964089334558
 GameObject:
   m_ObjectHideFlags: 0

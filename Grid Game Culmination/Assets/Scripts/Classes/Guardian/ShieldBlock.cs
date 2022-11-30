@@ -24,8 +24,8 @@ namespace DefaultNamespace
             initiator.currentSelectedAttack = initiator.Attacks[0];
 
             ShieldBlockModifier newMod = new ShieldBlockModifier(buffAmount, buffTurns);
-            newMod.setStrings();
             newMod.direction = hoveredDirection;
+            newMod.setStrings();
             //buff target
             target.Modifiers.Add(newMod);
         }

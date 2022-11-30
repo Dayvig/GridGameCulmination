@@ -91,10 +91,10 @@ namespace Classes.Knight
                 passive = values.passiveText;
                 portrait = values.image;
 
-                Attacks[0] = gameModel.GetComponent<BasicKnightAttack>();
-                Attacks[1] = gameModel.GetComponent<Charge>();
-                Attacks[2] = gameModel.GetComponent<Challenge>();
-                Attacks[3] = gameModel.GetComponent<Rescue>();
+                Attacks[0] = GetComponent<BasicKnightAttack>();
+                Attacks[1] = GetComponent<Charge>();
+                Attacks[2] = GetComponent<Challenge>();
+                Attacks[3] = GetComponent<Rescue>();
         
                 currentSelectedAttack = Attacks[0];
             }
@@ -109,7 +109,7 @@ namespace Classes.Knight
             }
             else
             {
-                Attacks[4] = gameModel.GetComponent<Drop>();
+                Attacks[4] = GetComponent<Drop>();
             }
 
             dash = values.baseDash;
