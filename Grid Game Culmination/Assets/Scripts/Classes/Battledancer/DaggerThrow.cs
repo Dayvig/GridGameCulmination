@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
-using UnityEditor;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Classes.Battledancer

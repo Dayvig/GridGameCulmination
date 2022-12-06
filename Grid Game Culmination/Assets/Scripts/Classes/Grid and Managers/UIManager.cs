@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     public Button[] AttackButtonsReal = new Button[5];
     public GameObject[] Clocks = new GameObject[5];
     public TextMeshProUGUI[] cooldownDisplay = new TextMeshProUGUI[5];
+    public TextMeshProUGUI[] chargeDisplay = new TextMeshProUGUI[5];
     public Button ReplayButton;
     public Button UndoButton;
     public Button StartGameButton;
@@ -235,6 +236,12 @@ public class UIManager : MonoBehaviour
                         AttackButtons[i].SetActive(true);
                         ButtonTexts[i].text = manager.selectedCharacterBehavior.Attacks[i].AttackName;
                         
+                        if (manager.selectedCharacterBehavior.Attacks[i] is ChargeAbility)
+                        {
+                            chargeDisplay[i].enabled = true;
+                            chargeDisplay[i].text = ""+manager.selectedCharacterBehavior.Attacks[i].charges;
+                        }
+
                         if (manager.selectedCharacterBehavior.currentAttacks <= 0)
                         {
                             colors.normalColor = Color.grey;
@@ -265,8 +272,23 @@ public class UIManager : MonoBehaviour
                         }
                         else
                         {
-                            Clocks[i].SetActive(false);
-                            cooldownDisplay[i].gameObject.SetActive(false);
+                            if (manager.selectedCharacterBehavior.Attacks[i] is ChargeAbility)
+                            {
+                                if (manager.selectedCharacterBehavior.Attacks[i].charges !=
+                                    manager.selectedCharacterBehavior.Attacks[i].maxCharges)
+                                {
+                                    Clocks[i].SetActive(true);
+                                    cooldownDisplay[i].gameObject.SetActive(true);
+                                    cooldownDisplay[i].text =
+                                        "" + manager.selectedCharacterBehavior.Attacks[i].currentCooldown;
+                                }
+                            }
+                            else
+                            {
+                                chargeDisplay[i].enabled = false;
+                                Clocks[i].SetActive(false);
+                                cooldownDisplay[i].gameObject.SetActive(false);
+                            }
                         }
                     }
                     else

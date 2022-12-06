@@ -16,7 +16,7 @@ namespace DefaultNamespace
             GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
 
             //Decrease the current amount of attacks
-            initiator.currentAttacks--;
+            initiator.currentAttacks = 0;
             
             //puts the move on cooldown
             onCooldown = true;
@@ -32,6 +32,32 @@ namespace DefaultNamespace
             {
                 target.cell.enabled = true;
                 target.terrainType = 1;
+            }
+
+            if (target.modifiers.Contains(0))
+            {
+                int toRemove = -1;
+                for (int i = 0; i < target.modifiers.Count; i++){
+                    if (target.modifiers[i] == 0)
+                    {
+                        toRemove = i;
+                        break;
+                    }
+                }
+
+                if (toRemove != -1)
+                {
+                    target.modifiers.RemoveAt(toRemove);
+                }
+
+                if (initiator.Attacks[1].charges < initiator.Attacks[1].maxCharges)
+                {
+                    initiator.Attacks[1].charges++;
+                    if (initiator.Attacks[1].charges > 0)
+                    {
+                        initiator.Attacks[1].onCooldown = false;
+                    }
+                }
             }
         }
         

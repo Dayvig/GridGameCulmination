@@ -114,5 +114,20 @@ namespace Classes.Knight
 
             dash = values.baseDash;
         }
+        public override void kill()
+        {
+            currentCell.occupant = null;
+            if (hasRescue)
+            {
+                RescueTarget.currentCell = this.currentCell;
+                RescueTarget.currentCell.occupant = RescueTarget.gameObject;
+                RescueTarget.gameObject.SetActive(true);
+                RescueTarget.pickedUp = false;
+            }
+            currentCell = null;
+            currentSelectedAttack = null;
+            gameObject.SetActive(false);
+        }
+
     }
 }

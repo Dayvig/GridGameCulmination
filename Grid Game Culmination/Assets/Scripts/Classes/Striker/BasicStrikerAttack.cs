@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
-using UnityEditor.IMGUI.Controls;
-using UnityEngine;
 
 public class BasicStrikerAttack : AbstractAttack
 {

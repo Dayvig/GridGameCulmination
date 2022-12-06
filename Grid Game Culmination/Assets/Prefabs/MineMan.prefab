@@ -404,6 +404,7 @@ MonoBehaviour:
   mapRen: {fileID: 0}
   passive: 
   owner: 0
+  pickedUp: 0
   specialMovement: 0
   isOverHealed: 0
   isGhost: 0
@@ -429,8 +430,9 @@ MonoBehaviour:
   Healing: 0
   OptimalHealing: 0
   AttackName: Shovel Attack
-  AttackDesc: Low damage hit from a shovel. Can fill in holes, making them normal    
-    terrain. Can also pick up mines to gain an extra Mine Throw next turn.
+  AttackDesc: Low damage hit from a shovel. Can fill in holes, making them normal
+    terrain. Can also pick up mines to gain an extra Mine Throw charge. Consumes
+    all attacks for the turn.
   ID: 0
   targeting: 2
   onCooldown: 0
@@ -439,6 +441,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 13201adb760f26447bec4db39c8f5163, type: 3}
+  charges: 0
+  maxCharges: 1
 --- !u!114 &3822879760231693972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,13 +455,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0821bf11de5642e8853fcf6a5bf07548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 1
+  AttackRange: 3
   AttackDamage: 0
   OptimalDamage: 0
   Healing: 0
   OptimalHealing: 0
   AttackName: Excavate
-  AttackDesc: Turns a tile into a hole.
+  AttackDesc: Launches an explosive that turns an unoccupied tile into a hole. Has
+    three charges
   ID: 3
   targeting: 2
   onCooldown: 0
@@ -466,6 +471,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 13201adb760f26447bec4db39c8f5163, type: 3}
+  charges: 0
+  maxCharges: 3
 --- !u!114 &6000157461828348893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +492,7 @@ MonoBehaviour:
   OptimalHealing: 0
   AttackName: Grenade
   AttackDesc: Hits a square an adjacent squares. Blasts adjacent enemies away one
-    zone.
+    zone. Consumes all attacks for the turn.
   ID: 2
   targeting: 2
   onCooldown: 0
@@ -494,6 +501,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 407c36f67767f244ca9c985e251d2770, type: 3}
+  charges: 0
+  maxCharges: 1
 --- !u!114 &6581269348976229514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,12 +517,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackRange: 3
   AttackDamage: 4
-  OptimalDamage: 5
+  OptimalDamage: 0
   Healing: 0
   OptimalHealing: 0
   AttackName: Mine Throw
   AttackDesc: Throws a mine. Detonates when stepped on. Enemies take full damage,
-    allies take 1 damage only.
+    allies take 1 damage only. Has three charges.
   ID: 1
   targeting: 2
   onCooldown: 0
@@ -522,6 +531,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 59c9e1f3c9ee6b342a250395004a072b, type: 3}
+  charges: 0
+  maxCharges: 3
 --- !u!1 &7801118295045406560
 GameObject:
   m_ObjectHideFlags: 0

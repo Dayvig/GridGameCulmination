@@ -18,7 +18,7 @@ namespace DefaultNamespace
             GameManager.Sounds.PlayOneShot(attackSound, GameManager.MasterVolume);
 
             //Decrease the current amount of attacks
-            initiator.currentAttacks--;
+            initiator.currentAttacks = 0;
             
             //puts the move on cooldown
             onCooldown = true;
@@ -40,7 +40,6 @@ namespace DefaultNamespace
                     BaseBehavior targetB = target.neighbors[i].occupant.GetComponent<BaseBehavior>();
                     if (targetB.owner != initiator.owner)
                     {
-                        use(initiator, targetB, target.isOptimal);
                         GridCell blastTo = target.neighbors[i].neighbors[i];
                         if (blastTo != null && blastTo.terrainType != 0 && blastTo.occupant == null)
                         {
@@ -49,6 +48,7 @@ namespace DefaultNamespace
                             targetB.currentCell.occupant = targetB.gameObject;
                             targetB.onDisplace(targetB.currentCell);
                         }
+                        use(initiator, targetB, target.isOptimal);
                     }
                 }
             }

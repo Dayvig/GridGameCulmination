@@ -317,7 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackRange: 1
   AttackDamage: 2
-  OptimalDamage: 2
+  OptimalDamage: 4
   Healing: 0
   OptimalHealing: 0
   AttackName: Air Blast
@@ -330,6 +330,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 59c9e1f3c9ee6b342a250395004a072b, type: 3}
+  charges: 0
+  maxCharges: 0
 --- !u!114 &7826242609669121289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackRange: 1
   AttackDamage: 2
-  OptimalDamage: 2
+  OptimalDamage: 4
   Healing: 0
   OptimalHealing: 0
   AttackName: Spin Kick
@@ -357,6 +359,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 59c9e1f3c9ee6b342a250395004a072b, type: 3}
+  charges: 0
+  maxCharges: 0
 --- !u!114 &8108312638310456765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +388,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 52cb7ada0599600459791fd63d7811c1, type: 3}
+  charges: 0
+  maxCharges: 0
 --- !u!114 &251636440018646511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +418,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 52cb7ada0599600459791fd63d7811c1, type: 3}
+  charges: 0
+  maxCharges: 0
   upArrow: {fileID: 21300000, guid: e94da8ce3da5ffc4492b6e82d7616013, type: 3}
   downArrow: {fileID: 21300000, guid: dd2129124e567d745bae783eb8f00638, type: 3}
   targetColumn: 0

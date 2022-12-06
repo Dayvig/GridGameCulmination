@@ -39,6 +39,7 @@ public class BaseBehavior : MonoBehaviour
     public GameManager.Player owner;
     public List<AbstractModifier> Modifiers = new List<AbstractModifier>();
     public List<AbstractModifier> toRemove = new List<AbstractModifier>();
+    public bool pickedUp;
     public bool specialMovement;
     public bool isOverHealed;
     public bool isGhost;
@@ -426,7 +427,7 @@ public class BaseBehavior : MonoBehaviour
         mapRen = GetComponent<SpriteRenderer>();
     }
 
-    public void kill()
+    public virtual void kill()
     {
         this.currentCell.occupant = null;
         this.currentCell = null;

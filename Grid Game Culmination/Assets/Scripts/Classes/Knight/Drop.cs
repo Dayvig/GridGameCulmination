@@ -22,6 +22,7 @@ public class Drop : AbstractAttack, GroundTarget
             initiatorKnight.RescueTarget.currentCell = target;
             initiatorKnight.RescueTarget.currentCell.occupant = initiatorKnight.RescueTarget.gameObject;
             initiatorKnight.RescueTarget.gameObject.SetActive(true);
+            initiatorKnight.RescueTarget.pickedUp = false;
             initiatorKnight.hasRescue = false;
             initiatorKnight.RescueTarget = null;
         }

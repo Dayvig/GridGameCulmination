@@ -4,7 +4,7 @@ using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
 
-public class MineThrow : AbstractAttack, GroundTarget
+public class MineThrow : AbstractAttack, GroundTarget, ChargeAbility
 {
     private Model_Game gameModel;
     public void Start()
@@ -23,10 +23,7 @@ public class MineThrow : AbstractAttack, GroundTarget
         //Decrease the current amount of attacks
         initiator.currentAttacks--;
 
-        //puts the move on cooldown
-        onCooldown = true;
-        currentCooldown = cooldown;
-        initiator.currentSelectedAttack = initiator.Attacks[0];
+        spendCharge(initiator);
         
         //throw mine
         if (!target.modifiers.Contains(0))
@@ -75,16 +72,7 @@ public class MineThrow : AbstractAttack, GroundTarget
             
                 //adds the accessible neighbors to the cells in range
                 inRangeCells.AddRange(surroundingCells);
-            
-                if (currentMove == 0)
-                {
-                    foreach (GridCell g in surroundingCells)
-                    {
-                        if (!previousCells.Contains(g))
-                            g.isOptimal = true;
-                    }
-                }
-                
+
                 //these new accessible neighbors become the previous cells
                 previousCells = surroundingCells.Distinct().ToList();
                 
@@ -102,5 +90,30 @@ public class MineThrow : AbstractAttack, GroundTarget
                 if (g.terrainType != 0 && g.occupant == null)
                     g.isAttackable();
             }
+        }
+
+        public void spendCharge(BaseBehavior initiator)
+        {
+            if (charges == maxCharges )
+            {
+                currentCooldown = cooldown;
+            }
+            charges--;
+            if (charges <= 0)
+            {
+                //puts the move on cooldown
+                onCooldown = true;
+                initiator.currentSelectedAttack = initiator.Attacks[0];
+            }
+        }
+
+        public void setCharges(BaseBehavior initiator, int newCharges)
+        {
+            charges = newCharges;
+        }
+
+        public int getCharges(BaseBehavior initiator)
+        {
+            return charges;
         }
 }

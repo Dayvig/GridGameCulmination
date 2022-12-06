@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public float startVolume = 0.25f;
     public float musicAdjust = -0.15f;
     [Range(0.0f, 2.0f)] public float volAdjust;
+    public int turns;
 
     public enum GameState
     {
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour
             SetTurn(Player.Player1);
         }
         gridManager.MasterGrid.tickHealthPacks();
+        turns++;
     }
 
     public void ResetCharacterValues(Player player)
@@ -136,11 +138,22 @@ public class GameManager : MonoBehaviour
         ch.currentAttacks = ch.attacksPerTurn;
         ch.move = ch.baseMove;
         ch.dashed = false;
+        if (ch is MineGuyBehavior && turns == 0)
+        {
+            ch.currentAttacks += 2;
+        }
         foreach (AbstractAttack a in ch.Attacks)
         {
-            if (a != null && a.onCooldown)
+            if (a != null)
             {
-                a.reduceCooldown();
+                if (a is ChargeAbility && a.charges != a.maxCharges)
+                {
+                    a.reduceCooldown();
+                }
+                else if (a.onCooldown)
+                {
+                    a.reduceCooldown();
+                }
             }
         }
         ch.endTurnModifierCheck();
@@ -188,7 +201,7 @@ public class GameManager : MonoBehaviour
                 currentState = GameState.GameOver;
                 return;
             }
-            
+            Debug.Log(Player1Count+"/"+Player2Count);
             if (Player1Count == 1)
             {
                 SpawnGhostP1 = true;
@@ -204,7 +217,8 @@ public class GameManager : MonoBehaviour
         {
             if (characterBehavior.owner == player && (characterBehavior.currentMoves > 0 || characterBehavior.currentAttacks > 0))
             {
-                isNext = false;
+                if (!characterBehavior.pickedUp)
+                    isNext = false;
             }
         }
         if (isNext)
@@ -230,13 +244,14 @@ public class GameManager : MonoBehaviour
         if (player.Equals(Player.Player1))
         {
             newChar = Instantiate(uiManager.team1[randDisplay.index]);
+            SpawnGhostP1 = false;
         }
         else
         {
             newChar = Instantiate(uiManager.team2[randDisplay.index - 3]);
+            SpawnGhostP2 = false;
         }
         gridManager.addNewCharacter(newChar, spawnCoords[0], spawnCoords[1], player, randDisplay.index, true);
-        SpawnGhostP1 = false;
     }
 
 

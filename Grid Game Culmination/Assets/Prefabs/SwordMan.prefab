@@ -296,6 +296,7 @@ MonoBehaviour:
   mapRen: {fileID: 0}
   passive: 
   owner: 0
+  pickedUp: 0
   specialMovement: 0
   isOverHealed: 0
   isGhost: 0
@@ -330,6 +331,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 55dca4b9ee05ea44395bf87b23e08e89, type: 3}
+  charges: 0
+  maxCharges: 0
 --- !u!114 &5789624972716273126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +360,8 @@ MonoBehaviour:
   buffAmount: 1
   buffTurns: 3
   attackSound: {fileID: 8300000, guid: 12dce0d7ac8963d49b81c554f37c2a59, type: 3}
+  charges: 0
+  maxCharges: 0
 --- !u!114 &4251427764838906457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16ed44c09384602934c41302c1fc850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 0
+  AttackRange: 1
   AttackDamage: 3
   OptimalDamage: 4
   Healing: 0
@@ -384,6 +389,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 55dca4b9ee05ea44395bf87b23e08e89, type: 3}
+  charges: 0
+  maxCharges: 0
 --- !u!114 &965449915761807578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,6 +419,8 @@ MonoBehaviour:
   buffAmount: 0
   buffTurns: 0
   attackSound: {fileID: 8300000, guid: 4f394f5ca1dfc4e4a9af906e841a8fff, type: 3}
+  charges: 0
+  maxCharges: 0
 --- !u!1 &1494148685675881885
 GameObject:
   m_ObjectHideFlags: 0

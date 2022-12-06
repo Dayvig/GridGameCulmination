@@ -23,6 +23,9 @@ namespace DefaultNamespace
         public int buffAmount;
         public int buffTurns;
         public AudioClip attackSound;
+        public int charges;
+        public int maxCharges;
+        
         public enum AttackType
         {
             ENEMY,
@@ -40,11 +43,33 @@ namespace DefaultNamespace
 
         public void reduceCooldown()
         {
-            currentCooldown--;
-            if (currentCooldown <= 0)
+            if (this is ChargeAbility)
             {
-                onCooldown = false;
-                currentCooldown = cooldown;
+                if (charges < maxCharges)
+                {
+                    currentCooldown--;
+                    if (currentCooldown <= 0)
+                    {
+                        charges++;
+                        if (charges > 0)
+                        {
+                            onCooldown = false;
+                        }
+                        if (charges != maxCharges)
+                        {
+                            currentCooldown = cooldown;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                currentCooldown--;
+                if (currentCooldown <= 0)
+                {
+                    onCooldown = false;
+                    currentCooldown = cooldown;
+                }
             }
         }
 

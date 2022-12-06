@@ -54,6 +54,8 @@ public class GridManager : MonoBehaviour
 
     public void StartGame()
     {
+        gameManager.turns = 0;
+        
         for (int i = 0; i < 3; i++)
         {
             if (uiManager.team1[i] == null)

@@ -24,6 +24,7 @@ public class Rescue : AbstractAttack
             initiatorKnight.RescueTarget = target;
             initiatorKnight.RescueTarget.currentAttacks = 0;
             initiatorKnight.RescueTarget.currentMoves = 0;
+            initiatorKnight.RescueTarget.pickedUp = true;
             target.currentCell.occupant = null;
             target.currentCell = null;
             target.gameObject.SetActive(false);

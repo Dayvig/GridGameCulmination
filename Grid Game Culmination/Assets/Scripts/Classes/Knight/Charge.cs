@@ -32,7 +32,7 @@ namespace Classes.Knight
             //move into adjacent zone
             for (int i = 0; i < 4; i++)
             {
-                if (target.currentCell.neighbors[i].isMovementSelectable)
+                if (target.currentCell.neighbors[i] != null && target.currentCell.neighbors[i].isMovementSelectable)
                 {
                     initiator.currentCell.occupant = null;
                     initiator.currentCell = target.currentCell.neighbors[i];

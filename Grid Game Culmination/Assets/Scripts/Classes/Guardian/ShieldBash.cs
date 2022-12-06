@@ -21,7 +21,7 @@ namespace DefaultNamespace
             //blast target back
             for (int i = 0; i < 7; i++)
             {
-                if (initiator.currentCell.neighbors[i].occupant != null && initiator.currentCell.neighbors[i].occupant.GetComponent<BaseBehavior>().Equals(target))
+                if (initiator.currentCell.neighbors[i] != null && initiator.currentCell.neighbors[i].occupant != null && initiator.currentCell.neighbors[i].occupant.GetComponent<BaseBehavior>().Equals(target))
                 {
                     KnockBack(initiator, target, knockback, i);
                     break;

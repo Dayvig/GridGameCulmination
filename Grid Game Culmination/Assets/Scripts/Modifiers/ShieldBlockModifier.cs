@@ -66,7 +66,7 @@ namespace Modifiers
 
         public override int getKey()
         {
-            return 12;
+            return 13;
         }
 
         public string directionFromInt(int dir)

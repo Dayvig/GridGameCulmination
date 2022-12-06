@@ -10,7 +10,7 @@ namespace Classes.Airbender
         public Sprite downArrow;
         public int targetColumn;
         private bool knockBackUp;
-        private int knockback = 2;
+        public int knockback;
         public void Start()
         {
             gridManager = GameObject.Find("GameManager").GetComponent<GridManager>();
@@ -64,9 +64,8 @@ namespace Classes.Airbender
                 if (targetCell != null && targetCell.occupant != null)
                 {
                     BaseBehavior targetB = targetCell.occupant.GetComponent<BaseBehavior>();
-                    Debug.Log(targetB.name);
-                    if (targetB.owner != initiator.owner)
-                        use(initiator, targetB, false);
+                    
+                    use(initiator, targetB, false);
                 }
             }
             grid.resetTerrainSprites();
